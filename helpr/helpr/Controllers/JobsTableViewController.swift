@@ -47,7 +47,7 @@ class JobsTableViewController: UITableViewController, UISearchResultsUpdating {
             ], for: .selected)
       */
         //scale segmentedControl
-        jobsSegment.transform = CGAffineTransform(scaleX: 1.25, y: 1.25)
+        jobsSegment.transform = CGAffineTransform(scaleX: 1.05, y: 1.05)
     //JobsTableView.estimatedSectionHeaderHeight = jobsSegment.frame.height 
         
         //JobsTableView.tableHeaderView = jobsSegment
