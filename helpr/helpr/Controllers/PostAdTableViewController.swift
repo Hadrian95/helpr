@@ -23,9 +23,11 @@ class PostAdTableViewController: UITableViewController, UITextViewDelegate, UICo
     @IBOutlet weak var postBtn: UIBarButtonItem!
     @IBOutlet weak var cvPhotos: UICollectionView!
     @IBOutlet var tgrPhotos: UITapGestureRecognizer!
+    @IBOutlet weak var btnlockLoc: UIButton!
+    @IBOutlet weak var btnCenterLoc: UIButton!
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var mapPin: UIImageView!
-    @IBOutlet var centerTap: UITapGestureRecognizer!
+    
     
     var job: Job?
     var postPhotos = [UIImage]() //allow update of UICollectionViewCells
@@ -366,6 +368,14 @@ class PostAdTableViewController: UITableViewController, UITextViewDelegate, UICo
         // Dismiss the picker.
         dismiss(animated: true, completion: nil)
     }
+    @IBAction func lockLocation(_ sender: UIButton) {
+        mapView.isScrollEnabled = !mapView.isScrollEnabled
+        btnCenterLoc.isEnabled = !btnCenterLoc.isEnabled
+        if (btnlockLoc.currentTitle == "Lock") {
+            btnlockLoc.setTitle("Unlock", for: .normal)
+        }
+        else { btnlockLoc.setTitle("Lock", for: .normal) }
+    }
     
     @IBAction func autocompleteLocation(_ sender: UITextField) {
         
@@ -408,7 +418,7 @@ class PostAdTableViewController: UITableViewController, UITextViewDelegate, UICo
                 
                 //Zooming in on annotation
                 let coordinate:CLLocationCoordinate2D = CLLocationCoordinate2DMake(latitude!, longitude!)
-                let span = MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)
+                let span = MKCoordinateSpan(latitudeDelta: 0.0008, longitudeDelta: 0.0008)
                 let region = MKCoordinateRegion(center: coordinate, span: span)
                 self.mapView.setRegion(region, animated: true)
             }
@@ -417,7 +427,12 @@ class PostAdTableViewController: UITableViewController, UITextViewDelegate, UICo
     }
 
     //when the centerLocation image (bottom right of mapView) is tapped, center map on user current (or last) location
-    @IBAction func handleCenterLocation(_ sender: UIImageView) {
+    @IBAction func handleCenterLocation(_ sender: UIButton) {
+        print("Center location tapped")
+        let region = MKCoordinateRegion(center: mapView.userLocation.coordinate, span: mapView.region.span)
+        mapView.setRegion(region, animated: true)
+    }
+    @IBAction func handleCenterLocation2(_ sender: UIImageView) {
         print("Center location tapped")
         let region = MKCoordinateRegion(center: mapView.userLocation.coordinate, span: mapView.region.span)
         mapView.setRegion(region, animated: true)
@@ -477,7 +492,7 @@ class PostAdTableViewController: UITableViewController, UITextViewDelegate, UICo
     //Adds a pin at the user's current location, can be deleted since mapView shows User Location
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let locValue:CLLocationCoordinate2D = manager.location!.coordinate
-        let span = MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005)
+        let span = MKCoordinateSpan(latitudeDelta: 0.0008, longitudeDelta: 0.0008)
         let region = MKCoordinateRegion(center: locValue, span: span)
         mapView.setRegion(region, animated: true)
         manager.stopUpdatingLocation()

@@ -36,7 +36,7 @@ class LaunchScreenViewController: UIViewController {
             let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
             
             let nextViewController = storyBoard.instantiateViewController(withIdentifier: "StartScreen") as! LetUsKnowViewController
-            self.present(nextViewController, animated:true, completion:nil)
+            self.present(nextViewController, animated:false, completion:nil)
         }
     }
     

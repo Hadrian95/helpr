@@ -14,7 +14,6 @@ class JobsTableViewController: UITableViewController, UISearchResultsUpdating {
 
     //MARK: Properties
     @IBOutlet weak var jobsSegment: UISegmentedControl!
-    var jobsSegment2 = UISegmentedControl()
     @IBOutlet weak var JobsTableView: UITableView!
     
     //var jobs = HomeTableViewController.jobs
@@ -34,30 +33,10 @@ class JobsTableViewController: UITableViewController, UISearchResultsUpdating {
         filteredJobs = HomeTableViewController.jobs
         isPurple = false
         
-        //set jobsSegment text styling and sizing
-
-       /* jobsSegment.setTitleTextAttributes([
-            NSAttributedString.Key.font : UIFont(name: "DINCondensed-Bold", size: 20),
-            NSAttributedString.Key.foregroundColor: UIColor.lightGray, NSAttributedString.Key.underlineStyle: 0.0
-            ], for: .normal)
-        
-        jobsSegment.setTitleTextAttributes([
-            NSAttributedString.Key.font : UIFont(name: "DINCondensed-Bold", size: 20),
-            NSAttributedString.Key.foregroundColor: UIColor(named: "RoyalPurple"), NSAttributedString.Key.underlineStyle: 0.0
-            ], for: .selected)
-      */
         //scale segmentedControl
-        jobsSegment.transform = CGAffineTransform(scaleX: 1.25, y: 1.25)
-    //JobsTableView.estimatedSectionHeaderHeight = jobsSegment.frame.height 
-        
-        //JobsTableView.tableHeaderView = jobsSegment
-        
-        
-//        searchController.searchResultsUpdater = self
-//        searchController.hidesNavigationBarDuringPresentation = false
-//        searchController.dimsBackgroundDuringPresentation = false
-//        searchController.searchBar.backgroundColor = UIColor(named: "RoyalPurple")
-//        tableView.tableHeaderView = searchController.searchBar
+        jobsSegment.setWidth(UIScreen.main.bounds.width/2, forSegmentAt: 0)
+        jobsSegment.setWidth(UIScreen.main.bounds.width/2, forSegmentAt: 1)
+        jobsSegment.transform = CGAffineTransform(scaleX: 1.05, y: 1.05)
         
         definesPresentationContext = true
     }
