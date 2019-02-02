@@ -271,22 +271,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="729"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <segmentedControl key="tableHeaderView" autoresizesSubviews="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bordered" selectedSegmentIndex="0" id="QGl-vY-KdD">
-                            <rect key="frame" x="0.0" y="0.0" width="375" height="30"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <segments>
-                                <segment title="Providing Help"/>
-                                <segment title="Requesting Help"/>
-                            </segments>
-                            <color key="tintColor" name="RoyalPurple"/>
-                            <connections>
-                                <action selector="switchJobsView:" destination="Yes-Bf-das" eventType="valueChanged" id="ael-Qc-6FK"/>
-                            </connections>
-                        </segmentedControl>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="JobsTableViewCell" id="yto-r3-NnM" customClass="JobsTableViewCell" customModule="helpr" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="58" width="375" height="280"/>
+                                <rect key="frame" x="0.0" y="28" width="375" height="280"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="yto-r3-NnM" id="eAP-06-lM0">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="279.66666666666669"/>
@@ -370,6 +357,19 @@
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Z7W-hj-MPt" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <segmentedControl autoresizesSubviews="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bordered" selectedSegmentIndex="0" id="QGl-vY-KdD">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <segments>
+                        <segment title="Providing Help"/>
+                        <segment title="Requesting Help"/>
+                    </segments>
+                    <color key="tintColor" name="RoyalPurple"/>
+                    <connections>
+                        <action selector="switchJobsView:" destination="Yes-Bf-das" eventType="valueChanged" id="ael-Qc-6FK"/>
+                    </connections>
+                </segmentedControl>
             </objects>
             <point key="canvasLocation" x="-948" y="1437.9310344827586"/>
         </scene>
