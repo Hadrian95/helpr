@@ -368,6 +368,7 @@ class PostAdTableViewController: UITableViewController, UITextViewDelegate, UICo
         // Dismiss the picker.
         dismiss(animated: true, completion: nil)
     }
+    
     @IBAction func lockLocation(_ sender: UIButton) {
         mapView.isScrollEnabled = !mapView.isScrollEnabled
         btnCenterLoc.isEnabled = !btnCenterLoc.isEnabled

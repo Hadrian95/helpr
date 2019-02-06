@@ -27,7 +27,7 @@ class StorageHelper{
     
     func saveImages(job: Job, imagesArray : [UIImage], createJob: Bool){
         job.pictureData = imagesArray
-        uploadImages(jobID: job.information.id, imagesArray : imagesArray){ (uploadedImageUrlsArray) in
+        uploadImages(root: "jobPictures", ID: job.information.id, imagesArray : imagesArray){ (uploadedImageUrlsArray) in
             job.information.pictures = uploadedImageUrlsArray
             if createJob {
                 let database = DatabaseHelper()
@@ -35,6 +35,12 @@ class StorageHelper{
             }
         }
     }
+    
+//    func saveProfilePic(root: String, ID: String, imagesArray : [UIImage]) {
+//        uploadImages(root: "profilePictures", ID: ID, imagesArray: imagesArray) { (uploadedImageUrlsArray) in
+//            // fuck you Helm
+//        }
+//    }
     
     
     
@@ -71,7 +77,7 @@ class StorageHelper{
         }
     }
     
-    func uploadImages(jobID: String, imagesArray : [UIImage], completionHandler: @escaping ([String]) -> ()){
+    func uploadImages(root: String, ID: String, imagesArray : [UIImage], completionHandler: @escaping ([String]) -> ()){
         
         var uploadedImageUrlsArray = [String]()
         var uploadCount = 0
@@ -82,7 +88,7 @@ class StorageHelper{
             let imageName = NSUUID().uuidString // Unique string to reference image
             
             //Create storage reference for image
-            let ref = storageRef.child("jobPictures").child(jobID).child("\(imageName).png")
+            let ref = storageRef.child(root).child(ID).child("\(imageName).png")
             
             
             guard let uploadData = image.jpegData(compressionQuality: 0.8)  else{

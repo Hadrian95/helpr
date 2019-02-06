@@ -11,9 +11,13 @@ import CodableFirebase
 
 class DatabaseHelper {
     var ref: DatabaseReference!
+    var storage = StorageHelper()
+    var docRef: DocumentReference!
+    var db: Firestore!
     var jobs: [Job]
     init() {
         ref = Database.database().reference()
+        db = Firestore.firestore()
         jobs = [Job]()
     }
     
@@ -29,26 +33,38 @@ class DatabaseHelper {
         }
     }
     
-    func addUserInformation(name: String!, photoURL: String?, completion: @escaping (Error?) -> ()) {
-        let user = Auth.auth().currentUser
-        if let user = user {
-            let changeRequest = user.createProfileChangeRequest()
-            
-            changeRequest.displayName = name
-            if photoURL != nil {
-                changeRequest.photoURL =
-                    NSURL(string: photoURL!)! as URL
-            }
-            
-            changeRequest.commitChanges { error in
-                if error == nil {
-                    completion(nil)
-                }else{
-                    print("Cannot add to account" + error.debugDescription)
-                    completion(error)
-                }
+    func addUserInformation(dataToSave: [String: Any], photoURL: String?, completion: @escaping (Error?) -> ()) {
+        let userID = Auth.auth().currentUser?.uid
+        docRef = db.collection("users").document(userID!)
+        docRef.setData(dataToSave) { (error) in
+            if error != nil {
+                print("Error adding data to users collection")
+                completion(nil)
+            }else{
+                print("Data has been successfully added!")
+                completion(error)
             }
         }
+//        if let user = user {
+//            let changeRequest = user.createProfileChangeRequest()
+//
+//            changeRequest.displayName = name
+//            if photoURL != nil {
+//                changeRequest.photoURL =
+//                    NSURL(string: photoURL!)! as URL
+//            }
+//
+//            changeRequest.commitChanges { error in
+//                if error == nil {
+//                    completion(nil)
+//                }else{
+//                    print("Cannot add to account" + error.debugDescription)
+//                    completion(error)
+//                }
+//            }
+//        }
+        
+        
     }
     
     func writeJob(job:Job) {

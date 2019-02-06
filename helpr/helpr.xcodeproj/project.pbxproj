@@ -13,7 +13,7 @@
 		4576E8B82188D84100471AB4 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4576E8B72188D84100471AB4 /* SignUpViewController.swift */; };
 		4576E8BA2188EE6500471AB4 /* HomeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4576E8B92188EE6500471AB4 /* HomeTableViewController.swift */; };
 		4576E8BC2188EEAB00471AB4 /* JobsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4576E8BB2188EEAB00471AB4 /* JobsTableViewController.swift */; };
-		4576E8BE2188EEBD00471AB4 /* MessagesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4576E8BD2188EEBD00471AB4 /* MessagesTableViewController.swift */; };
+		4576E8BE2188EEBD00471AB4 /* MessagesTableViewControllerOld.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4576E8BD2188EEBD00471AB4 /* MessagesTableViewControllerOld.swift */; };
 		4576E8C02188F22200471AB4 /* MyTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4576E8BF2188F22200471AB4 /* MyTabBarViewController.swift */; };
 		4576E8C22189003700471AB4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4576E8C12189003600471AB4 /* Assets.xcassets */; };
 		4576E8C421890A7C00471AB4 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4576E8C321890A7C00471AB4 /* Post.swift */; };
@@ -22,6 +22,8 @@
 		459F129F219D032D0032CC5E /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459F129E219D032D0032CC5E /* ProfileViewController.swift */; };
 		459F12A1219D037F0032CC5E /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459F12A0219D037F0032CC5E /* SettingsTableViewController.swift */; };
 		45AE32B7218A617B005F2A8B /* ImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45AE32B6218A617B005F2A8B /* ImageCollectionViewCell.swift */; };
+		55C56ABB220A2DD900B81E8C /* MessageTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C56ABA220A2DD900B81E8C /* MessageTableViewController.swift */; };
+		55C56ABD220A2E6B00B81E8C /* MessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C56ABC220A2E6B00B81E8C /* MessageTableViewCell.swift */; };
 		8F561CD961B35717369C999C /* Pods_helpr.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA6AAB266A66145E7375E48D /* Pods_helpr.framework */; };
 		976D8B9762A5125ED93DE9A9 /* Pods_helprTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1BDBFF60099441AC59B033C /* Pods_helprTests.framework */; };
 		AC01C7EF21ABB684000EEB37 /* StorageHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC01C7EE21ABB684000EEB37 /* StorageHelper.swift */; };
@@ -85,7 +87,7 @@
 		4576E8B72188D84100471AB4 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		4576E8B92188EE6500471AB4 /* HomeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewController.swift; sourceTree = "<group>"; };
 		4576E8BB2188EEAB00471AB4 /* JobsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobsTableViewController.swift; sourceTree = "<group>"; };
-		4576E8BD2188EEBD00471AB4 /* MessagesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesTableViewController.swift; sourceTree = "<group>"; };
+		4576E8BD2188EEBD00471AB4 /* MessagesTableViewControllerOld.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesTableViewControllerOld.swift; sourceTree = "<group>"; };
 		4576E8BF2188F22200471AB4 /* MyTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTabBarViewController.swift; sourceTree = "<group>"; };
 		4576E8C12189003600471AB4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4576E8C321890A7C00471AB4 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
@@ -94,6 +96,8 @@
 		459F129E219D032D0032CC5E /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		459F12A0219D037F0032CC5E /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		45AE32B6218A617B005F2A8B /* ImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewCell.swift; sourceTree = "<group>"; };
+		55C56ABA220A2DD900B81E8C /* MessageTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageTableViewController.swift; sourceTree = "<group>"; };
+		55C56ABC220A2E6B00B81E8C /* MessageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageTableViewCell.swift; sourceTree = "<group>"; };
 		98120EBE25B7A61F832FC948 /* Pods-helprTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-helprTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-helprTests/Pods-helprTests.debug.xcconfig"; sourceTree = "<group>"; };
 		989A02AABD7F3E9A3BF332BC /* Pods-helprUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-helprUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-helprUITests/Pods-helprUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		9AB31D2B7FF65B6CFEA65B90 /* Pods-helprUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-helprUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-helprUITests/Pods-helprUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -221,7 +225,8 @@
 				CA12A384218962C50063ED97 /* JobDetailsViewController.swift */,
 				4576E8BB2188EEAB00471AB4 /* JobsTableViewController.swift */,
 				4576E8B52188D57F00471AB4 /* LetUsKnowViewController.swift */,
-				4576E8BD2188EEBD00471AB4 /* MessagesTableViewController.swift */,
+				55C56ABA220A2DD900B81E8C /* MessageTableViewController.swift */,
+				4576E8BD2188EEBD00471AB4 /* MessagesTableViewControllerOld.swift */,
 				4576E8BF2188F22200471AB4 /* MyTabBarViewController.swift */,
 				CA2F724E21A3676F00AAF19F /* PaymentInfoViewController.swift */,
 				F783AB0321791E5B0010F034 /* PostAdTableViewController.swift */,
@@ -246,6 +251,7 @@
 				45AE32B6218A617B005F2A8B /* ImageCollectionViewCell.swift */,
 				ACF49B38218FB8A00021A63C /* JobsTableViewCell.swift */,
 				ACF49B36218FA68A0021A63C /* MyPostsTableViewCell.swift */,
+				55C56ABC220A2E6B00B81E8C /* MessageTableViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -358,6 +364,7 @@
 				F783AAFB21791E5A0010F034 /* Frameworks */,
 				F783AAFC21791E5A0010F034 /* Resources */,
 				BC6A64A3D187679FF43FA1C4 /* [CP] Embed Pods Frameworks */,
+				8A93E9B4586183D8273115B9 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -506,6 +513,28 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		8A93E9B4586183D8273115B9 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-helpr/Pods-helpr-resources.sh",
+				"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseFirestore/gRPCCertificates.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/gRPCCertificates.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-helpr/Pods-helpr-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		BC6A64A3D187679FF43FA1C4 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -515,9 +544,13 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-helpr/Pods-helpr-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/BoringSSL-GRPC/openssl_grpc.framework",
 				"${BUILT_PRODUCTS_DIR}/CodableFirebase/CodableFirebase.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
+				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC-C++/grpcpp.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC-Core/grpc.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
@@ -525,9 +558,13 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openssl_grpc.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CodableFirebase.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpcpp.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpc.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
@@ -601,7 +638,8 @@
 				CA12A38321893AFB0063ED97 /* HomeTableViewCell.swift in Sources */,
 				CA12A385218962C50063ED97 /* JobDetailsViewController.swift in Sources */,
 				4576E8BC2188EEAB00471AB4 /* JobsTableViewController.swift in Sources */,
-				4576E8BE2188EEBD00471AB4 /* MessagesTableViewController.swift in Sources */,
+				4576E8BE2188EEBD00471AB4 /* MessagesTableViewControllerOld.swift in Sources */,
+				55C56ABD220A2E6B00B81E8C /* MessageTableViewCell.swift in Sources */,
 				AC3604CD21AB46FB0004B219 /* UIViewController+AuthError.swift in Sources */,
 				4576E8B62188D57F00471AB4 /* LetUsKnowViewController.swift in Sources */,
 				CA2F725521A368C900AAF19F /* ChangePasswordViewController.swift in Sources */,
@@ -621,6 +659,7 @@
 				ACBC29AE21B5F28E00EE1406 /* UITextField+BottomBorder.swift in Sources */,
 				ACF49B37218FA68A0021A63C /* MyPostsTableViewCell.swift in Sources */,
 				AC3604CF21AB47570004B219 /* AuthErrorCode+errorMessage.swift in Sources */,
+				55C56ABB220A2DD900B81E8C /* MessageTableViewController.swift in Sources */,
 				ACF49B39218FB8A00021A63C /* JobsTableViewCell.swift in Sources */,
 				CA2F724921A3671100AAF19F /* AddPhoneViewController.swift in Sources */,
 				CA2F724321A3667100AAF19F /* UpdateNameViewController.swift in Sources */,
