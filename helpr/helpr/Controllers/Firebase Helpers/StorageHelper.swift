@@ -43,7 +43,19 @@ class StorageHelper{
 //    }
     
     
-    
+    func getProfilePic(completion: @escaping (UIImage?) -> ()) {
+        let picRef = self.getProfilePictureReference()
+
+        let picData = picRef.getData(maxSize: 15 * 1024 * 1024){ (data, error) in
+            if error != nil{
+                print(error?.localizedDescription)
+                return
+            }
+            let profilePic = UIImage(data: data!)
+            print("here (\(profilePic)")
+            completion(profilePic)
+        }
+    }
     
     func loadImages(job: Job){
         if job.information.pictures.count < 1 { return }
@@ -167,8 +179,8 @@ class StorageHelper{
         
 
     }
-    func loadProfilePicture(completion: @escaping (UIImage) -> ()){
-        let reference = getProfilePictureReference().child("profilePicture.png")
+    func loadProfilePicture(picRef: String, completion: @escaping (UIImage) -> ()){
+        let reference = getProfilePictureReference().child(picRef)
         let image: UIImage? = FileHelpers.load(path: reference.fullPath)
         if  image == nil {
             reference.getData(maxSize: 15 * 2048 * 2048) { data, error in

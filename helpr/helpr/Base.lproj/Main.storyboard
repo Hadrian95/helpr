@@ -1388,6 +1388,7 @@
                         <outlet property="lblJobCount" destination="aT2-2B-Dib" id="7Jo-PD-tMi"/>
                         <outlet property="lblName" destination="JOJ-si-0fG" id="Ecd-Sp-hhM"/>
                         <outlet property="lblRating" destination="yWf-gd-Acd" id="qHZ-Qp-r2r"/>
+                        <outlet property="lblSkillCount" destination="LvK-Ui-L5B" id="EhV-yU-u2L"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xo7-Z9-Ygv" userLabel="First Responder" sceneMemberID="firstResponder"/>
