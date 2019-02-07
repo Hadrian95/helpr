@@ -178,7 +178,7 @@ class PostAdTableViewController: UITableViewController, UITextViewDelegate, UICo
         
         // Set the job to be passed to HomeTableViewController after the unwind segue.
         if (category?.trimmingCharacters(in: .whitespaces) != "") && (title.trimmingCharacters(in: .whitespaces) != "") {
-            job = Job(title: title, category: category!, description: description, pictureURLs: [], tags: [], distance: 10, postalCode: "WH0CR5", postedTime: Date(), email: (UserProfile.loadProfile()?.email)!)
+            job = Job(title: title, category: category!, description: description, pictureURLs: [], tags: [], distance: 10, postalCode: "WH0CR5", postedTime: Date(), email: (UserProfile.email))
             HomeTableViewController.jobs.append(job!)
             
             let storage = StorageHelper()
@@ -201,7 +201,7 @@ class PostAdTableViewController: UITableViewController, UITextViewDelegate, UICo
             
             // Set the job to be passed to HomeTableViewController after the unwind segue.
             if (category?.trimmingCharacters(in: .whitespaces) != "") && (title.trimmingCharacters(in: .whitespaces) != "") {
-                job = Job(title: title, category: category!, description: description, pictureURLs: [], tags: [], distance: 10, postalCode: "WH0CR5", postedTime: Date(), email: (UserProfile.loadProfile()?.email)!)
+                job = Job(title: title, category: category!, description: description, pictureURLs: [], tags: [], distance: 10, postalCode: "WH0CR5", postedTime: Date(), email: (UserProfile.email))
                 
                 let storage = StorageHelper()
                 

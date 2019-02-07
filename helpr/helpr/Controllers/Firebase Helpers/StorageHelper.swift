@@ -42,21 +42,6 @@ class StorageHelper{
 //        }
 //    }
     
-    
-    func getProfilePic(completion: @escaping (UIImage?) -> ()) {
-        let picRef = self.getProfilePictureReference()
-
-        let picData = picRef.getData(maxSize: 15 * 1024 * 1024){ (data, error) in
-            if error != nil{
-                print(error?.localizedDescription)
-                return
-            }
-            let profilePic = UIImage(data: data!)
-            print("here (\(profilePic)")
-            completion(profilePic)
-        }
-    }
-    
     func loadImages(job: Job){
         if job.information.pictures.count < 1 { return }
         
@@ -131,6 +116,24 @@ class StorageHelper{
         }
     }
     
+    func uploadPicture(root: String, ID: String, image: UIImage, picRef: String) {
+        let ref = storageRef.child(root).child(ID).child(picRef)
+        
+        guard let uploadData = image.jpegData(compressionQuality: 0.8)  else{
+            return
+        }
+        
+        // Upload image to firebase
+        _ = ref.putData(uploadData, metadata: nil, completion: { (metadata, error) in
+            if error != nil{
+                print(error)
+                return
+            }
+            print("Image successfully uploaded")
+            
+        })
+    }
+    
     
     //Func to observe error cases while uploading image files, Ref: https://firebase.google.com/docs/storage/ios/upload-files
     func observeUploadTaskFailureCases(uploadTask : StorageUploadTask){
@@ -181,8 +184,10 @@ class StorageHelper{
     }
     func loadProfilePicture(picRef: String, completion: @escaping (UIImage) -> ()){
         let reference = getProfilePictureReference().child(picRef)
-        let image: UIImage? = FileHelpers.load(path: reference.fullPath)
-        if  image == nil {
+        print("ref \(reference)")
+        //let image: UIImage? = FileHelpers.load(path: reference.fullPath)
+        //print("\(image)")
+        //if  image == nil {
             reference.getData(maxSize: 15 * 2048 * 2048) { data, error in
                 if let error = error {
                     // Uh-oh, an error occurred!
@@ -192,9 +197,9 @@ class StorageHelper{
                     completion(UIImage(data: data!)!)
                 }
             }
-        }else{
-            completion(image!)
-        }
+        //}else{
+          //  completion(image!)
+        //}
         
     }
 

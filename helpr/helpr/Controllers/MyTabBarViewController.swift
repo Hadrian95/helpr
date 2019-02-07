@@ -13,12 +13,19 @@ class MyTabBarViewController: UITabBarController {
     let selectedIcons: [String] = ["homeENBL", "jobsENBL", "postENBL", "mypostsENBL", "accountENBL"]
     let unselectedIcons: [String] = ["home", "jobs", "post", "myposts", "account"]
     
+    var database = DatabaseHelper()
+    var storage = StorageHelper()
+    var picRef = String()
+    
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        getCurrentProfile()
+        
         // Do any additional setup after loading the view.
 //        if let count = self.tabBar.items?.count {
 //            for i in 0...(count-1) {
@@ -35,6 +42,23 @@ class MyTabBarViewController: UITabBarController {
         
         //UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor: unselectedColor], for: .normal)
         //UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor: selectedColor], for: .selected)
+    }
+    
+    func loadProfilePicture(){
+        storage.loadProfilePicture(picRef: picRef){ image in
+            UserProfile.profilePic = image
+        }
+    }
+    
+    func getCurrentProfile() {
+        database.getUser() { (user) -> () in
+            UserProfile.name = user!.name
+            UserProfile.email = user!.email
+            UserProfile.skills = user!.skills
+            self.storage.loadProfilePicture(picRef: user!.picRef){ image in
+                UserProfile.profilePic = image
+            }
+        }
     }
     
 

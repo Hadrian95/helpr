@@ -225,15 +225,17 @@ class FinishSignUpViewController : UIViewController {
     var storage = StorageHelper()
     var signUpParent = SignUpViewController()
     var dataToSave: [String: Any] = [:]
-    var profilePic: [UIImage] = []
+    var profilePic: UIImage? = nil
+    var picRef: String = ""
     
     @IBAction func registerUser(_ sender: Any) {
         let email = signUpParent.lEmail.text!
         let password = signUpParent.lPassword.text!
         let name = signUpParent.lFullName.text!
-        profilePic.append(signUpParent.userProfilePic)
+        profilePic = signUpParent.userProfilePic
+        picRef = NSUUID().uuidString + ".png"
         
-        dataToSave = ["name": name, "email": email, "skills": ["App Development", "Swift"]]
+        dataToSave = ["name": name, "email": email, "skills": ["App Development", "Swift"], "profilePic": picRef]
         
         //Authenticate and add user
         database.createUser(email: email, password: password){(error) -> () in
@@ -261,9 +263,7 @@ class FinishSignUpViewController : UIViewController {
                 self.handleError(error!)
             }else {
                 let uID = Auth.auth().currentUser?.uid
-                self.storage.uploadImages(root: "profilePictures", ID: uID!, imagesArray: self.profilePic) { (uploadedImageUrlsArray) in
-                    let pictures = uploadedImageUrlsArray
-                }
+                self.storage.uploadPicture(root: "profilePictures", ID: uID!, image: self.profilePic!, picRef: self.picRef)
                 let alert = UIAlertController(title: "Sign-up Successful", message: "You have successfully signed up for helpr!", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "OK", style: .default, handler:{ action in self.performSegue(withIdentifier: "contSignup", sender: self) }))
             }

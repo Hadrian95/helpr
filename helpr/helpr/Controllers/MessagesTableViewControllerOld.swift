@@ -184,7 +184,7 @@ class MessagesTableViewControllerOld: UITableViewController, UISearchResultsUpda
         let user = UserProfile.loadProfile()
         for (index, job) in jobs.enumerated() {
             
-            if job.information.email == user?.email {
+            if job.information.email == UserProfile.email {
                 print("I wrote this email!")
             }else{
                 print("I did not write this email!")

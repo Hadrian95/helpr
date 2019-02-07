@@ -24,6 +24,7 @@
 		45AE32B7218A617B005F2A8B /* ImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45AE32B6218A617B005F2A8B /* ImageCollectionViewCell.swift */; };
 		55C56ABB220A2DD900B81E8C /* MessageTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C56ABA220A2DD900B81E8C /* MessageTableViewController.swift */; };
 		55C56ABD220A2E6B00B81E8C /* MessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C56ABC220A2E6B00B81E8C /* MessageTableViewCell.swift */; };
+		55C56ABF220CDED100B81E8C /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C56ABE220CDED100B81E8C /* User.swift */; };
 		8F561CD961B35717369C999C /* Pods_helpr.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA6AAB266A66145E7375E48D /* Pods_helpr.framework */; };
 		976D8B9762A5125ED93DE9A9 /* Pods_helprTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1BDBFF60099441AC59B033C /* Pods_helprTests.framework */; };
 		AC01C7EF21ABB684000EEB37 /* StorageHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC01C7EE21ABB684000EEB37 /* StorageHelper.swift */; };
@@ -98,6 +99,7 @@
 		45AE32B6218A617B005F2A8B /* ImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		55C56ABA220A2DD900B81E8C /* MessageTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageTableViewController.swift; sourceTree = "<group>"; };
 		55C56ABC220A2E6B00B81E8C /* MessageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageTableViewCell.swift; sourceTree = "<group>"; };
+		55C56ABE220CDED100B81E8C /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		98120EBE25B7A61F832FC948 /* Pods-helprTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-helprTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-helprTests/Pods-helprTests.debug.xcconfig"; sourceTree = "<group>"; };
 		989A02AABD7F3E9A3BF332BC /* Pods-helprUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-helprUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-helprUITests/Pods-helprUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		9AB31D2B7FF65B6CFEA65B90 /* Pods-helprUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-helprUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-helprUITests/Pods-helprUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -259,6 +261,7 @@
 		AC9682AE21A6000400A161D6 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				55C56ABE220CDED100B81E8C /* User.swift */,
 				4576E8C321890A7C00471AB4 /* Post.swift */,
 				CA2F723E21A35E4A00AAF19F /* UserProfile.swift */,
 				CA12A380218935E50063ED97 /* Job.swift */,
@@ -656,6 +659,7 @@
 				AC23225C219BD61F003EFB62 /* Date+timeAgoSinceDate.swift in Sources */,
 				AC01C7EF21ABB684000EEB37 /* StorageHelper.swift in Sources */,
 				F783AB0421791E5B0010F034 /* PostAdTableViewController.swift in Sources */,
+				55C56ABF220CDED100B81E8C /* User.swift in Sources */,
 				ACBC29AE21B5F28E00EE1406 /* UITextField+BottomBorder.swift in Sources */,
 				ACF49B37218FA68A0021A63C /* MyPostsTableViewCell.swift in Sources */,
 				AC3604CF21AB47570004B219 /* AuthErrorCode+errorMessage.swift in Sources */,

@@ -28,14 +28,14 @@ struct Settings {
 class UserProfile: NSObject, NSCoding {
 
     //MARK: Properties
-    var name : String
+    static var name = String()
 //    private var phoneNumber : Int
-    var email : String
+    static var email = String()
 //    private var rating : Float
 //    private var homeAddress : String
-//    private var profilePic : UIImage
+    static var profilePic = UIImage()
 //    private var featReviews : [Review]
-//    private var skills : [Skill]
+    static var skills = [String]()
 //    private var settings : Settings
 
     
@@ -67,14 +67,15 @@ class UserProfile: NSObject, NSCoding {
         
     }
     init?(name: String, email: String) {
-        self.name = name
-        self.email = email
+        UserProfile.name = name
+        UserProfile.email = email
         
     }
+    
     //MARK: NSCoding
     func encode(with aCoder: NSCoder) {
-        aCoder.encode(name, forKey: PropertyKey.name)
-        aCoder.encode(email, forKey: PropertyKey.email)
+        aCoder.encode(UserProfile.name, forKey: PropertyKey.name)
+        aCoder.encode(UserProfile.email, forKey: PropertyKey.email)
     }
     
     //MARK: Active User
