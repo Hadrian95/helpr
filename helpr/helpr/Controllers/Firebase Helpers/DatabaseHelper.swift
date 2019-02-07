@@ -63,8 +63,20 @@ class DatabaseHelper {
 //                }
 //            }
 //        }
-        
-        
+    }
+    
+    func getUser(completion: @escaping (DocumentSnapshot?) -> () ) {
+        let userID = Auth.auth().currentUser?.uid
+        docRef = db.collection("users").document(userID!)
+        docRef.getDocument { (document, error) in
+            if let document = document, document.exists {
+                let userData = document.data().map(String.init(describing:)) ?? "nil"
+                print("Document data: \(userData)")
+                completion(document)
+            } else {
+                print("Document does not exist")
+            }
+        }
     }
     
     func writeJob(job:Job) {

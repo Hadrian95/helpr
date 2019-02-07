@@ -17,11 +17,16 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var lblJobCount: UILabel!
     @IBOutlet weak var btnSkills: UIButton!
     @IBOutlet weak var tvReviews: UITableView!
-
+    @IBOutlet weak var lblSkillCount: UILabel!
+    
     private var storage: StorageHelper = StorageHelper()
+    private var database: DatabaseHelper = DatabaseHelper()
+    private var picRef: String = ""
     
     
     override func viewDidLoad() {
+        let userRef = Auth.auth().currentUser?.uid
+        
         super.viewDidLoad()
         if Auth.auth().currentUser == nil {
             // User is not signed in.
@@ -30,7 +35,22 @@ class ProfileViewController: UIViewController {
                 self.present(vc, animated: true, completion: nil)
             }
         }else{
-            loadProfilePicture()
+            database.getUser() { (userDoc) -> () in
+                self.lblName.text = userDoc!.data()?["name"]! as? String
+                let skillsArray = userDoc!.data()?["skills"] as! [Any]
+                print(skillsArray)
+                self.lblSkillCount.text = String(skillsArray.count)
+                self.btnSkills.setTitle(String(skillsArray.count) + " skills", for: .normal)
+                self.picRef = userDoc!.data()?["profilePic"]! as! String
+                print(self.picRef)
+                self.loadProfilePicture()
+            }
+            
+//            storage.getProfilePic() { (pic) -> () in
+//                self.ivProfilePic.image = pic
+//            }
+        
+            
             ivProfilePic.layer.cornerRadius = ivProfilePic.frame.width / 2
             ivProfilePic.layer.borderWidth = 1
             ivProfilePic.layer.borderColor = UIColor.lightGray.cgColor
@@ -63,7 +83,7 @@ class ProfileViewController: UIViewController {
     }
     
     func loadProfilePicture(){
-        storage.loadProfilePicture(){image in
+        storage.loadProfilePicture(picRef: picRef){ image in
             self.ivProfilePic.image = image
         }
     }
