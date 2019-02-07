@@ -73,8 +73,53 @@ class SignUpViewController: UIViewController {
     }
 }
 
-class AddSkillsViewController: UIViewController {
+class AddSkillsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
     var signUpParent: SignUpViewController?
+    
+    @IBOutlet weak var tblSkillstoAdd: UITableView!
+    @IBOutlet weak var tblSkillsMaster: UITableView!
+    @IBOutlet weak var searchBar: UISearchBar!
+    
+    var skills = ["Aesthetician","Animal Grooming", "Barber (Men)", "Basic Auto Repair", "Household Cleaning", "Java", "Plumbing", "Swift"]
+    var filteredSkills = [String]()
+    let searchController = UISearchController(searchResultsController: nil)
+    var isSearching = false
+    
+    override func viewDidLoad() {
+        searchBar.delegate = self
+        
+        tblSkillsMaster.accessibilityIdentifier = "tblSkillsMaster"
+        tblSkillstoAdd.accessibilityIdentifier = "tblSkillstoAdd"
+        
+        tblSkillsMaster.delegate = self
+        tblSkillsMaster.dataSource = self
+        tblSkillstoAdd.delegate = self
+        tblSkillstoAdd.dataSource = self
+    }
+    
+    func searchBarIsEmpty() -> Bool {
+        return searchBar.text?.isEmpty ?? true
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        print("Text Did Change Called")
+        if searchBarIsEmpty() {
+            isSearching = false
+            view.endEditing(true)
+            tblSkillsMaster.isHidden = true
+            tblSkillstoAdd.isHidden = false
+            tblSkillstoAdd.reloadData()
+            print("Search bar empty")
+        }
+        else {
+            isSearching = true
+            tblSkillsMaster.isHidden = false
+            tblSkillstoAdd.isHidden = true
+            filteredSkills = skills.filter({$0.contains(searchText)})
+        tblSkillsMaster.reloadData()
+            print("Search bar has content: \(searchText)")
+        }
+    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let jobViewController = segue.destination as? AddPhotoViewController else {
@@ -82,6 +127,51 @@ class AddSkillsViewController: UIViewController {
         }
         
         jobViewController.signUpParent = signUpParent!
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if isSearching {
+            return filteredSkills.count
+        }
+        else {
+            return skills.count
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell : UITableViewCell
+            if tableView.accessibilityIdentifier == "tblSkillsMaster" {
+            cell = tableView.dequeueReusableCell(withIdentifier: "skillMasterCell", for: indexPath)
+        }
+        else {
+            cell = tableView.dequeueReusableCell(withIdentifier: "skillAddCell", for: indexPath)
+        }
+        
+        if isSearching {
+            cell.textLabel?.text = filteredSkills[indexPath.item]
+        }
+        else {
+            cell.textLabel?.text = skills[indexPath.item]
+        }
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if (editingStyle == .delete) {
+            skills.remove(at: indexPath.item)
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+        }
+    }
+}
+
+extension AddSkillsViewController: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        let searchBar = searchController.searchBar
+        
     }
 }
 
