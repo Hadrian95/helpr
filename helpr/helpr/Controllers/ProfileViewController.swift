@@ -34,25 +34,9 @@ class ProfileViewController: UIViewController {
                 self.present(vc, animated: true, completion: nil)
             }
         }else{
-//            database.getUser() { (userDoc) -> () in
-//                self.lblName.text = userDoc!.data()?["name"]! as? String
-//                let skillsArray = userDoc!.data()?["skills"] as! [Any]
-//                print(skillsArray)
-//                self.lblSkillCount.text = String(skillsArray.count)
-//                self.btnSkills.setTitle(String(skillsArray.count) + " skills", for: .normal)
-//                self.picRef = userDoc!.data()?["profilePic"]! as! String
-//                print(self.picRef)
-//                self.loadProfilePicture()
-//
-//            }
-            
-//            storage.getProfilePic() { (pic) -> () in
-//                self.ivProfilePic.image = pic
-//            }
-        
             lblName.text = UserProfile.name
             lblSkillCount.text = String(UserProfile.skills.count)
-            btnSkills.setTitle(String(UserProfile.skills.count) + " skills", for: .normal)
+            //btnSkills.setTitle(String(UserProfile.skills.count) + " skills", for: .normal)
             ivProfilePic.image = UserProfile.profilePic
             
             ivProfilePic.layer.cornerRadius = ivProfilePic.frame.width / 2
