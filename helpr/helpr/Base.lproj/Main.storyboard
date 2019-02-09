@@ -358,7 +358,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Z7W-hj-MPt" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <segmentedControl autoresizesSubviews="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="bordered" selectedSegmentIndex="0" id="QGl-vY-KdD">
-                    <rect key="frame" x="0.0" y="-1" width="375" height="30"/>
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <segments>
@@ -575,7 +575,7 @@
                                                         <fragment content="Log In">
                                                             <attributes>
                                                                 <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                <font key="NSFont" size="15" name=".AppleSystemUIFont"/>
+                                                                <font key="NSFont" size="17" name=".AppleSystemUIFont"/>
                                                             </attributes>
                                                         </fragment>
                                                     </attributedString>
@@ -703,13 +703,6 @@
                                     <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Hjf-ud-rrr" userLabel="ContentView">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="768"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OqL-N4-cX2">
-                                                <rect key="frame" x="15" y="20" width="33" height="33"/>
-                                                <state key="normal" image="cancel"/>
-                                                <connections>
-                                                    <action selector="cancel:" destination="1VL-es-E8o" eventType="touchUpInside" id="Scx-8p-FVk"/>
-                                                </connections>
-                                            </button>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="HelprText" translatesAutoresizingMaskIntoConstraints="NO" id="ZLw-Dy-5bv">
                                                 <rect key="frame" x="-105" y="120" width="585" height="87"/>
                                                 <constraints>
@@ -758,7 +751,7 @@
                                                 <color key="textColor" name="RoyalPurple"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AMe-zS-4sg">
+                                            <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AMe-zS-4sg" userLabel="bContCreate">
                                                 <rect key="frame" x="87.666666666666686" y="595" width="200" height="40"/>
                                                 <color key="backgroundColor" name="RoyalPurple"/>
                                                 <constraints>
@@ -782,7 +775,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="254" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kCR-vY-cSe">
-                                                <rect key="frame" x="72" y="650" width="231" height="40"/>
+                                                <rect key="frame" x="58.666666666666657" y="650" width="258" height="40"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="H07-uW-qb4"/>
                                                 </constraints>
@@ -790,12 +783,12 @@
                                                     <attributedString key="attributedTitle">
                                                         <fragment content="Already have an account? ">
                                                             <attributes>
-                                                                <font key="NSFont" size="15" name=".AppleSystemUIFont"/>
+                                                                <font key="NSFont" size="17" name=".AppleSystemUIFont"/>
                                                             </attributes>
                                                         </fragment>
                                                         <fragment content="Sign In!">
                                                             <attributes>
-                                                                <font key="NSFont" size="15" name=".AppleSystemUIFont"/>
+                                                                <font key="NSFont" size="17" name=".AppleSystemUIFont"/>
                                                                 <integer key="NSUnderline" value="1"/>
                                                             </attributes>
                                                         </fragment>
@@ -821,7 +814,6 @@
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="bottom" secondItem="kCR-vY-cSe" secondAttribute="bottom" id="3cv-Pc-URs"/>
-                                            <constraint firstItem="OqL-N4-cX2" firstAttribute="top" secondItem="Hjf-ud-rrr" secondAttribute="top" constant="20" id="4uA-Wg-iTd"/>
                                             <constraint firstItem="55h-5O-VmT" firstAttribute="top" secondItem="ZLw-Dy-5bv" secondAttribute="bottom" constant="60" id="632-NM-208"/>
                                             <constraint firstItem="Gyn-ra-hWf" firstAttribute="centerX" secondItem="Hjf-ud-rrr" secondAttribute="centerX" id="69l-aM-SLN"/>
                                             <constraint firstItem="7HX-fJ-eD2" firstAttribute="width" secondItem="jf7-IM-Ce5" secondAttribute="width" id="ETe-Dk-06u"/>
@@ -830,7 +822,6 @@
                                             <constraint firstItem="AMe-zS-4sg" firstAttribute="centerX" secondItem="Hjf-ud-rrr" secondAttribute="centerX" id="MoZ-Ng-X3X"/>
                                             <constraint firstItem="55h-5O-VmT" firstAttribute="leading" secondItem="Hjf-ud-rrr" secondAttribute="leading" constant="25" id="NQZ-1m-ETx"/>
                                             <constraint firstItem="AMe-zS-4sg" firstAttribute="top" secondItem="Gyn-ra-hWf" secondAttribute="bottom" constant="10" id="NzI-mX-fqk"/>
-                                            <constraint firstItem="OqL-N4-cX2" firstAttribute="leading" secondItem="Hjf-ud-rrr" secondAttribute="leading" constant="15" id="Ob9-nZ-H2S"/>
                                             <constraint firstAttribute="trailing" secondItem="AOh-YW-FOl" secondAttribute="trailing" constant="25" id="PVU-j3-Udc"/>
                                             <constraint firstItem="ZLw-Dy-5bv" firstAttribute="top" secondItem="Hjf-ud-rrr" secondAttribute="top" constant="120" id="QAa-PO-zbi"/>
                                             <constraint firstItem="7HX-fJ-eD2" firstAttribute="leading" secondItem="Hjf-ud-rrr" secondAttribute="leading" constant="25" id="SCv-Mc-22d"/>
@@ -872,7 +863,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="bCreateAccount" destination="AMe-zS-4sg" id="On3-kK-ggz"/>
+                        <outlet property="bContCreate" destination="AMe-zS-4sg" id="9a5-u7-pMJ"/>
                         <outlet property="lConfirmPass" destination="AOh-YW-FOl" id="b8i-bv-AHH"/>
                         <outlet property="lEmail" destination="jf7-IM-Ce5" id="3TI-y9-hdX"/>
                         <outlet property="lFullName" destination="55h-5O-VmT" id="ax4-42-PpA"/>
@@ -911,7 +902,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <searchBar contentMode="redraw" searchBarStyle="minimal" placeholder="Search for a skill..." showsCancelButton="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eDH-ZZ-XnB">
+                            <searchBar contentMode="redraw" searchBarStyle="minimal" placeholder="Search for a skill..." translatesAutoresizingMaskIntoConstraints="NO" id="eDH-ZZ-XnB">
                                 <rect key="frame" x="0.0" y="88" width="375" height="56"/>
                                 <color key="barTintColor" name="RoyalPurple"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -920,8 +911,8 @@
                                     <string>Title</string>
                                 </scopeButtonTitles>
                             </searchBar>
-                            <button opaque="NO" contentMode="center" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lPk-UG-r1r">
-                                <rect key="frame" x="87" y="659" width="200" height="40"/>
+                            <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lPk-UG-r1r">
+                                <rect key="frame" x="87.666666666666686" y="683" width="200" height="40"/>
                                 <color key="backgroundColor" name="RoyalPurple"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="MMe-AD-9Dz"/>
@@ -943,8 +934,8 @@
                                     <segue destination="IvC-pz-GEs" kind="show" id="o7X-UH-328"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="254" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bn1-q7-PDi">
-                                <rect key="frame" x="72" y="714" width="231" height="40"/>
+                            <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="254" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bn1-q7-PDi">
+                                <rect key="frame" x="58.666666666666657" y="738" width="258" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="nLS-Kt-FAT"/>
                                 </constraints>
@@ -952,12 +943,12 @@
                                     <attributedString key="attributedTitle">
                                         <fragment content="Already have an account? ">
                                             <attributes>
-                                                <font key="NSFont" size="15" name=".AppleSystemUIFont"/>
+                                                <font key="NSFont" size="17" name=".AppleSystemUIFont"/>
                                             </attributes>
                                         </fragment>
                                         <fragment content="Sign In!">
                                             <attributes>
-                                                <font key="NSFont" size="15" name=".AppleSystemUIFont"/>
+                                                <font key="NSFont" size="17" name=".AppleSystemUIFont"/>
                                                 <integer key="NSUnderline" value="1"/>
                                             </attributes>
                                         </fragment>
@@ -967,9 +958,8 @@
                                     <action selector="goToSignIn:" destination="1VL-es-E8o" eventType="touchUpInside" id="IWV-B9-f4Y"/>
                                 </connections>
                             </button>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="MCD-al-Edz" userLabel="tblSkillstoAdd">
-                                <rect key="frame" x="0.0" y="144" width="375" height="507"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="MCD-al-Edz" userLabel="tblSkillstoAdd">
+                                <rect key="frame" x="0.0" y="144" width="375" height="529"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="skillAddCell" id="klS-5k-8pg" userLabel="skillAddCell">
@@ -982,9 +972,8 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="PUY-WW-Eb2" userLabel="tblSkillsMaster">
-                                <rect key="frame" x="0.0" y="144" width="375" height="507"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="PUY-WW-Eb2" userLabel="tblSkillsMaster">
+                                <rect key="frame" x="0.0" y="144" width="375" height="529"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="skillMasterCell" id="Gh1-kB-nmc" userLabel="skillMasterCell">
@@ -1000,16 +989,25 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="bn1-q7-PDi" firstAttribute="centerX" secondItem="UL4-Ry-Fmh" secondAttribute="centerX" id="2wT-gS-ice"/>
+                            <constraint firstItem="MCD-al-Edz" firstAttribute="top" secondItem="eDH-ZZ-XnB" secondAttribute="bottom" id="6HI-pF-f1d"/>
+                            <constraint firstItem="lPk-UG-r1r" firstAttribute="centerX" secondItem="UL4-Ry-Fmh" secondAttribute="centerX" id="6uA-KJ-Upw"/>
                             <constraint firstItem="eDH-ZZ-XnB" firstAttribute="top" secondItem="UL4-Ry-Fmh" secondAttribute="top" id="Hn1-ZR-BUq"/>
                             <constraint firstItem="eDH-ZZ-XnB" firstAttribute="centerX" secondItem="UL4-Ry-Fmh" secondAttribute="centerX" id="ODF-tm-p9g"/>
+                            <constraint firstItem="PUY-WW-Eb2" firstAttribute="width" secondItem="zie-vU-asd" secondAttribute="width" id="TgE-QR-oWT"/>
                             <constraint firstItem="bn1-q7-PDi" firstAttribute="top" secondItem="lPk-UG-r1r" secondAttribute="bottom" constant="15" id="dX0-Sl-LSr"/>
                             <constraint firstItem="eDH-ZZ-XnB" firstAttribute="width" secondItem="UL4-Ry-Fmh" secondAttribute="width" id="gCw-zj-cGI"/>
-                            <constraint firstItem="UL4-Ry-Fmh" firstAttribute="bottom" secondItem="bn1-q7-PDi" secondAttribute="bottom" constant="24" id="nzx-zF-WHi"/>
+                            <constraint firstItem="MCD-al-Edz" firstAttribute="bottom" secondItem="lPk-UG-r1r" secondAttribute="top" constant="-10" id="mGs-ab-Mo9"/>
+                            <constraint firstItem="PUY-WW-Eb2" firstAttribute="bottom" secondItem="lPk-UG-r1r" secondAttribute="top" constant="-10" id="mYH-OA-gLX"/>
+                            <constraint firstItem="UL4-Ry-Fmh" firstAttribute="bottom" secondItem="bn1-q7-PDi" secondAttribute="bottom" id="nzx-zF-WHi"/>
+                            <constraint firstItem="PUY-WW-Eb2" firstAttribute="top" secondItem="eDH-ZZ-XnB" secondAttribute="bottom" id="oEr-YY-AVS"/>
+                            <constraint firstItem="MCD-al-Edz" firstAttribute="width" secondItem="zie-vU-asd" secondAttribute="width" id="q44-QV-99c"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="UL4-Ry-Fmh"/>
                     </view>
                     <navigationItem key="navigationItem" title="Skills" id="xwf-q0-c5i"/>
                     <connections>
+                        <outlet property="bContCreate" destination="lPk-UG-r1r" id="T1r-eG-X4B"/>
                         <outlet property="searchBar" destination="eDH-ZZ-XnB" id="zKf-PD-m8v"/>
                         <outlet property="tblSkillsMaster" destination="PUY-WW-Eb2" id="geR-gV-tAy"/>
                         <outlet property="tblSkillstoAdd" destination="MCD-al-Edz" id="hu6-Bi-Zzq"/>
@@ -1027,10 +1025,47 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="center" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="m0w-kY-mQG">
-                                <rect key="frame" x="81" y="637" width="200" height="40"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="254" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gqY-9K-SzH">
+                                <rect key="frame" x="58.666666666666657" y="738" width="258" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="xVW-DQ-itk"/>
+                                </constraints>
+                                <state key="normal">
+                                    <attributedString key="attributedTitle">
+                                        <fragment content="Already have an account? ">
+                                            <attributes>
+                                                <font key="NSFont" size="17" name=".AppleSystemUIFont"/>
+                                            </attributes>
+                                        </fragment>
+                                        <fragment content="Sign In!">
+                                            <attributes>
+                                                <font key="NSFont" size="17" name=".AppleSystemUIFont"/>
+                                                <integer key="NSUnderline" value="1"/>
+                                            </attributes>
+                                        </fragment>
+                                    </attributedString>
+                                </state>
+                                <connections>
+                                    <action selector="goToSignIn:" destination="1VL-es-E8o" eventType="touchUpInside" id="TaG-LF-PNK"/>
+                                </connections>
+                            </button>
+                            <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="steve" translatesAutoresizingMaskIntoConstraints="NO" id="z6A-X4-YzR" userLabel="userProfilePic">
+                                <rect key="frame" x="125.66666666666666" y="371" width="123.66666666666666" height="124"/>
+                                <gestureRecognizers/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="z6A-X4-YzR" secondAttribute="height" multiplier="1:1" id="gGq-Vd-IO8"/>
+                                </constraints>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="vn2-Kc-EJW" appends="YES" id="x36-G1-WBy"/>
+                                </connections>
+                            </imageView>
+                            <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="m0w-kY-mQG">
+                                <rect key="frame" x="87.666666666666686" y="683" width="200" height="40"/>
                                 <color key="backgroundColor" name="RoyalPurple"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="RRG-7k-Gnf"/>
+                                    <constraint firstAttribute="width" constant="200" id="j1d-q1-CNM"/>
+                                </constraints>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal">
                                     <attributedString key="attributedTitle">
@@ -1047,41 +1082,21 @@
                                     <segue destination="yfe-Rp-reX" kind="show" id="FZv-vj-79Y"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="254" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gqY-9K-SzH">
-                                <rect key="frame" x="66" y="692" width="231" height="40"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal">
-                                    <attributedString key="attributedTitle">
-                                        <fragment content="Already have an account? ">
-                                            <attributes>
-                                                <font key="NSFont" size="15" name=".AppleSystemUIFont"/>
-                                            </attributes>
-                                        </fragment>
-                                        <fragment content="Sign In!">
-                                            <attributes>
-                                                <font key="NSFont" size="15" name=".AppleSystemUIFont"/>
-                                                <integer key="NSUnderline" value="1"/>
-                                            </attributes>
-                                        </fragment>
-                                    </attributedString>
-                                </state>
-                                <connections>
-                                    <action selector="goToSignIn:" destination="1VL-es-E8o" eventType="touchUpInside" id="TaG-LF-PNK"/>
-                                </connections>
-                            </button>
-                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="steve" translatesAutoresizingMaskIntoConstraints="NO" id="z6A-X4-YzR" userLabel="userProfilePic">
-                                <rect key="frame" x="16" y="224" width="343" height="253"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <gestureRecognizers/>
-                                <connections>
-                                    <outletCollection property="gestureRecognizers" destination="vn2-Kc-EJW" appends="YES" id="x36-G1-WBy"/>
-                                </connections>
-                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="gqY-9K-SzH" firstAttribute="top" secondItem="m0w-kY-mQG" secondAttribute="bottom" constant="15" id="0k1-dn-Nke"/>
+                            <constraint firstItem="m0w-kY-mQG" firstAttribute="centerX" secondItem="cmC-94-o05" secondAttribute="centerX" id="6pZ-ko-Aga"/>
+                            <constraint firstItem="WHz-q5-uDq" firstAttribute="bottom" secondItem="gqY-9K-SzH" secondAttribute="bottom" id="9Wl-lI-YPB"/>
+                            <constraint firstItem="z6A-X4-YzR" firstAttribute="width" secondItem="cmC-94-o05" secondAttribute="width" multiplier="0.33" id="JkV-Ot-mf0"/>
+                            <constraint firstItem="gqY-9K-SzH" firstAttribute="centerX" secondItem="cmC-94-o05" secondAttribute="centerX" id="Lpg-Vl-lkt"/>
+                            <constraint firstItem="z6A-X4-YzR" firstAttribute="centerY" secondItem="WHz-q5-uDq" secondAttribute="centerY" id="SI2-xY-xAm"/>
+                            <constraint firstItem="z6A-X4-YzR" firstAttribute="centerX" secondItem="WHz-q5-uDq" secondAttribute="centerX" id="edD-jc-bCm"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="WHz-q5-uDq"/>
                     </view>
                     <connections>
+                        <outlet property="bContCreate" destination="m0w-kY-mQG" id="25j-yC-1v0"/>
                         <outlet property="userProfilePic" destination="z6A-X4-YzR" id="EWV-z8-FeT"/>
                     </connections>
                 </viewController>
@@ -1450,17 +1465,52 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Submit additional documents to helpr email at applications@helpr.ca" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BVG-q2-16q">
-                                <rect key="frame" x="30" y="385.66666666666669" width="315" height="40.666666666666686"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BVG-q2-16q">
+                                <rect key="frame" x="15" y="402.66666666666669" width="345" height="60.666666666666686"/>
+                                <attributedString key="attributedText">
+                                    <fragment content="Submit additional skill certification documents to helpr email at ">
+                                        <attributes>
+                                            <font key="NSFont" metaFont="system" size="17"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content="applications@helpr.ca">
+                                        <attributes>
+                                            <font key="NSFont" size="17" name=".SFNSText"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="center" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hQE-ut-s6p">
-                                <rect key="frame" x="76" y="676" width="200" height="40"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="254" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4ye-RS-Kgl">
+                                <rect key="frame" x="58.666666666666657" y="745.66666666666663" width="258" height="32.333333333333371"/>
+                                <state key="normal">
+                                    <attributedString key="attributedTitle">
+                                        <fragment content="Already have an account? ">
+                                            <attributes>
+                                                <font key="NSFont" size="17" name=".AppleSystemUIFont"/>
+                                            </attributes>
+                                        </fragment>
+                                        <fragment content="Sign In!">
+                                            <attributes>
+                                                <font key="NSFont" size="17" name=".AppleSystemUIFont"/>
+                                                <integer key="NSUnderline" value="1"/>
+                                            </attributes>
+                                        </fragment>
+                                    </attributedString>
+                                </state>
+                                <connections>
+                                    <action selector="goToSignIn:" destination="1VL-es-E8o" eventType="touchUpInside" id="Jw5-JA-720"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hQE-ut-s6p">
+                                <rect key="frame" x="87.666666666666686" y="690.66666666666663" width="200" height="40"/>
                                 <color key="backgroundColor" name="RoyalPurple"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="7cY-xl-Yrb"/>
+                                    <constraint firstAttribute="height" constant="40" id="bp1-kZ-6Jn"/>
+                                </constraints>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal">
                                     <attributedString key="attributedTitle">
@@ -1477,36 +1527,27 @@
                                     <action selector="registerUser:" destination="yfe-Rp-reX" eventType="touchUpInside" id="ucA-rT-8tj"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="254" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4ye-RS-Kgl">
-                                <rect key="frame" x="61" y="731" width="231" height="40"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal">
-                                    <attributedString key="attributedTitle">
-                                        <fragment content="Already have an account? ">
-                                            <attributes>
-                                                <font key="NSFont" size="15" name=".AppleSystemUIFont"/>
-                                            </attributes>
-                                        </fragment>
-                                        <fragment content="Sign In!">
-                                            <attributes>
-                                                <font key="NSFont" size="15" name=".AppleSystemUIFont"/>
-                                                <integer key="NSUnderline" value="1"/>
-                                            </attributes>
-                                        </fragment>
-                                    </attributedString>
-                                </state>
-                                <connections>
-                                    <action selector="goToSignIn:" destination="1VL-es-E8o" eventType="touchUpInside" id="Jw5-JA-720"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="4ye-RS-Kgl" firstAttribute="centerX" secondItem="AYj-1v-rUA" secondAttribute="centerX" id="BJ6-hl-5RN"/>
+                            <constraint firstItem="BVG-q2-16q" firstAttribute="leading" secondItem="AYj-1v-rUA" secondAttribute="leading" constant="15" id="Ewo-eu-jhh"/>
+                            <constraint firstItem="BVG-q2-16q" firstAttribute="centerX" secondItem="AYj-1v-rUA" secondAttribute="centerX" id="KyK-eU-FsQ"/>
+                            <constraint firstItem="AYj-1v-rUA" firstAttribute="trailing" secondItem="BVG-q2-16q" secondAttribute="trailing" constant="15" id="S5B-w0-r9B"/>
+                            <constraint firstItem="BVG-q2-16q" firstAttribute="centerY" secondItem="AYj-1v-rUA" secondAttribute="centerY" id="jM3-Jk-r9d"/>
+                            <constraint firstItem="4ye-RS-Kgl" firstAttribute="top" secondItem="hQE-ut-s6p" secondAttribute="bottom" constant="15" id="kQN-93-9FR"/>
+                            <constraint firstItem="hQE-ut-s6p" firstAttribute="centerX" secondItem="AYj-1v-rUA" secondAttribute="centerX" id="rKz-Qp-EUi"/>
+                            <constraint firstItem="AYj-1v-rUA" firstAttribute="bottom" secondItem="4ye-RS-Kgl" secondAttribute="bottom" id="wPz-2x-eKT"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="AYj-1v-rUA"/>
                     </view>
+                    <connections>
+                        <outlet property="bFinishCreate" destination="hQE-ut-s6p" id="J90-dh-AQ9"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tkO-PA-kEg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3530" y="2093"/>
+            <point key="canvasLocation" x="-3530.4000000000001" y="2092.6108374384239"/>
         </scene>
         <!--Create Post-->
         <scene sceneID="dFz-Hg-siA">

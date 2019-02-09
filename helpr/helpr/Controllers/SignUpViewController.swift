@@ -15,7 +15,7 @@ class SignUpViewController: UIViewController {
     @IBOutlet weak var lEmail: UITextField!
     @IBOutlet weak var lPassword: UITextField!
     @IBOutlet weak var lConfirmPass: UITextField!
-    @IBOutlet weak var bCreateAccount: UIButton!
+    @IBOutlet weak var bContCreate: UIButton!
     @IBOutlet weak var scrollView: UIScrollView!
     var userProfilePic = UIImage()
     
@@ -27,10 +27,9 @@ class SignUpViewController: UIViewController {
         scrollView.contentSize = CGSize(width: width, height: height)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
-        bCreateAccount.backgroundColor = UIColor(named: "RoyalPurple")
-        bCreateAccount.layer.borderColor = UIColor(named: "RoyalPurple")?.cgColor
-        bCreateAccount.layer.cornerRadius = 5
-        bCreateAccount.layer.borderWidth = 2
+        bContCreate.layer.borderColor = UIColor(named: "RoyalPurple")?.cgColor
+        bContCreate.layer.cornerRadius = 5
+        bContCreate.layer.borderWidth = 2
         
         lFullName.setBottomBorder()
         lEmail.setBottomBorder()
@@ -68,7 +67,6 @@ class SignUpViewController: UIViewController {
         guard let jobViewController = segue.destination as? AddSkillsViewController else {
             fatalError("Unexpected destination: \(segue.destination)")
         }
-        
         jobViewController.signUpParent = self
     }
 }
@@ -79,13 +77,20 @@ class AddSkillsViewController: UIViewController, UITableViewDelegate, UITableVie
     @IBOutlet weak var tblSkillstoAdd: UITableView!
     @IBOutlet weak var tblSkillsMaster: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet weak var bContCreate: UIButton!
     
     var skills = ["Aesthetician","Animal Grooming", "Barber (Men)", "Basic Auto Repair", "Household Cleaning", "Java", "Plumbing", "Swift"]
     var filteredSkills = [String]()
+    var skillstoAdd : [String] = []
     let searchController = UISearchController(searchResultsController: nil)
     var isSearching = false
     
     override func viewDidLoad() {
+        
+        bContCreate.layer.borderColor = UIColor(named: "RoyalPurple")?.cgColor
+        bContCreate.layer.cornerRadius = 5
+        bContCreate.layer.borderWidth = 2
+        
         searchBar.delegate = self
         
         tblSkillsMaster.accessibilityIdentifier = "tblSkillsMaster"
@@ -95,21 +100,43 @@ class AddSkillsViewController: UIViewController, UITableViewDelegate, UITableVie
         tblSkillsMaster.dataSource = self
         tblSkillstoAdd.delegate = self
         tblSkillstoAdd.dataSource = self
+        
+        tblSkillsMaster.tableFooterView = UIView()
+        tblSkillstoAdd.tableFooterView = UIView()
     }
-    
+/*
+    @IBAction func btnContinue(_ sender: UIButton) {
+        if skillstoAdd.count > 0 {
+            let nextViewController = AddPhotoViewController()
+            nextViewController.signUpParent = signUpParent
+            present(nextViewController, animated: true, completion: nil)
+        } else {
+            let alert = UIAlertController(title: "No Skills Added", message: "If you proceed without adding any skills, you may not be considered as a potential Helpr for jobs posted by users. Are you sure you want to continue?", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "OK", style: UIAlertAction.Style.default) { (UIAlertAction) in
+                let nextViewController = AddPhotoViewController()
+                nextViewController.signUpParent = self.signUpParent!
+                self.present(nextViewController, animated: true, completion: nil)
+            }
+            alert.addAction(okAction)
+            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
+*/
     func searchBarIsEmpty() -> Bool {
         return searchBar.text?.isEmpty ?? true
     }
     
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+    }
+    
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        print("Text Did Change Called")
         if searchBarIsEmpty() {
             isSearching = false
-            view.endEditing(true)
             tblSkillsMaster.isHidden = true
             tblSkillstoAdd.isHidden = false
             tblSkillstoAdd.reloadData()
-            print("Search bar empty")
         }
         else {
             isSearching = true
@@ -117,7 +144,6 @@ class AddSkillsViewController: UIViewController, UITableViewDelegate, UITableVie
             tblSkillstoAdd.isHidden = true
             filteredSkills = skills.filter({$0.contains(searchText)})
         tblSkillsMaster.reloadData()
-            print("Search bar has content: \(searchText)")
         }
     }
     
@@ -130,11 +156,35 @@ class AddSkillsViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if isSearching {
-            return filteredSkills.count
+        if !tblSkillsMaster.isHidden {
+            if isSearching {
+                return filteredSkills.count
+            }
+            else {
+                return skills.count
+            }
+        } else {
+            return skillstoAdd.count
         }
-        else {
-            return skills.count
+    }
+    
+    func tableView( _ tableView : UITableView,  titleForHeaderInSection section: Int)->String {
+        switch (tableView.accessibilityIdentifier) {
+        case "tblSkillsMaster":
+            return "Choose a skill from the table below:"
+        case "tblSkillstoAdd":
+            return "Your qualified skills (swipe left to remove)"
+        default:
+            return ""
+        }
+    }
+    
+    //change UITableView section header text color to RoyalPurple
+     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        if let headerView = view as? UITableViewHeaderFooterView {
+            //headerView.contentView.backgroundColor = .white
+            headerView.textLabel?.textColor = UIColor.init(named: "RoyalPurple")
+            
         }
     }
     
@@ -142,42 +192,69 @@ class AddSkillsViewController: UIViewController, UITableViewDelegate, UITableVie
         let cell : UITableViewCell
             if tableView.accessibilityIdentifier == "tblSkillsMaster" {
             cell = tableView.dequeueReusableCell(withIdentifier: "skillMasterCell", for: indexPath)
+                
+                if isSearching {
+                    cell.textLabel?.text = filteredSkills[indexPath.item]
+                }
+                else {
+                    cell.textLabel?.text = skills[indexPath.item]
+                }
         }
         else {
             cell = tableView.dequeueReusableCell(withIdentifier: "skillAddCell", for: indexPath)
+                if skillstoAdd.count > 0 {
+                    cell.textLabel?.text = skillstoAdd[indexPath.item]
+                }
         }
         
-        if isSearching {
-            cell.textLabel?.text = filteredSkills[indexPath.item]
-        }
-        else {
-            cell.textLabel?.text = skills[indexPath.item]
-        }
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if isSearching {
+            skillstoAdd.append(filteredSkills[indexPath.item])
+            tblSkillsMaster.isHidden = true
+            tblSkillstoAdd.isHidden = false
+            isSearching = false
+            searchBar.text = ""
+            tblSkillstoAdd.reloadData()
+        }
+    }
+    
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return true
+        switch (tableView.accessibilityIdentifier) {
+        case "tblSkillsMaster":
+            return false
+        case "tblSkillstoAdd":
+            return true
+        default:
+            return false
+        }
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if (editingStyle == .delete) {
-            skills.remove(at: indexPath.item)
-            tableView.deleteRows(at: [indexPath], with: .automatic)
+            skillstoAdd.remove(at: indexPath.item)
+            tblSkillstoAdd.deleteRows(at: [indexPath], with: .automatic)
+            tblSkillstoAdd.reloadData()
         }
-    }
-}
-
-extension AddSkillsViewController: UISearchResultsUpdating {
-    func updateSearchResults(for searchController: UISearchController) {
-        let searchBar = searchController.searchBar
-        
     }
 }
 
 class AddPhotoViewController: UIViewController {
     var signUpParent: SignUpViewController?
     @IBOutlet weak var userProfilePic: UIImageView!
+    @IBOutlet weak var bContCreate: UIButton!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        bContCreate.layer.borderColor = UIColor(named: "RoyalPurple")?.cgColor
+        bContCreate.layer.cornerRadius = 5
+        bContCreate.layer.borderWidth = 2
+        userProfilePic.layer.cornerRadius = userProfilePic.frame.width / 2
+        
+    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let jobViewController = segue.destination as? FinishSignUpViewController else {
@@ -221,12 +298,22 @@ class AddPhotoViewController: UIViewController {
 
 class FinishSignUpViewController : UIViewController {
     
+    @IBOutlet weak var bFinishCreate: UIButton!
+    
     var database = DatabaseHelper()
     var storage = StorageHelper()
     var signUpParent = SignUpViewController()
     var dataToSave: [String: Any] = [:]
     var profilePic: UIImage? = nil
     var picRef: String = ""
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        bFinishCreate.layer.borderColor = UIColor(named: "RoyalPurple")?.cgColor
+        bFinishCreate.layer.cornerRadius = 5
+        bFinishCreate.layer.borderWidth = 2
+    }
     
     @IBAction func registerUser(_ sender: Any) {
         let email = signUpParent.lEmail.text!

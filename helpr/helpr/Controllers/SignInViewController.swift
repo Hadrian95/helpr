@@ -27,13 +27,10 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         
-//        bLogIn.layer.cornerRadius = 5
-//        bLogIn.layer.borderWidth = 2
-//        bLogIn.layer.borderColor = UIColor(named: "RoyalPurple")?.cgColor
-//
-//        bSignUp.layer.cornerRadius = 5
-//        bSignUp.layer.borderWidth = 2
-//        bSignUp.layer.borderColor = UIColor(named: "RoyalPurple")?.cgColor
+        
+        bLogIn.layer.cornerRadius = 5
+        bLogIn.layer.borderWidth = 2
+        bLogIn.layer.borderColor = UIColor(named: "RoyalPurple")?.cgColor
         
         
         emailField.setBottomBorder()
