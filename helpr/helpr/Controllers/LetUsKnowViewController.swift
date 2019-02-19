@@ -20,7 +20,7 @@ class LetUsKnowViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
         let user = Auth.auth().currentUser
         if user != nil {
-            welcomeLabel.text = "Welcome back, " //+ user!.displayName!.components(separatedBy: " ")[0] + "!"
+            welcomeLabel.text = "Welcome back, Walter!" //+ user!.displayName!.components(separatedBy: " ")[0] + "!"
             bSignIn.setTitle("Switch account?" , for: .normal)
             //print(user!.displayName! + " signed in.")
         }else{
@@ -37,3 +37,27 @@ class LetUsKnowViewController: UIViewController {
 
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
