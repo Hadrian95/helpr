@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		07CC40299CA7CB3E13D65F13 /* Pods_helprUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A8EE5AF38649B14AE9F4E60D /* Pods_helprUITests.framework */; };
 		4576E8B42188CA0000471AB4 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4576E8B32188CA0000471AB4 /* SignInViewController.swift */; };
-		4576E8B62188D57F00471AB4 /* LetUsKnowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4576E8B52188D57F00471AB4 /* LetUsKnowViewController.swift */; };
+		4576E8B62188D57F00471AB4 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4576E8B52188D57F00471AB4 /* WelcomeViewController.swift */; };
 		4576E8B82188D84100471AB4 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4576E8B72188D84100471AB4 /* SignUpViewController.swift */; };
 		4576E8BA2188EE6500471AB4 /* HomeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4576E8B92188EE6500471AB4 /* HomeTableViewController.swift */; };
 		4576E8BC2188EEAB00471AB4 /* JobsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4576E8BB2188EEAB00471AB4 /* JobsTableViewController.swift */; };
@@ -84,7 +84,7 @@
 		211C60FF439485F603E623F7 /* Pods-helpr.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-helpr.release.xcconfig"; path = "Pods/Target Support Files/Pods-helpr/Pods-helpr.release.xcconfig"; sourceTree = "<group>"; };
 		25E29A2DDF90AD012E7AF544 /* Pods-helprTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-helprTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-helprTests/Pods-helprTests.release.xcconfig"; sourceTree = "<group>"; };
 		4576E8B32188CA0000471AB4 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
-		4576E8B52188D57F00471AB4 /* LetUsKnowViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LetUsKnowViewController.swift; sourceTree = "<group>"; };
+		4576E8B52188D57F00471AB4 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		4576E8B72188D84100471AB4 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		4576E8B92188EE6500471AB4 /* HomeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewController.swift; sourceTree = "<group>"; };
 		4576E8BB2188EEAB00471AB4 /* JobsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobsTableViewController.swift; sourceTree = "<group>"; };
@@ -226,7 +226,7 @@
 				4576E8B92188EE6500471AB4 /* HomeTableViewController.swift */,
 				CA12A384218962C50063ED97 /* JobDetailsViewController.swift */,
 				4576E8BB2188EEAB00471AB4 /* JobsTableViewController.swift */,
-				4576E8B52188D57F00471AB4 /* LetUsKnowViewController.swift */,
+				4576E8B52188D57F00471AB4 /* WelcomeViewController.swift */,
 				55C56ABA220A2DD900B81E8C /* MessageTableViewController.swift */,
 				4576E8BD2188EEBD00471AB4 /* MessagesTableViewControllerOld.swift */,
 				4576E8BF2188F22200471AB4 /* MyTabBarViewController.swift */,
@@ -644,7 +644,7 @@
 				4576E8BE2188EEBD00471AB4 /* MessagesTableViewControllerOld.swift in Sources */,
 				55C56ABD220A2E6B00B81E8C /* MessageTableViewCell.swift in Sources */,
 				AC3604CD21AB46FB0004B219 /* UIViewController+AuthError.swift in Sources */,
-				4576E8B62188D57F00471AB4 /* LetUsKnowViewController.swift in Sources */,
+				4576E8B62188D57F00471AB4 /* WelcomeViewController.swift in Sources */,
 				CA2F725521A368C900AAF19F /* ChangePasswordViewController.swift in Sources */,
 				4598BC9421A8B3640058096B /* CategoriesTableViewController.swift in Sources */,
 				F783AB0221791E5B0010F034 /* AppDelegate.swift in Sources */,

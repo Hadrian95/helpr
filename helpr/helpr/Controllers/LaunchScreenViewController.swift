@@ -13,7 +13,6 @@ class LaunchScreenViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         loadJobs()
-
         // Do any additional setup after loading the view.
     }
     
@@ -31,13 +30,13 @@ class LaunchScreenViewController: UIViewController {
     private func loadJobs(){
         let database = DatabaseHelper()
         
-        database.readJobs(){ jobs in
+        //database.readJobs(){ jobs in
+        database.getJobs(){ jobs in
             HomeTableViewController.jobs = jobs
             let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
             
-            let nextViewController = storyBoard.instantiateViewController(withIdentifier: "StartScreen") as! LetUsKnowViewController
+            let nextViewController = storyBoard.instantiateViewController(withIdentifier: "StartScreen") as! WelcomeViewController
             self.present(nextViewController, animated:false, completion:nil)
         }
     }
-    
 }

@@ -24,7 +24,7 @@ class MyTabBarViewController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        getCurrentProfile()
+//        getCurrentProfile()
         
         // Do any additional setup after loading the view.
 //        if let count = self.tabBar.items?.count {
@@ -44,22 +44,16 @@ class MyTabBarViewController: UITabBarController {
         //UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor: selectedColor], for: .selected)
     }
     
-    func loadProfilePicture(){
-        storage.loadProfilePicture(picRef: picRef){ image in
-            UserProfile.profilePic = image
-        }
-    }
-    
-    func getCurrentProfile() {
-        database.getUser() { (user) -> () in
-            UserProfile.name = user!.name
-            UserProfile.email = user!.email
-            UserProfile.skills = user!.skills
-            self.storage.loadProfilePicture(picRef: user!.picRef){ image in
-                UserProfile.profilePic = image
-            }
-        }
-    }
+//    func getCurrentProfile() {
+//        database.getUser() { (user) -> () in
+//            UserProfile.name = user!.name
+//            UserProfile.email = user!.email
+//            UserProfile.skills = user!.skills
+//            self.storage.loadProfilePicture(picRef: user!.picRef){ image in
+//                UserProfile.profilePic = image
+//            }
+//        }
+//    }
     
 
     /*

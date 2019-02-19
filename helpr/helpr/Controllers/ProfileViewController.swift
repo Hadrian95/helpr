@@ -30,7 +30,7 @@ class ProfileViewController: UIViewController {
         if Auth.auth().currentUser == nil {
             // User is not signed in.
             if let storyboard = self.storyboard {
-                let vc = storyboard.instantiateViewController(withIdentifier: "StartScreen") as! LetUsKnowViewController
+                let vc = storyboard.instantiateViewController(withIdentifier: "StartScreen") as! WelcomeViewController
                 self.present(vc, animated: true, completion: nil)
             }
         }else{

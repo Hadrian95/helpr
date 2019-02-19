@@ -337,7 +337,7 @@ class FinishSignUpViewController : UIViewController {
         }
     
         if let storyboard = self.storyboard {
-            let vc = storyboard.instantiateViewController(withIdentifier: "TabBarViewController") as! MyTabBarViewController
+            let vc = storyboard.instantiateViewController(withIdentifier: "StartScreen") as! WelcomeViewController
             self.dismiss(animated: true, completion: nil)
             self.present(vc, animated: true, completion: nil)
         }

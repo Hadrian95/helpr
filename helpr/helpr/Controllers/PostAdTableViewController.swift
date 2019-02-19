@@ -10,6 +10,7 @@ import UIKit
 import os.log
 import MapKit
 import CoreLocation
+import FirebaseAuth
 
 class PostAdTableViewController: UITableViewController, UITextViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, MKMapViewDelegate, CLLocationManagerDelegate, MKLocalSearchCompleterDelegate {
     
@@ -173,7 +174,8 @@ class PostAdTableViewController: UITableViewController, UITextViewDelegate, UICo
         let category = lCategory.text
         let title = tfTitle.text ?? "Untitled Post"
         let description = tvDescription.text ?? "No description provided"
-        let tags = tfTags.text ?? ""
+        // let tags = tfTags.text ?? ""
+        let tags = ["iOS", "Yeet", "YOLO", "Y DID I SIGN UP FOR DIS"]
         let pictures = postPhotos
         
         // Set the job to be passed to HomeTableViewController after the unwind segue.
@@ -182,44 +184,33 @@ class PostAdTableViewController: UITableViewController, UITextViewDelegate, UICo
             HomeTableViewController.jobs.append(job!)
             
             let storage = StorageHelper()
+            let database = DatabaseHelper()
+            let userID = Auth.auth().currentUser?.uid
+            let jobID = NSUUID().uuidString // generate job id for db
             
-            storage.saveImages(job: job!, imagesArray: pictures, createJob: true)
-            HomeTableViewController.jobs.append(job!)
+            job?.information.id = jobID
             
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "loadJobs"), object: nil)
+            storage.saveImages(job: job!, imagesArray: pictures, createJob: true, jobID: jobID)
+            // HomeTableViewController.jobs.append(job!)
             
-            exitPostAd(postBtn)
-            tabBarController?.selectedIndex = 0
+            let dataToSave = ["category": category, "description": description, "location": tfLocation.text, "postedTime": Date(), "posterID": userID, "title": title, "pictureURLs": job?.information.pictures] as [String : Any]
+            database.addJobInformation(dataToSave: dataToSave, tags: tags, jobID: jobID) { (error) in
+                if error != nil {
+                    print(error!._code)
+                    self.handleError(error!)
+                }else {
+                    self.exitPostAd(self.postBtn)
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "loadJobs"), object: nil)
+                    self.navigationController?.popViewController(animated: true)
+                    self.tabBarController?.selectedIndex = 0
+                }
+            }
         }
-            //title or category were not provided
+        //title or category were not provided
         else {
-            let category = lCategory.text
-            let title = tfTitle.text ?? "Untitled Post"
-            let description = tvDescription.text ?? "No description provided"
-            let tags = tfTags.text ?? ""
-            let pictures = postPhotos
-            
-            // Set the job to be passed to HomeTableViewController after the unwind segue.
-            if (category?.trimmingCharacters(in: .whitespaces) != "") && (title.trimmingCharacters(in: .whitespaces) != "") {
-                job = Job(title: title, category: category!, description: description, pictureURLs: [], tags: [], distance: 10, postalCode: "WH0CR5", postedTime: Date(), email: (UserProfile.email))
-                
-                let storage = StorageHelper()
-                
-                storage.saveImages(job: job!, imagesArray: pictures, createJob: true)
-                HomeTableViewController.jobs.append(job!)
-                
-                
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "loadJobs"), object: nil)
-                
-                exitPostAd(postBtn)
-                navigationController?.popViewController(animated: true)
-            }
-                //title or category were not provided
-            else {
-                let alert = UIAlertController(title: "Insufficient Info Provided", message: "Please provide at minimum a category and title for your post to help find suitable Helprs for your needs.", preferredStyle: UIAlertController.Style.alert)
-                alert.addAction(UIAlertAction(title: "Retry", style: UIAlertAction.Style.default, handler: nil))
-                self.present(alert, animated: true, completion: nil)
-            }
+            let alert = UIAlertController(title: "Insufficient Info Provided", message: "Please provide at minimum a category and title for your post to help find suitable Helprs for your needs.", preferredStyle: UIAlertController.Style.alert)
+            alert.addAction(UIAlertAction(title: "Retry", style: UIAlertAction.Style.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
         }
     }
     

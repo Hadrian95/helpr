@@ -111,7 +111,7 @@ class SettingsTableViewController: UITableViewController {
         do {
             try firebaseAuth.signOut()
             if let storyboard = self.storyboard {
-                let vc = storyboard.instantiateViewController(withIdentifier: "StartScreen") as! LetUsKnowViewController
+                let vc = storyboard.instantiateViewController(withIdentifier: "StartScreen") as! WelcomeViewController
                 self.present(vc, animated: false, completion: nil)
             }
             

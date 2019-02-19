@@ -13,6 +13,7 @@ class DatabaseHelper {
     var ref: DatabaseReference!
     var storage = StorageHelper()
     var docRef: DocumentReference!
+    var colRef: CollectionReference!
     var db: Firestore!
     var jobs: [Job]
     init() {
@@ -33,6 +34,31 @@ class DatabaseHelper {
         }
     }
     
+    func addJobInformation(dataToSave: [String: Any], tags: [String], jobID: String, completion: @escaping (Error?) -> ()) {
+        let userID = dataToSave["posterID"] as! String
+        
+        docRef = db.collection("jobs").document(jobID)
+        docRef.setData(dataToSave) { (error) in
+            if error != nil {
+                print("Error adding data to jobs collection")
+                completion(nil)
+            }else{
+                print("Data has been successfully added!")
+                completion(error)
+            }
+        }
+        
+        colRef = db.collection("jobs").document(jobID).collection("tags")
+        for tag in tags {
+            docRef = colRef.document(tag)
+        }
+        
+        colRef = db.collection("users").document(userID).collection("posts")
+        docRef = colRef.document(jobID)
+        docRef.setData(["completed": false])
+    }
+    
+    
     func addUserInformation(dataToSave: [String: Any], photoURL: String?, completion: @escaping (Error?) -> ()) {
         let userID = Auth.auth().currentUser?.uid
         docRef = db.collection("users").document(userID!)
@@ -45,24 +71,6 @@ class DatabaseHelper {
                 completion(error)
             }
         }
-//        if let user = user {
-//            let changeRequest = user.createProfileChangeRequest()
-//
-//            changeRequest.displayName = name
-//            if photoURL != nil {
-//                changeRequest.photoURL =
-//                    NSURL(string: photoURL!)! as URL
-//            }
-//
-//            changeRequest.commitChanges { error in
-//                if error == nil {
-//                    completion(nil)
-//                }else{
-//                    print("Cannot add to account" + error.debugDescription)
-//                    completion(error)
-//                }
-//            }
-//        }
     }
     
     func getUser(completion: @escaping (UserInfo?) -> () ) {
@@ -83,10 +91,31 @@ class DatabaseHelper {
         }
     }
     
-    func writeJob(job:Job) {
-        let data = try! FirebaseEncoder().encode(job.information)
-        self.ref.child("jobs").child(job.information.id).setValue(data)
-
+    func getJobs(completion: @escaping ([Job]) -> () )  {
+        var jobs = [Job]()
+        
+        db.collection("jobs").getDocuments() { (querySnapshot, err) in
+            if let err = err {
+                print("Error getting documents: \(err)")
+            } else {
+                for document in querySnapshot!.documents {
+                    let job = Job (
+                        title: document.data()["title"]! as! String,
+                        category: document.data()["category"]! as! String,
+                        description: document.data()["description"]! as! String,
+                        pictureURLs: document.data()["pictureURLs"]! as! [String],
+                        tags: ["#iPhone", "#Swift", "#Apple"],
+                        distance: 0,
+                        postalCode: "T3A 1B6",
+                        postedTime: document.data()["postedTime"]! as! Date,
+                        email: (Auth.auth().currentUser?.email)!)
+                    let storage = StorageHelper()
+                    storage.loadImages(job: job!)
+                    jobs.append(job!)
+                }
+                completion(jobs)
+            }
+        }
     }
     
     func readJobs(completion: @escaping ([Job]) -> ()){
@@ -110,23 +139,4 @@ class DatabaseHelper {
             print(error.localizedDescription)
         }
     }
-
-//    func getLatestJobFromFirebase(completion: @escaping (_ job:[Dictionary<String, Any>]) -> Swift.Void)
-//    {
-//        ref.child("jobs").queryLimited(toLast: 5).observeSingleEvent(of: .value, with: { (snapshot) in
-//            // Get user value
-//            for snap in snapshot.children.allObjects as! [DataSnapshot] {
-//                if snap.exists() {
-//                    if let dict = snap.value as? [String: Any] {
-//                        completion(dict)
-//                    }
-//                }
-//            }
-//        })
-//        { (error) in
-//            print(error.localizedDescription)
-//        }
-//
-//    }
-//
 }

@@ -25,14 +25,10 @@ class StorageHelper{
         return storageRef.child("jobPictures").child(job.information.id)
     }
     
-    func saveImages(job: Job, imagesArray : [UIImage], createJob: Bool){
+    func saveImages(job: Job, imagesArray : [UIImage], createJob: Bool, jobID: String){
         job.pictureData = imagesArray
-        uploadImages(root: "jobPictures", ID: job.information.id, imagesArray : imagesArray){ (uploadedImageUrlsArray) in
+        uploadImages(root: "jobPictures", ID: jobID, imagesArray : imagesArray){ (uploadedImageUrlsArray) in
             job.information.pictures = uploadedImageUrlsArray
-            if createJob {
-                let database = DatabaseHelper()
-                database.writeJob(job: job)
-            }
         }
     }
     
@@ -56,7 +52,6 @@ class StorageHelper{
         let imagesCount = images.count
         
         for image in images {
-            
             let ref = storageRef.child(image)
             let downloadData = ref.getData(maxSize: 15 * 1024 * 1024){ (data, error) in
                 if error != nil{
@@ -185,23 +180,14 @@ class StorageHelper{
     func loadProfilePicture(picRef: String, completion: @escaping (UIImage) -> ()){
         let reference = getProfilePictureReference().child(picRef)
         print("ref \(reference)")
-        //let image: UIImage? = FileHelpers.load(path: reference.fullPath)
-        //print("\(image)")
-        //if  image == nil {
-            reference.getData(maxSize: 15 * 1024 * 1024) { data, error in
-                if let error = error {
-                    // Uh-oh, an error occurred!
-                    print(error.localizedDescription)
-                } else {
-                    //let path = FileHelpers.save(image: UIImage(data: data!)!, path: reference.fullPath)
-                    completion(UIImage(data: data!)!)
-                }
-            }
-        //}else{
-          //  completion(image!)
-        //}
         
+        reference.getData(maxSize: 15 * 1024 * 1024) { data, error in
+            if let error = error {
+                // Uh-oh, an error occurred!
+                print(error.localizedDescription)
+            } else {
+                completion(UIImage(data: data!)!)
+            }
+        }
     }
-
-    
 }

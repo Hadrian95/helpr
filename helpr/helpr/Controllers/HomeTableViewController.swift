@@ -149,25 +149,25 @@ class HomeTableViewController: UITableViewController, UISearchResultsUpdating{
     
 
         
-    private func loadSampleJobs() {
-        guard let job1 = Job(title: "Internet Help", category: "Technology", description: "New Post", pictureURLs: [], tags: [], distance: 5, postalCode: "T2Y 4K7", postedTime: Date(), email: "hilmi@madebyhilmi.com") else {
-                fatalError("Unable to instantiate job1")
-        }
-        guard let job2 = Job(title: "Desperate Cleaning", category: "Cleaning", description: "Trashed place needs super cleaning! Will pay well", pictureURLs: [], tags: [], distance: 7, postalCode: "2Y 4K7", postedTime: Date(), email: "hilmi@madebyhilmi.com") else {
-            fatalError("Unable to instantiate job2")
-        }
-        guard let job3 = Job(title: "Long Story Short Internet Need Help", category: "Technology", description: "My router and modem need a new mesh network for the big data protocol that Google installed in my house last week. I need help.", pictureURLs: [], tags: [], distance: 3, postalCode: "T2Y 4K7", postedTime: Date(), email: "hilmi@madebyhilmi.com") else {
-            fatalError("Unable to instantiate job3")
-        }
-        
-        HomeTableViewController.jobs += [job1,job2,job3,job1,job2,job3,job1]
-        
-        let storage = StorageHelper()
-        storage.saveImages(job: job1, imagesArray: [UIImage(named: "comphelp")!], createJob: true)
-        storage.saveImages(job: job2, imagesArray: [UIImage(named: "cleaning")!], createJob: true)
-        storage.saveImages(job: job3, imagesArray: [UIImage(named: "comphelp")!], createJob: true)
-        
-    }
+//    private func loadSampleJobs() {
+//        guard let job1 = Job(title: "Internet Help", category: "Technology", description: "New Post", pictureURLs: [], tags: [], distance: 5, postalCode: "T2Y 4K7", postedTime: Date(), email: "hilmi@madebyhilmi.com") else {
+//                fatalError("Unable to instantiate job1")
+//        }
+//        guard let job2 = Job(title: "Desperate Cleaning", category: "Cleaning", description: "Trashed place needs super cleaning! Will pay well", pictureURLs: [], tags: [], distance: 7, postalCode: "2Y 4K7", postedTime: Date(), email: "hilmi@madebyhilmi.com") else {
+//            fatalError("Unable to instantiate job2")
+//        }
+//        guard let job3 = Job(title: "Long Story Short Internet Need Help", category: "Technology", description: "My router and modem need a new mesh network for the big data protocol that Google installed in my house last week. I need help.", pictureURLs: [], tags: [], distance: 3, postalCode: "T2Y 4K7", postedTime: Date(), email: "hilmi@madebyhilmi.com") else {
+//            fatalError("Unable to instantiate job3")
+//        }
+//        
+//        HomeTableViewController.jobs += [job1,job2,job3,job1,job2,job3,job1]
+//        
+//        let storage = StorageHelper()
+//        storage.saveImages(job: job1, imagesArray: [UIImage(named: "comphelp")!], createJob: true)
+//        storage.saveImages(job: job2, imagesArray: [UIImage(named: "cleaning")!], createJob: true)
+//        storage.saveImages(job: job3, imagesArray: [UIImage(named: "comphelp")!], createJob: true)
+//        
+//    }
 
     
     // MARK: - Navigation

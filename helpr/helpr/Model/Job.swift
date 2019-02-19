@@ -11,11 +11,11 @@ import MapKit
 import Firebase
 import CodableFirebase
 
-class Job{
+class Job {
     
     //MARK: Properties
     var information: JobInformation
-    var pictureData: [UIImage]
+    var pictureData: [UIImage] // contains actual post pictures
     
     
     //MARK: Initialization
@@ -23,16 +23,14 @@ class Job{
         
         information = JobInformation(title: title, category: category, description: description, pictures: pictureURLs, tags: tags, distance: distance, postalCode: postalCode, postedTime: postedTime, email: email)!
         
-        pictureData = [UIImage(named: "defaultPhoto")!]
+        pictureData = []
     }
     
     init?(jobInformation: JobInformation) {
         information = jobInformation
-        pictureData = [UIImage(named: "defaultPhoto")!]
-
+        pictureData = []
     }
     
-
     func getPictures() -> [UIImage?]{
         var UIImagePictures = [UIImage?]()
         if (!information.pictures.isEmpty) {
@@ -61,6 +59,4 @@ class Job{
         }
         return UIImagePictures
     }
-
-    
 }

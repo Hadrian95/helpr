@@ -10,14 +10,13 @@ import UIKit
 import Firebase
 import CodableFirebase
 
-
 class JobInformation: Codable {
     //MARK: Properties
     
     var title: String
     var category: String
     var postDescription: String
-    var pictures = [String?]()
+    var pictures = [String?]() // contains urls for images
     var tags = [String?]()
     var distance: Int
     var postalCode: String
@@ -27,12 +26,13 @@ class JobInformation: Codable {
     var id: String
     
     //MARK: Initialization
+    
     init?(title: String, category: String, description: String, pictures: [String?], tags: [String], distance: Int, postalCode: String, postedTime: Date, email: String) {
         self.title = title
         self.category = category
         self.postDescription = description
         self.email = email
-        self.pictures = ["test url"]
+        self.pictures = pictures
         if (!tags.isEmpty){
             self.tags = tags
         }else {
@@ -49,9 +49,5 @@ class JobInformation: Codable {
         self.postedTime = postedTime
         
         self.id = UUID().uuidString
-        
-        
-        
     }
-    
 }

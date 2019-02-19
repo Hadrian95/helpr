@@ -408,7 +408,7 @@
         <!--LetUsKnow-->
         <scene sceneID="AvH-jO-z1X">
             <objects>
-                <viewController storyboardIdentifier="StartScreen" id="yKZ-tV-7zm" userLabel="LetUsKnow" customClass="LetUsKnowViewController" customModule="helpr" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="StartScreen" id="yKZ-tV-7zm" userLabel="LetUsKnow" customClass="WelcomeViewController" customModule="helpr" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="LMH-Ao-gij">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -11861,7 +11861,7 @@ AAAABAEAAAAAAAAAWQAAAAAAAAAAAAAAAAAIBZk
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="RTk-ct-WvE"/>
-        <segue reference="Oum-yd-8WK"/>
+        <segue reference="edr-cc-jQm"/>
         <segue reference="HaN-QN-iNf"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" name="RoyalPurple"/>

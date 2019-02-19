@@ -44,12 +44,10 @@ class JobDetailsViewController: UIViewController, UICollectionViewDataSource, UI
             jobTitle.text = job.information.title
             jobDescription.text = job.information.postDescription
             //jobPic.image = job.pictureData[0]
-            arrJobPhotos.insert(job.pictureData[0], at: 0)
+            arrJobPhotos = job.pictureData
             jobCategory.text = job.information.category
             jobPostedTime.text = job.information.postedTime.timeAgoSinceDate(currentDate: Date(), numericDates: true)
         }
-        arrJobPhotos.insert(UIImage(named: "TechDefault")!, at: 1)
-        arrJobPhotos.insert(UIImage(named: "defaultPhoto")!, at: 2)
         self.jobPhotos.reloadData()
         
         // Do any additional setup after loading the view.
