@@ -188,7 +188,7 @@ class StorageHelper{
         //let image: UIImage? = FileHelpers.load(path: reference.fullPath)
         //print("\(image)")
         //if  image == nil {
-            reference.getData(maxSize: 15 * 2048 * 2048) { data, error in
+            reference.getData(maxSize: 15 * 1024 * 1024) { data, error in
                 if let error = error {
                     // Uh-oh, an error occurred!
                     print(error.localizedDescription)
