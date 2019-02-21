@@ -55,7 +55,6 @@ class Job {
             default:
                 break
             }
-            
         }
         return UIImagePictures
     }

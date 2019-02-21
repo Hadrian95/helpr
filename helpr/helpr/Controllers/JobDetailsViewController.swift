@@ -89,14 +89,13 @@ class JobDetailsViewController: UIViewController, UICollectionViewDataSource, UI
     //MARK: - CollectionView methods
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 3
+        return arrJobPhotos.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImageCollectionViewCell", for: indexPath) as! ImageCollectionViewCell
         cell.jobPhoto.image = arrJobPhotos[indexPath.row]
         return cell
-        
     }
 
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {

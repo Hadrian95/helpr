@@ -40,9 +40,8 @@ class HomeTableViewController: UITableViewController, UISearchResultsUpdating{
         definesPresentationContext = true
     }
     
-  
+    // reload on new post added
     @objc func loadList(notification: NSNotification){
-        //load data here
         self.tableView.reloadData()
     }
     
@@ -52,7 +51,6 @@ class HomeTableViewController: UITableViewController, UISearchResultsUpdating{
             filteredJobs = HomeTableViewController.jobs.filter { job in
                 return job.information.category.lowercased().contains(searchText.lowercased())
             }
-            
         } else {
             filteredJobs = HomeTableViewController.jobs
         }
@@ -61,7 +59,6 @@ class HomeTableViewController: UITableViewController, UISearchResultsUpdating{
 
 
     // MARK: - Table view data source
-
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1

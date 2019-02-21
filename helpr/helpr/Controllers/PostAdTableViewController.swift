@@ -176,11 +176,12 @@ class PostAdTableViewController: UITableViewController, UITextViewDelegate, UICo
         let description = tvDescription.text ?? "No description provided"
         // let tags = tfTags.text ?? ""
         let tags = ["iOS", "Yeet", "YOLO", "Y DID I SIGN UP FOR DIS"]
-        let pictures = postPhotos
+        let lastGoodPic = postPhotos.count - 2
+        let pictures = Array(postPhotos[0...lastGoodPic])
         
         // Set the job to be passed to HomeTableViewController after the unwind segue.
         if (category?.trimmingCharacters(in: .whitespaces) != "") && (title.trimmingCharacters(in: .whitespaces) != "") {
-            job = Job(title: title, category: category!, description: description, pictureURLs: [], tags: [], distance: 10, postalCode: "WH0CR5", postedTime: Date(), email: (UserProfile.email))
+            job = Job(title: title, category: category!, description: description, pictureURLs: [], tags: tags, distance: 10, postalCode: "WH0CR5", postedTime: Date(), email: (UserProfile.email))
             HomeTableViewController.jobs.append(job!)
             
             let storage = StorageHelper()
@@ -193,18 +194,23 @@ class PostAdTableViewController: UITableViewController, UITextViewDelegate, UICo
             storage.saveImages(job: job!, imagesArray: pictures, createJob: true, jobID: jobID)
             // HomeTableViewController.jobs.append(job!)
             
-            let dataToSave = ["category": category, "description": description, "location": tfLocation.text, "postedTime": Date(), "posterID": userID, "title": title, "pictureURLs": job?.information.pictures] as [String : Any]
-            database.addJobInformation(dataToSave: dataToSave, tags: tags, jobID: jobID) { (error) in
-                if error != nil {
-                    print(error!._code)
-                    self.handleError(error!)
-                }else {
-                    self.exitPostAd(self.postBtn)
-                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "loadJobs"), object: nil)
-                    self.navigationController?.popViewController(animated: true)
-                    self.tabBarController?.selectedIndex = 0
-                }
-            }
+//            let dataToSave = ["category": category, "description": description, "location": "200–298 Ellis St 94102 San Francisco, CA", "postedTime": Date(), "posterID": userID, "title": title, "pictureURLs": job?.information.pictures] as [String : Any]
+//            database.addJobInformation(dataToSave: dataToSave, tags: tags, jobID: jobID) { (error) in
+//                if error != nil {
+//                    print(error!._code)
+//                    self.handleError(error!)
+//                }else {
+//                    self.exitPostAd(self.postBtn)
+//                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "loadJobs"), object: nil)
+//                    self.navigationController?.popViewController(animated: true)
+//                    self.tabBarController?.selectedIndex = 0
+//                }
+//            }
+            
+            self.exitPostAd(self.postBtn)
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "loadJobs"), object: nil)
+            self.navigationController?.popViewController(animated: true)
+            self.tabBarController?.selectedIndex = 0
         }
         //title or category were not provided
         else {

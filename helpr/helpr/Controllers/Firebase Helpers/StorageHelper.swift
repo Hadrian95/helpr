@@ -29,14 +29,21 @@ class StorageHelper{
         job.pictureData = imagesArray
         uploadImages(root: "jobPictures", ID: jobID, imagesArray : imagesArray){ (uploadedImageUrlsArray) in
             job.information.pictures = uploadedImageUrlsArray
+            
+            let database = DatabaseHelper()
+            let userID = Auth.auth().currentUser?.uid
+            let dataToSave = ["category": job.information.category, "description": job.information.postDescription, "location": "200–298 Ellis St 94102 San Francisco, CA", "postedTime": Date(), "posterID": userID, "title": job.information.title, "pictureURLs": job.information.pictures] as [String : Any]
+            
+            database.addJobInformation(dataToSave: dataToSave, tags: job.information.tags as! [String], jobID: jobID) {
+                (error) in
+                if error != nil {
+                    print(error!._code)
+                }else {
+                    
+                }
+            }
         }
     }
-    
-//    func saveProfilePic(root: String, ID: String, imagesArray : [UIImage]) {
-//        uploadImages(root: "profilePictures", ID: ID, imagesArray: imagesArray) { (uploadedImageUrlsArray) in
-//            // fuck you Helm
-//        }
-//    }
     
     func loadImages(job: Job){
         if job.information.pictures.count < 1 { return }
@@ -103,9 +110,7 @@ class StorageHelper{
                     NSLog("All Images are uploaded successfully, uploadedImageUrlsArray: \(uploadedImageUrlsArray)")
                     completionHandler(uploadedImageUrlsArray)
                 }
-                
             })
-            
             
             observeUploadTaskFailureCases(uploadTask : uploadTask)
         }
@@ -144,7 +149,6 @@ class StorageHelper{
                 case .cancelled:
                     NSLog("User canceled the upload")
                     break
-                    
                 case .unknown:
                     NSLog("Unknown error occurred, inspect the server response")
                     break
