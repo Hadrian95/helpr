@@ -26,8 +26,27 @@ class ExploreTableViewController: UITableViewController, UISearchResultsUpdating
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        NotificationCenter.default.addObserver(self, selector: #selector(loadList(notification:)), name: NSNotification.Name(rawValue: "loadJobs"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(newJob(notification:)), name: NSNotification.Name(rawValue: "addedPost"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(loadList(notification:)), name: NSNotification.Name(rawValue: "reloadExplore"), object: nil)
+        
+        db.collection("jobs").order(by: "postedTime", descending: true)
+            .addSnapshotListener { querySnapshot, error in
+                guard let snapshot = querySnapshot else {
+                    print("Error fetching snapshots: \(String(describing: error))")
+                    return
+                }
+                snapshot.documentChanges.forEach { diff in
+                    if (diff.type == .added) {
+                        let jobID = diff.document.documentID
+                        DispatchQueue.main.async {
+                            self.database.getJob(jobID: jobID) { job in
+                                ExploreTableViewController.jobs.append(job)
+                                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadExplore"), object: nil)
+                                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadMyJobs"), object: nil)
+                            }
+                        }
+                    }
+                }
+        }
         
         //loadSampleJobs()
         //loadJobs()
@@ -46,27 +65,6 @@ class ExploreTableViewController: UITableViewController, UISearchResultsUpdating
     // reload on new post added
     @objc func loadList(notification: NSNotification){
         self.tableView.reloadData()
-    }
-    
-    @objc func newJob(notification: NSNotification) {
-        db.collection("jobs").order(by: "postedTime", descending: true).limit(to: 1)
-            .addSnapshotListener { querySnapshot, error in
-            guard let snapshot = querySnapshot else {
-                print("Error fetching snapshots: \(String(describing: error))")
-                return
-            }
-            snapshot.documentChanges.forEach { diff in
-                if (diff.type == .added) {
-                    let jobID = diff.document.documentID
-                    DispatchQueue.main.async {
-                        self.database.getJob(jobID: jobID) { job in
-                            ExploreTableViewController.jobs.append(job)
-                            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "loadJobs"), object: nil)
-                        }
-                    }
-                }
-            }
-        }
     }
     
     // MARK: - UISearchResultsUpdating Delegate

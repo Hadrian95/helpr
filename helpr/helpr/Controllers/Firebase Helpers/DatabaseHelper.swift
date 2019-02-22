@@ -22,6 +22,10 @@ class DatabaseHelper {
         jobs = [Job]()
     }
     
+    func hilmiIsAFuckingMoron(completion: @escaping (Bool) -> ()) {
+        completion(true)
+    }
+    
     func createUser(email: String, password: String, completion: @escaping (Error?) -> ()){
         Auth.auth().createUser(withEmail: email, password: password) { (user, error) in
             if error == nil {
@@ -110,8 +114,8 @@ class DatabaseHelper {
                         postalCode: "T3A 1B6",
                         postedTime: document.data()["postedTime"]! as! Date,
                         email: (Auth.auth().currentUser?.email)!)
-                    let storage = StorageHelper()
-                    storage.loadImages(job: job!)
+//                    let storage = StorageHelper()
+//                    storage.loadImages(job: job!)
                     jobs.append(job!)
                 }
                 completion(jobs)
@@ -122,6 +126,8 @@ class DatabaseHelper {
     // load one job at a time, to be called when a new post has been added to database
     func getJob(jobID: String, completion: @escaping (Job) -> () )  {
         var job : Job!
+        
+        print("trying to grab document: " + jobID)
         
         db.collection("jobs").document(jobID).getDocument { (document, err) in
             if let document = document, document.exists {
@@ -136,13 +142,12 @@ class DatabaseHelper {
                     postedTime: document.data()?["postedTime"]! as! Date,
                     email: (Auth.auth().currentUser?.email)!,
                     id: document.documentID)
-                let storage = StorageHelper()
-                storage.loadImages(job: job!)
+//                let storage = StorageHelper()
+//                storage.loadImages(job: job!)
+                completion(job!)
             } else {
                 print("Job document does not exist")
             }
-            
-            completion(job!)
         }
     }
     

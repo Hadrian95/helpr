@@ -19,8 +19,13 @@ class JobsTableViewController: UITableViewController, UISearchResultsUpdating {
     @IBOutlet weak var JobsTableView: UITableView!
     
     //var jobs = HomeTableViewController.jobs
+    var db = Firestore.firestore()
     var filteredJobs = [Job]()
     var isPurple = Bool()
+    var acceptedJobs = [Job]()
+    var postedJobs = [Job]()
+    var database = DatabaseHelper()
+    var userID = Auth.auth().currentUser?.uid
     
     let searchController = UISearchController(searchResultsController: nil)
     
@@ -30,9 +35,30 @@ class JobsTableViewController: UITableViewController, UISearchResultsUpdating {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadView(notification:)), name: NSNotification.Name(rawValue: "reloadMyJobs"), object: nil)
         
         setNeedsStatusBarAppearanceUpdate()
         filteredJobs = ExploreTableViewController.jobs
+        
+        db.collection("users").document(userID!).collection("posts")
+            .addSnapshotListener { querySnapshot, error in
+                guard let snapshot = querySnapshot else {
+                    print("Error fetching user posts snapshots: \(String(describing: error))")
+                    return
+                }
+                snapshot.documentChanges.forEach { diff in
+                    if (diff.type == .added) {
+                        let postID = diff.document.documentID
+                        DispatchQueue.main.async {
+                            self.database.getJob(jobID: postID) { (post) in
+                                self.postedJobs.append(post)
+                                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadMyJobs"), object: nil)
+                            }
+                        }
+                    }
+                }
+        }
+        
         isPurple = false
         
         //scale segmentedControl
@@ -42,13 +68,15 @@ class JobsTableViewController: UITableViewController, UISearchResultsUpdating {
         
         definesPresentationContext = true
     }
+    
+    @objc func reloadView(notification: NSNotification) {
+        self.tableView.reloadData()
+    }
 
     // MARK: - Table view data source
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let v = UIView()
         v.backgroundColor = .white
-        
- 
         v.addSubview(jobsSegment)
         return v
     }
@@ -61,7 +89,12 @@ class JobsTableViewController: UITableViewController, UISearchResultsUpdating {
         if isFiltering() {
             return filteredJobs.count
         }
-        return ExploreTableViewController.jobs.count
+        else if (jobsSegment.selectedSegmentIndex == 0) {
+            return ExploreTableViewController.jobs.count
+        }
+        else {
+            return postedJobs.count
+        }
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -84,7 +117,7 @@ class JobsTableViewController: UITableViewController, UISearchResultsUpdating {
             if isFiltering() {
                 job = filteredJobs[indexPath.row]
             } else {
-                job = ExploreTableViewController.jobs[1]
+                job = postedJobs[indexPath.row]
             }
         }
         
@@ -166,10 +199,19 @@ class JobsTableViewController: UITableViewController, UISearchResultsUpdating {
             
             let selectedJob: Job
             // fetches the appropriate meal
-            if isFiltering() {
-                selectedJob = filteredJobs[indexPath.row]
-            } else {
-                selectedJob = ExploreTableViewController.jobs[indexPath.row]
+            if (jobsSegment.selectedSegmentIndex == 0) {
+                if isFiltering() {
+                    selectedJob = filteredJobs[indexPath.row]
+                } else {
+                    selectedJob = ExploreTableViewController.jobs[indexPath.row]
+                }
+            }
+            else {
+                if isFiltering() {
+                    selectedJob = filteredJobs[indexPath.row]
+                } else {
+                    selectedJob = postedJobs[indexPath.row]
+                }
             }
             
             jobViewController.job = selectedJob

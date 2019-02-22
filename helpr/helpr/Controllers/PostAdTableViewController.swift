@@ -201,14 +201,15 @@ class PostAdTableViewController: UITableViewController, UITextViewDelegate, UICo
 //                    self.handleError(error!)
 //                }else {
 //                    self.exitPostAd(self.postBtn)
-//                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "loadJobs"), object: nil)
+//                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadExplore"), object: nil)
 //                    self.navigationController?.popViewController(animated: true)
 //                    self.tabBarController?.selectedIndex = 0
 //                }
 //            }
             
             self.exitPostAd(self.postBtn)
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "loadJobs"), object: nil)
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadExplore"), object: nil)
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadMyJobs"), object: nil)
             self.navigationController?.popViewController(animated: true)
             self.tabBarController?.selectedIndex = 0
         }
