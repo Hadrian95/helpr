@@ -11,7 +11,7 @@
 		4576E8B42188CA0000471AB4 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4576E8B32188CA0000471AB4 /* SignInViewController.swift */; };
 		4576E8B62188D57F00471AB4 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4576E8B52188D57F00471AB4 /* WelcomeViewController.swift */; };
 		4576E8B82188D84100471AB4 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4576E8B72188D84100471AB4 /* SignUpViewController.swift */; };
-		4576E8BA2188EE6500471AB4 /* HomeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4576E8B92188EE6500471AB4 /* HomeTableViewController.swift */; };
+		4576E8BA2188EE6500471AB4 /* ExploreTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4576E8B92188EE6500471AB4 /* ExploreTableViewController.swift */; };
 		4576E8BC2188EEAB00471AB4 /* JobsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4576E8BB2188EEAB00471AB4 /* JobsTableViewController.swift */; };
 		4576E8BE2188EEBD00471AB4 /* MessagesTableViewControllerOld.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4576E8BD2188EEBD00471AB4 /* MessagesTableViewControllerOld.swift */; };
 		4576E8C02188F22200471AB4 /* MyTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4576E8BF2188F22200471AB4 /* MyTabBarViewController.swift */; };
@@ -86,7 +86,7 @@
 		4576E8B32188CA0000471AB4 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		4576E8B52188D57F00471AB4 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		4576E8B72188D84100471AB4 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
-		4576E8B92188EE6500471AB4 /* HomeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewController.swift; sourceTree = "<group>"; };
+		4576E8B92188EE6500471AB4 /* ExploreTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreTableViewController.swift; sourceTree = "<group>"; };
 		4576E8BB2188EEAB00471AB4 /* JobsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobsTableViewController.swift; sourceTree = "<group>"; };
 		4576E8BD2188EEBD00471AB4 /* MessagesTableViewControllerOld.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesTableViewControllerOld.swift; sourceTree = "<group>"; };
 		4576E8BF2188F22200471AB4 /* MyTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTabBarViewController.swift; sourceTree = "<group>"; };
@@ -223,7 +223,7 @@
 				CA2F724621A366C400AAF19F /* ChangeEmailViewController.swift */,
 				CA2F725421A368C900AAF19F /* ChangePasswordViewController.swift */,
 				CA2F724C21A3676000AAF19F /* FavoriteLocationsViewController.swift */,
-				4576E8B92188EE6500471AB4 /* HomeTableViewController.swift */,
+				4576E8B92188EE6500471AB4 /* ExploreTableViewController.swift */,
 				CA12A384218962C50063ED97 /* JobDetailsViewController.swift */,
 				4576E8BB2188EEAB00471AB4 /* JobsTableViewController.swift */,
 				4576E8B52188D57F00471AB4 /* WelcomeViewController.swift */,
@@ -652,7 +652,7 @@
 				F783AB0221791E5B0010F034 /* AppDelegate.swift in Sources */,
 				CA2F724D21A3676000AAF19F /* FavoriteLocationsViewController.swift in Sources */,
 				CA12A381218935E50063ED97 /* Job.swift in Sources */,
-				4576E8BA2188EE6500471AB4 /* HomeTableViewController.swift in Sources */,
+				4576E8BA2188EE6500471AB4 /* ExploreTableViewController.swift in Sources */,
 				CA2F724F21A3676F00AAF19F /* PaymentInfoViewController.swift in Sources */,
 				ACFD809B21A77694009D0182 /* DatabaseHelper.swift in Sources */,
 				CA2F724B21A3673B00AAF19F /* SkillsTableViewController.swift in Sources */,

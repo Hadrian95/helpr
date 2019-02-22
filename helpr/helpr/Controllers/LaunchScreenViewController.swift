@@ -31,7 +31,7 @@ class LaunchScreenViewController: UIViewController {
         let database = DatabaseHelper()
         
         database.getJobs(){ jobs in
-            HomeTableViewController.jobs = jobs
+            ExploreTableViewController.jobs = jobs
             let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
             
             let nextViewController = storyBoard.instantiateViewController(withIdentifier: "StartScreen") as! WelcomeViewController

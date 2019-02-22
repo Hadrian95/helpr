@@ -88,9 +88,9 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
                     let alert = UIAlertController(title: "Sign-in failed", message: message, preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: "OK", style: .default))
                     self.present(alert, animated: true, completion: nil)
-                }            }
+                }
+            }
         }
-
     }
     
     private func saveUser(){
@@ -105,6 +105,7 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
             os_log("Failed to save user profile...", log: OSLog.default, type: .error)
         }
     }
+    
     //MARK: Methods to manage keybaord
     @objc func keyboardWillHide(notification: Notification) {
         let contentInsets = UIEdgeInsets.zero
@@ -116,7 +117,4 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
         guard let keyboardFrame: CGRect = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else { return }
         scrollView.contentInset.bottom = keyboardFrame.height
     }
-    
-    
-    
 }

@@ -28,9 +28,7 @@ class WelcomeViewController: UIViewController {
                     UserProfile.name = user!.name
                     UserProfile.email = user!.email
                     UserProfile.skills = user!.skills
-                    self.storage.loadProfilePicture(picRef: user!.picRef){ image in
-                        UserProfile.profilePic = image
-                    }
+                    UserProfile.profilePicRef = user!.picRef
                     self.welcomeLabel.text = "Welcome back, " + user!.name.components(separatedBy: " ")[0] + "!"
                     self.bSignIn.setTitle("Switch account?" , for: .normal)
                 }

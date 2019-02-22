@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import Firebase
+import CodableFirebase
+import FirebaseUI
 
 class JobDetailsViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
     
@@ -23,7 +26,7 @@ class JobDetailsViewController: UIViewController, UICollectionViewDataSource, UI
     @IBOutlet weak var jobPhotos: UICollectionView!
     @IBOutlet weak var jobPicsControl: UIPageControl!
     
-    var arrJobPhotos = [UIImage]() //allow update of UICollectionViewCells
+    var arrJobPhotos = [String]() //allow update of UICollectionViewCells
     var indexPathForCell : IndexPath = [] //variable to allow updating of photos
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -44,7 +47,8 @@ class JobDetailsViewController: UIViewController, UICollectionViewDataSource, UI
             jobTitle.text = job.information.title
             jobDescription.text = job.information.postDescription
             //jobPic.image = job.pictureData[0]
-            arrJobPhotos = job.pictureData
+            //arrJobPhotos = job.pictureData
+            arrJobPhotos = job.information.pictures as! [String]
             jobCategory.text = job.information.category
             jobPostedTime.text = job.information.postedTime.timeAgoSinceDate(currentDate: Date(), numericDates: true)
         }
@@ -101,7 +105,13 @@ class JobDetailsViewController: UIViewController, UICollectionViewDataSource, UI
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImageCollectionViewCell", for: indexPath) as! ImageCollectionViewCell
-        cell.jobPhoto.image = arrJobPhotos[indexPath.row]
+        
+        // get job image from database, use default picture if an error occurs
+        let storageRef = Storage.storage().reference()
+        let ref = storageRef.child(arrJobPhotos[indexPath.row])
+        let phImage = UIImage(named: "defaultPhoto.png")
+        cell.jobPhoto.sd_setImage(with: ref, placeholderImage: phImage)
+        //cell.jobPhoto.image = arrJobPhotos[indexPath.row]
         return cell
     }
     

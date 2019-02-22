@@ -11,7 +11,7 @@ import os.log
 import Firebase
 import CodableFirebase
 import FirebaseUI
-class HomeTableViewController: UITableViewController, UISearchResultsUpdating{
+class ExploreTableViewController: UITableViewController, UISearchResultsUpdating{
     
     //MARK: Properties
     var database = DatabaseHelper()
@@ -28,20 +28,10 @@ class HomeTableViewController: UITableViewController, UISearchResultsUpdating{
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(loadList(notification:)), name: NSNotification.Name(rawValue: "loadJobs"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(newJob(notification:)), name: NSNotification.Name(rawValue: "addedPost"), object: nil)
-       
-//        Database.database().reference(withPath: "jobs").observe(.childAdded, with: { (snapshot) -> Void in
-//            let jobID = snapshot.key
-//            print("job id: " + jobID)
-//            self.database.getJob(jobID: jobID) { job in
-//                HomeTableViewController.jobs.append(job)
-//
-//                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "loadJobs"), object: nil)
-//            }
-//        })
         
         //loadSampleJobs()
         //loadJobs()
-        filteredJobs = HomeTableViewController.jobs
+        filteredJobs = ExploreTableViewController.jobs
         isPurple = false
         self.tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
         searchController.searchResultsUpdater = self
@@ -70,7 +60,7 @@ class HomeTableViewController: UITableViewController, UISearchResultsUpdating{
                     let jobID = diff.document.documentID
                     DispatchQueue.main.async {
                         self.database.getJob(jobID: jobID) { job in
-                            HomeTableViewController.jobs.append(job)
+                            ExploreTableViewController.jobs.append(job)
                             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "loadJobs"), object: nil)
                         }
                     }
@@ -82,11 +72,11 @@ class HomeTableViewController: UITableViewController, UISearchResultsUpdating{
     // MARK: - UISearchResultsUpdating Delegate
     func updateSearchResults(for searchController: UISearchController) {
         if let searchText = searchController.searchBar.text, !searchText.isEmpty {
-            filteredJobs = HomeTableViewController.jobs.filter { job in
+            filteredJobs = ExploreTableViewController.jobs.filter { job in
                 return job.information.category.lowercased().contains(searchText.lowercased())
             }
         } else {
-            filteredJobs = HomeTableViewController.jobs
+            filteredJobs = ExploreTableViewController.jobs
         }
         tableView.reloadData()
     }
@@ -102,7 +92,7 @@ class HomeTableViewController: UITableViewController, UISearchResultsUpdating{
         if isFiltering() {
             return filteredJobs.count
         }
-        return HomeTableViewController.jobs.count
+        return ExploreTableViewController.jobs.count
     }
 
     
@@ -119,7 +109,7 @@ class HomeTableViewController: UITableViewController, UISearchResultsUpdating{
         if isFiltering() {
             job = filteredJobs[indexPath.row]
         } else {
-            job = HomeTableViewController.jobs[indexPath.row]
+            job = ExploreTableViewController.jobs[indexPath.row]
         }
         
         cell.layer.cornerRadius = 10.0
@@ -129,10 +119,13 @@ class HomeTableViewController: UITableViewController, UISearchResultsUpdating{
         cell.jobCategory.text = job.information.category
         cell.jobTitle.text = job.information.title
         //cell.jobPic.image = job.pictureData[0]
+        
+        // get job image from database, use default picture if an error occurs
         let storageRef = Storage.storage().reference()
         let ref = storageRef.child((job.information.pictures[0])!)
         let phImage = UIImage(named: "defaultPhoto.png")
         cell.jobPic.sd_setImage(with: ref, placeholderImage: phImage)
+        
         cell.jobDistance.text = String(job.information.distance) + " km"
         cell.jobPostedTime.text = job.information.postedTime.timeAgoSinceDate(currentDate: Date(), numericDates: true)
 
@@ -182,8 +175,6 @@ class HomeTableViewController: UITableViewController, UISearchResultsUpdating{
     
     //MARK: Private Methods
     
-
-        
 //    private func loadSampleJobs() {
 //        guard let job1 = Job(title: "Internet Help", category: "Technology", description: "New Post", pictureURLs: [], tags: [], distance: 5, postalCode: "T2Y 4K7", postedTime: Date(), email: "hilmi@madebyhilmi.com") else {
 //                fatalError("Unable to instantiate job1")
@@ -231,7 +222,7 @@ class HomeTableViewController: UITableViewController, UISearchResultsUpdating{
             if isFiltering() {
                 selectedJob = filteredJobs[indexPath.row]
             } else {
-                selectedJob = HomeTableViewController.jobs[indexPath.row]
+                selectedJob = ExploreTableViewController.jobs[indexPath.row]
             }
             
             jobViewController.job = selectedJob

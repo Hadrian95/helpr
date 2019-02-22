@@ -37,7 +37,14 @@ class ProfileViewController: UIViewController {
             lblName.text = UserProfile.name
             lblSkillCount.text = String(UserProfile.skills.count)
             //btnSkills.setTitle(String(UserProfile.skills.count) + " skills", for: .normal)
-            ivProfilePic.image = UserProfile.profilePic
+            
+            // get profile pic from database, use default picture if an error occurs
+            database.getUser() { (user) in
+                let storageRef = Storage.storage().reference()
+                let ref = storageRef.child("profilePictures").child(userRef!).child(user!.picRef)
+                let phImage = UIImage(named: "defaultPhoto.png")
+                self.ivProfilePic.sd_setImage(with: ref, placeholderImage: phImage)
+            }
             
             ivProfilePic.layer.cornerRadius = ivProfilePic.frame.width / 2
             ivProfilePic.layer.borderWidth = 1

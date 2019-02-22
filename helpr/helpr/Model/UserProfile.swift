@@ -33,7 +33,7 @@ class UserProfile: NSObject, NSCoding {
     static var email = String()
 //    private var rating : Float
 //    private var homeAddress : String
-    static var profilePic = UIImage()
+    static var profilePicRef = String()
 //    private var featReviews : [Review]
     static var skills = [String]()
 //    private var settings : Settings
@@ -69,7 +69,6 @@ class UserProfile: NSObject, NSCoding {
     init?(name: String, email: String) {
         UserProfile.name = name
         UserProfile.email = email
-        
     }
     
     //MARK: NSCoding
