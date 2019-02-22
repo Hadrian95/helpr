@@ -29,7 +29,6 @@ class PostAdTableViewController: UITableViewController, UITextViewDelegate, UICo
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var mapPin: UIImageView!
     
-    
     var job: Job?
     var postPhotos = [UIImage]() //allow update of UICollectionViewCells
     var indexPathForCell : IndexPath = [] //variable to allow updating of photos
@@ -158,6 +157,7 @@ class PostAdTableViewController: UITableViewController, UITextViewDelegate, UICo
     //on cancel we must restore every field to startup values since there is no 'Back' button to handle this
     @IBAction func exitPostAd(_ sender: UIBarButtonItem) {
         lCategory.text = "No Category Selected"
+        CategoriesTableViewController.selectedCellText = ""
         lCategory.textColor = UIColor.lightGray
         tfTitle.placeholder = "No Title Provided"
         tvDescription.textColor = UIColor.lightGray
@@ -182,7 +182,7 @@ class PostAdTableViewController: UITableViewController, UITextViewDelegate, UICo
         // Set the job to be passed to HomeTableViewController after the unwind segue.
         if (category?.trimmingCharacters(in: .whitespaces) != "") && (title.trimmingCharacters(in: .whitespaces) != "") {
             job = Job(title: title, category: category!, description: description, pictureURLs: [], tags: tags, distance: 10, postalCode: "WH0CR5", postedTime: Date(), email: (UserProfile.email))
-            HomeTableViewController.jobs.append(job!)
+            //HomeTableViewController.jobs.append(job!)
             
             let storage = StorageHelper()
             let database = DatabaseHelper()

@@ -98,9 +98,9 @@
                                                     </subviews>
                                                 </view>
                                                 <constraints>
-                                                    <constraint firstItem="eWG-iC-nrP" firstAttribute="width" secondItem="ROO-bO-gqm" secondAttribute="width" id="M9k-ya-bHN"/>
                                                     <constraint firstAttribute="bottomMargin" secondItem="eWG-iC-nrP" secondAttribute="bottom" constant="-8" id="VWj-We-hef"/>
                                                     <constraint firstItem="eWG-iC-nrP" firstAttribute="top" secondItem="ROO-bO-gqm" secondAttribute="top" id="bJd-ug-mZp"/>
+                                                    <constraint firstItem="eWG-iC-nrP" firstAttribute="width" secondItem="ROO-bO-gqm" secondAttribute="width" id="kGe-u8-zMx"/>
                                                 </constraints>
                                                 <connections>
                                                     <outlet property="jobPhoto" destination="eWG-iC-nrP" id="Yic-r9-W7D"/>
@@ -112,8 +112,8 @@
                                             <outlet property="delegate" destination="sBI-Rt-p2d" id="Dgg-QV-rNL"/>
                                         </connections>
                                     </collectionView>
-                                    <pageControl contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="84O-JW-nGn">
-                                        <rect key="frame" x="0.0" y="291" width="375" height="37"/>
+                                    <pageControl contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="84O-JW-nGn">
+                                        <rect key="frame" x="0.0" y="328" width="375" height="0.0"/>
                                         <connections>
                                             <action selector="changePhoto:" destination="sBI-Rt-p2d" eventType="valueChanged" id="gWZ-eu-lB9"/>
                                         </connections>
@@ -11860,9 +11860,9 @@ AAAABAEAAAAAAAAAWQAAAAAAAAAAAAAAAAAIBZk
         </namedColor>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Hot-sp-g1e"/>
+        <segue reference="RTk-ct-WvE"/>
         <segue reference="edr-cc-jQm"/>
-        <segue reference="WXI-hz-ulL"/>
+        <segue reference="HaN-QN-iNf"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" name="RoyalPurple"/>
 </document>

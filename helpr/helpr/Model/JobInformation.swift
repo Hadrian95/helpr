@@ -50,4 +50,28 @@ class JobInformation: Codable {
         
         self.id = UUID().uuidString
     }
+    
+    init?(title: String, category: String, description: String, pictures: [String?], tags: [String], distance: Int, postalCode: String, postedTime: Date, email: String, id: String) {
+        self.title = title
+        self.category = category
+        self.postDescription = description
+        self.email = email
+        self.pictures = pictures
+        if (!tags.isEmpty){
+            self.tags = tags
+        }else {
+            self.tags = ["test tags"]
+        }
+        
+        self.distance = distance
+        self.favourite = false
+        if (!postalCode.isEmpty){
+            self.postalCode = postalCode
+        }else{
+            self.postalCode = "T1K 3J7"
+        }
+        self.postedTime = postedTime
+        
+        self.id = id
+    }
 }

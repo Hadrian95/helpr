@@ -39,7 +39,7 @@ class StorageHelper{
                 if error != nil {
                     print(error!._code)
                 }else {
-                    
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "addedPost"), object: nil)
                 }
             }
         }
@@ -50,6 +50,7 @@ class StorageHelper{
         
         downloadImages(jobID: job.information.id, images: job.information.pictures as! [String]){ downloadedImages in
             job.pictureData = downloadedImages
+            print("Anything")
         }
     }
     

@@ -38,7 +38,7 @@ class JobDetailsViewController: UIViewController, UICollectionViewDataSource, UI
         
         bidButton.layer.cornerRadius = 5
         
-        jobDescription.layer.cornerRadius = 8;
+        jobDescription.layer.cornerRadius = 8
         if let job = job {
             navigationItem.title = job.information.category
             jobTitle.text = job.information.title
@@ -48,6 +48,7 @@ class JobDetailsViewController: UIViewController, UICollectionViewDataSource, UI
             jobCategory.text = job.information.category
             jobPostedTime.text = job.information.postedTime.timeAgoSinceDate(currentDate: Date(), numericDates: true)
         }
+        jobPicsControl.numberOfPages = arrJobPhotos.count
         self.jobPhotos.reloadData()
         
         // Do any additional setup after loading the view.
@@ -92,22 +93,32 @@ class JobDetailsViewController: UIViewController, UICollectionViewDataSource, UI
         return arrJobPhotos.count
     }
     
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: collectionView.bounds.size.width, height: view.frame.height)
+    }
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImageCollectionViewCell", for: indexPath) as! ImageCollectionViewCell
         cell.jobPhoto.image = arrJobPhotos[indexPath.row]
         return cell
     }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
+    }
 
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         //round to nearest page, though with paging enabled this should never have a rounding problem
         let width = scrollView.frame.size.width;
-        jobPicsControl.currentPage = Int((scrollView.contentOffset.x + (0.5 * width)) / width);
+        jobPicsControl.currentPage = Int((scrollView.contentOffset.x + (0.5 * width)) / width)
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let thisWidth = CGFloat(view.frame.width)
-        return CGSize(width: thisWidth, height: view.frame.height)
-    }
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+//        let thisWidth = CGFloat(view.frame.width)
+//        return CGSize(width: thisWidth, height: view.frame.height)
+//    }
     
  
     //update photo displayed when pageControl dot is tapped

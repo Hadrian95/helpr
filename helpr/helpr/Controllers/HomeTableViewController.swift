@@ -10,10 +10,13 @@ import UIKit
 import os.log
 import Firebase
 import CodableFirebase
+import FirebaseUI
 class HomeTableViewController: UITableViewController, UISearchResultsUpdating{
     
     //MARK: Properties
     var database = DatabaseHelper()
+    var db = Firestore.firestore()
+    var docRef : DocumentReference!
     static var jobs = [Job]()
     var filteredJobs = [Job]()
     var isPurple = Bool()
@@ -24,8 +27,18 @@ class HomeTableViewController: UITableViewController, UISearchResultsUpdating{
     override func viewDidLoad() {
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(loadList(notification:)), name: NSNotification.Name(rawValue: "loadJobs"), object: nil)
-        
+        NotificationCenter.default.addObserver(self, selector: #selector(newJob(notification:)), name: NSNotification.Name(rawValue: "addedPost"), object: nil)
        
+//        Database.database().reference(withPath: "jobs").observe(.childAdded, with: { (snapshot) -> Void in
+//            let jobID = snapshot.key
+//            print("job id: " + jobID)
+//            self.database.getJob(jobID: jobID) { job in
+//                HomeTableViewController.jobs.append(job)
+//
+//                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "loadJobs"), object: nil)
+//            }
+//        })
+        
         //loadSampleJobs()
         //loadJobs()
         filteredJobs = HomeTableViewController.jobs
@@ -43,6 +56,27 @@ class HomeTableViewController: UITableViewController, UISearchResultsUpdating{
     // reload on new post added
     @objc func loadList(notification: NSNotification){
         self.tableView.reloadData()
+    }
+    
+    @objc func newJob(notification: NSNotification) {
+        db.collection("jobs").order(by: "postedTime", descending: true).limit(to: 1)
+            .addSnapshotListener { querySnapshot, error in
+            guard let snapshot = querySnapshot else {
+                print("Error fetching snapshots: \(String(describing: error))")
+                return
+            }
+            snapshot.documentChanges.forEach { diff in
+                if (diff.type == .added) {
+                    let jobID = diff.document.documentID
+                    DispatchQueue.main.async {
+                        self.database.getJob(jobID: jobID) { job in
+                            HomeTableViewController.jobs.append(job)
+                            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "loadJobs"), object: nil)
+                        }
+                    }
+                }
+            }
+        }
     }
     
     // MARK: - UISearchResultsUpdating Delegate
@@ -94,7 +128,11 @@ class HomeTableViewController: UITableViewController, UISearchResultsUpdating{
         cell.layer.borderColor = tableView.backgroundColor?.cgColor
         cell.jobCategory.text = job.information.category
         cell.jobTitle.text = job.information.title
-        cell.jobPic.image = job.pictureData[0]
+        //cell.jobPic.image = job.pictureData[0]
+        let storageRef = Storage.storage().reference()
+        let ref = storageRef.child((job.information.pictures[0])!)
+        let phImage = UIImage(named: "defaultPhoto.png")
+        cell.jobPic.sd_setImage(with: ref, placeholderImage: phImage)
         cell.jobDistance.text = String(job.information.distance) + " km"
         cell.jobPostedTime.text = job.information.postedTime.timeAgoSinceDate(currentDate: Date(), numericDates: true)
 

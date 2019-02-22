@@ -26,6 +26,14 @@ class Job {
         pictureData = []
     }
     
+    //init with id
+    init?(title: String, category: String, description: String, pictureURLs: [String], tags: [String], distance: Int, postalCode: String, postedTime: Date, email: String, id: String) {
+        
+        information = JobInformation(title: title, category: category, description: description, pictures: pictureURLs, tags: tags, distance: distance, postalCode: postalCode, postedTime: postedTime, email: email, id: id)!
+        
+        pictureData = []
+    }
+    
     init?(jobInformation: JobInformation) {
         information = jobInformation
         pictureData = []

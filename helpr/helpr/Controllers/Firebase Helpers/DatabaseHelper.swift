@@ -91,6 +91,7 @@ class DatabaseHelper {
         }
     }
     
+    // load multiple jobs on initial startup
     func getJobs(completion: @escaping ([Job]) -> () )  {
         var jobs = [Job]()
         
@@ -115,6 +116,33 @@ class DatabaseHelper {
                 }
                 completion(jobs)
             }
+        }
+    }
+    
+    // load one job at a time, to be called when a new post has been added to database
+    func getJob(jobID: String, completion: @escaping (Job) -> () )  {
+        var job : Job!
+        
+        db.collection("jobs").document(jobID).getDocument { (document, err) in
+            if let document = document, document.exists {
+                job = Job (
+                    title: document.data()?["title"]! as! String,
+                    category: document.data()?["category"]! as! String,
+                    description: document.data()?["description"]! as! String,
+                    pictureURLs: document.data()?["pictureURLs"]! as! [String],
+                    tags: ["#iPhone", "#Swift", "#Apple"],
+                    distance: 0,
+                    postalCode: "T3A 1B6",
+                    postedTime: document.data()?["postedTime"]! as! Date,
+                    email: (Auth.auth().currentUser?.email)!,
+                    id: document.documentID)
+                let storage = StorageHelper()
+                storage.loadImages(job: job!)
+            } else {
+                print("Job document does not exist")
+            }
+            
+            completion(job!)
         }
     }
     

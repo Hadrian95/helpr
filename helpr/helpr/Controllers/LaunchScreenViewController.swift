@@ -30,7 +30,6 @@ class LaunchScreenViewController: UIViewController {
     private func loadJobs(){
         let database = DatabaseHelper()
         
-        //database.readJobs(){ jobs in
         database.getJobs(){ jobs in
             HomeTableViewController.jobs = jobs
             let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
