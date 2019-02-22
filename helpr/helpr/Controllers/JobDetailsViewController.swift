@@ -11,7 +11,7 @@ import Firebase
 import CodableFirebase
 import FirebaseUI
 
-class JobDetailsViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
+class JobDetailsViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
     var job : Job?
     var bidAmmount : Double = 0
@@ -100,7 +100,8 @@ class JobDetailsViewController: UIViewController, UICollectionViewDataSource, UI
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.bounds.size.width, height: view.frame.height)
+        
+        return CGSize(width: view.frame.width, height: view.frame.height)
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -114,22 +115,12 @@ class JobDetailsViewController: UIViewController, UICollectionViewDataSource, UI
         //cell.jobPhoto.image = arrJobPhotos[indexPath.row]
         return cell
     }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 0
-    }
 
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         //round to nearest page, though with paging enabled this should never have a rounding problem
         let width = scrollView.frame.size.width;
         jobPicsControl.currentPage = Int((scrollView.contentOffset.x + (0.5 * width)) / width)
     }
-    
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-//        let thisWidth = CGFloat(view.frame.width)
-//        return CGSize(width: thisWidth, height: view.frame.height)
-//    }
-    
  
     //update photo displayed when pageControl dot is tapped
     @IBAction func changePhoto(_ sender: UIPageControl) {
