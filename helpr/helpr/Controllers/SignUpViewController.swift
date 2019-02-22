@@ -74,7 +74,6 @@ class SignUpViewController: UIViewController {
 class AddSkillsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
     var signUpParent: SignUpViewController?
     
-    @IBOutlet weak var tblSkillstoAdd: UITableView!
     @IBOutlet weak var tblSkillsMaster: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var bContCreate: UIButton!
@@ -94,15 +93,11 @@ class AddSkillsViewController: UIViewController, UITableViewDelegate, UITableVie
         searchBar.delegate = self
         
         tblSkillsMaster.accessibilityIdentifier = "tblSkillsMaster"
-        tblSkillstoAdd.accessibilityIdentifier = "tblSkillstoAdd"
         
         tblSkillsMaster.delegate = self
         tblSkillsMaster.dataSource = self
-        tblSkillstoAdd.delegate = self
-        tblSkillstoAdd.dataSource = self
         
         tblSkillsMaster.tableFooterView = UIView()
-        tblSkillstoAdd.tableFooterView = UIView()
     }
 /*
     @IBAction func btnContinue(_ sender: UIButton) {
@@ -134,17 +129,12 @@ class AddSkillsViewController: UIViewController, UITableViewDelegate, UITableVie
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchBarIsEmpty() {
             isSearching = false
-            tblSkillsMaster.isHidden = true
-            tblSkillstoAdd.isHidden = false
-            tblSkillstoAdd.reloadData()
         }
         else {
             isSearching = true
-            tblSkillsMaster.isHidden = false
-            tblSkillstoAdd.isHidden = true
             filteredSkills = skills.filter({$0.contains(searchText)})
-        tblSkillsMaster.reloadData()
         }
+        tblSkillsMaster.reloadData()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -156,27 +146,16 @@ class AddSkillsViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if !tblSkillsMaster.isHidden {
-            if isSearching {
-                return filteredSkills.count
-            }
-            else {
-                return skills.count
-            }
-        } else {
-            return skillstoAdd.count
+        if isSearching {
+            return filteredSkills.count
+        }
+        else {
+            return skills.count
         }
     }
     
-    func tableView( _ tableView : UITableView,  titleForHeaderInSection section: Int)->String {
-        switch (tableView.accessibilityIdentifier) {
-        case "tblSkillsMaster":
-            return "Choose a skill from the table below:"
-        case "tblSkillstoAdd":
-            return "Your qualified skills (swipe left to remove)"
-        default:
-            return ""
-        }
+    func tableView( _ tableView : UITableView,  titleForHeaderInSection section: Int)->String? {
+        return "Choose skills from the table below"
     }
     
     //change UITableView section header text color to RoyalPurple
@@ -190,54 +169,59 @@ class AddSkillsViewController: UIViewController, UITableViewDelegate, UITableVie
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell : UITableViewCell
-            if tableView.accessibilityIdentifier == "tblSkillsMaster" {
-            cell = tableView.dequeueReusableCell(withIdentifier: "skillMasterCell", for: indexPath)
-                
-                if isSearching {
-                    cell.textLabel?.text = filteredSkills[indexPath.item]
+        cell = tableView.dequeueReusableCell(withIdentifier: "skillMasterCell", for: indexPath)
+        
+            if isSearching {
+                cell.textLabel?.text = filteredSkills[indexPath.item]
+                if !skillstoAdd.contains(filteredSkills[indexPath.item]) {
+                    cell.accessoryType = .none
                 }
                 else {
-                    cell.textLabel?.text = skills[indexPath.item]
+                    cell.accessoryType = .checkmark
                 }
-        }
-        else {
-            cell = tableView.dequeueReusableCell(withIdentifier: "skillAddCell", for: indexPath)
-                if skillstoAdd.count > 0 {
-                    cell.textLabel?.text = skillstoAdd[indexPath.item]
+            }
+            else {
+                cell.textLabel?.text = skills[indexPath.item]
+                if !skillstoAdd.contains(skills[indexPath.item]) {
+                    cell.accessoryType = .none
                 }
-        }
-        
+                else {
+                    cell.accessoryType = .checkmark
+                }
+            }
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if isSearching {
-            skillstoAdd.append(filteredSkills[indexPath.item])
-            tblSkillsMaster.isHidden = true
-            tblSkillstoAdd.isHidden = false
-            isSearching = false
-            searchBar.text = ""
-            tblSkillstoAdd.reloadData()
+        
+        if let cell = tableView.cellForRow(at: indexPath) {
+            if cell.accessoryType == .checkmark {
+                cell.accessoryType = .none
+                if let index = skillstoAdd.index(of: (cell.textLabel?.text)!) {
+                    skillstoAdd.remove(at: index)
+                }
+                isSearching = false
+                searchBar.text = ""
+            }
+            else {
+                cell.accessoryType = .checkmark
+                if isSearching {
+                    skillstoAdd.append(filteredSkills[indexPath.item])
+                    isSearching = false
+                    searchBar.text = ""
+                }
+                else {
+                    skillstoAdd.append(skills[indexPath.item])
+                }
+                print(skillstoAdd)
+            }
         }
+        skillstoAdd.sort()
+        tblSkillsMaster.reloadData()
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        switch (tableView.accessibilityIdentifier) {
-        case "tblSkillsMaster":
-            return false
-        case "tblSkillstoAdd":
-            return true
-        default:
-            return false
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if (editingStyle == .delete) {
-            skillstoAdd.remove(at: indexPath.item)
-            tblSkillstoAdd.deleteRows(at: [indexPath], with: .automatic)
-            tblSkillstoAdd.reloadData()
-        }
+        return false
     }
 }
 
@@ -263,11 +247,12 @@ class AddPhotoViewController: UIViewController {
         
         jobViewController.signUpParent = signUpParent!
     }
-    
+
     @IBAction func addPic(_ sender: UITapGestureRecognizer) {
         let imagePickerController = UIImagePickerController()
         // Only allow photos to be picked, not taken.
         imagePickerController.sourceType = .photoLibrary
+        imagePickerController.allowsEditing = true
         
         // Make sure ViewController is notified when the user picks an image.
         imagePickerController.delegate = self
@@ -284,12 +269,17 @@ class AddPhotoViewController: UIViewController {
     func imagePickerController(_ picker: UIImagePickerController,
                                didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
-        guard let selectedImage = info[.originalImage] as? UIImage else {
-            fatalError("Expected a dictionary containing an image, but was provided the following: \(info)")
+        var selectedImageFromPicker: UIImage?
+        if let editedImage = info[.editedImage] as? UIImage {
+            selectedImageFromPicker = editedImage
+        } else if let originalImage = info[.originalImage] as? UIImage {
+            selectedImageFromPicker = originalImage
         }
         
-        userProfilePic.image = selectedImage
-        signUpParent?.userProfilePic = selectedImage
+        if let selectedImage = selectedImageFromPicker {
+            userProfilePic.image = selectedImage
+            signUpParent?.userProfilePic = selectedImage
+        }
         
         // Dismiss the picker.
         dismiss(animated: true, completion: nil)

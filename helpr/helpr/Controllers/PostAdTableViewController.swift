@@ -42,7 +42,7 @@ class PostAdTableViewController: UITableViewController, UITextViewDelegate, UICo
         super.viewDidLoad()
         
         tvDescription.delegate = self
-        postPhotos.insert(UIImage(named: "defaultPhoto")!, at: 0)
+        postPhotos.insert(UIImage(named: "addPhoto")!, at: 0)
         addDoneButton()
         self.locationManager.requestAlwaysAuthorization()
         //self.locationManager.requestWhenInUseAuthorization()
@@ -164,7 +164,7 @@ class PostAdTableViewController: UITableViewController, UITextViewDelegate, UICo
         tvDescription.text = "Enter your post description here"
         tfTags.placeholder = "#sampleTag"
         postPhotos.removeAll()
-        postPhotos.insert(UIImage(named: "defaultPhoto")!, at: 0)
+        postPhotos.insert(UIImage(named: "addPhoto")!, at: 0)
         self.cvPhotos.reloadData()
         customPhotoAdded = false
     }
@@ -292,16 +292,16 @@ class PostAdTableViewController: UITableViewController, UITextViewDelegate, UICo
                 print("Unhandled Case")
             }
         }
-        checkAddPhoto()
+        checkaddPhoto()
         self.cvPhotos.reloadData()
         return
     }
     
     //ensures that when a photo is added or changed there is another photo that explicitly shows the add photo
-    func checkAddPhoto() {
+    func checkaddPhoto() {
         let lastIndex = postPhotos.count - 1
-        if postPhotos[lastIndex] != UIImage(named: "defaultPhoto") {
-            postPhotos.insert(UIImage(named: "defaultPhoto")!, at: lastIndex+1)
+        if postPhotos[lastIndex] != UIImage(named: "addPhoto") && (postPhotos.count < 5) {
+            postPhotos.insert(UIImage(named: "addPhoto")!, at: lastIndex+1)
         }
     }
     
@@ -316,7 +316,7 @@ class PostAdTableViewController: UITableViewController, UITextViewDelegate, UICo
         return postPhotos.count
     }
     
-    //initializes photo collectionview to images stored in postPhotos array, on startup it is just one instance of defaultPhoto
+    //initializes photo collectionview to images stored in postPhotos array, on startup it is just one instance of addPhoto
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImageCollectionViewCell", for: indexPath) as! ImageCollectionViewCell
         cell.postImg.image = postPhotos[indexPath.row]
@@ -330,6 +330,7 @@ class PostAdTableViewController: UITableViewController, UITextViewDelegate, UICo
         let imagePickerController = UIImagePickerController()
         // Only allow photos to be picked, not taken.
         imagePickerController.sourceType = .photoLibrary
+        imagePickerController.allowsEditing = true
         
         // Make sure ViewController is notified when the user picks an image.
         imagePickerController.delegate = self
@@ -347,21 +348,26 @@ class PostAdTableViewController: UITableViewController, UITextViewDelegate, UICo
     func imagePickerController(_ picker: UIImagePickerController,
                                didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
-        guard let selectedImage = info[.originalImage] as? UIImage else {
-            fatalError("Expected a dictionary containing an image, but was provided the following: \(info)")
+        var selectedImageFromPicker: UIImage?
+        if let editedImage = info[.editedImage] as? UIImage {
+            selectedImageFromPicker = editedImage
+        } else if let originalImage = info[.originalImage] as? UIImage {
+            selectedImageFromPicker = originalImage
         }
         
-        // Set photoImageView to display the selected image.
-        if (!customPhotoAdded) {
-            postPhotos[0] = selectedImage
-        }
-        else {
-            postPhotos[indexPathForCell.row] = selectedImage
+        if let selectedImage = selectedImageFromPicker {
+            // Set photoImageView to display the selected image.
+            if (!customPhotoAdded) {
+                postPhotos[0] = selectedImage
+            }
+            else {
+                postPhotos[indexPathForCell.row] = selectedImage
+            }
         }
         customPhotoAdded = true
-        
-        checkAddPhoto()
+        checkaddPhoto()
         self.cvPhotos.reloadData()
+        
         // Dismiss the picker.
         dismiss(animated: true, completion: nil)
     }

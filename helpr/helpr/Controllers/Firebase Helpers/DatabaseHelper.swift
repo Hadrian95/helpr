@@ -110,8 +110,8 @@ class DatabaseHelper {
                         postalCode: "T3A 1B6",
                         postedTime: document.data()["postedTime"]! as! Date,
                         email: (Auth.auth().currentUser?.email)!)
-                    let storage = StorageHelper()
-                    storage.loadImages(job: job!)
+                    //let storage = StorageHelper()
+                    //storage.loadImages(job: job!)
                     jobs.append(job!)
                 }
                 completion(jobs)
@@ -136,8 +136,8 @@ class DatabaseHelper {
                     postedTime: document.data()?["postedTime"]! as! Date,
                     email: (Auth.auth().currentUser?.email)!,
                     id: document.documentID)
-                let storage = StorageHelper()
-                storage.loadImages(job: job!)
+                //let storage = StorageHelper()
+                //storage.loadImages(job: job!)
             } else {
                 print("Job document does not exist")
             }
