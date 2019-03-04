@@ -1156,6 +1156,9 @@
                         </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="bhr-Dj-ObL" kind="relationship" relationship="rootViewController" id="rAx-U5-y7i"/>
+                    </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BFc-Zv-b3K" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1211,16 +1214,16 @@
             </objects>
             <point key="canvasLocation" x="1381.5999999999999" y="742.61083743842369"/>
         </scene>
-        <!--Message Table View Controller-->
+        <!--Messages-->
         <scene sceneID="kfS-iD-Hx5">
             <objects>
                 <tableViewController id="bhr-Dj-ObL" customClass="MessageTableViewController" customModule="helpr" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="lL8-fM-fs3">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="90" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="lL8-fM-fs3">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="729"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="90" id="kqO-aF-Cgm" customClass="MessageTableViewCell" customModule="helpr" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="MessagePreviewTableViewCell" rowHeight="90" id="kqO-aF-Cgm" customClass="MessageTableViewCell" customModule="helpr" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="375" height="90"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="kqO-aF-Cgm" id="DtM-Jy-ED2">
@@ -1230,7 +1233,7 @@
                                         <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="AUI-Bd-TPx">
                                             <rect key="frame" x="16" y="11" width="343" height="68"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Ehb-mU-Mpn">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Ehb-mU-Mpn">
                                                     <rect key="frame" x="0.0" y="0.0" width="68" height="68"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="Ehb-mU-Mpn" secondAttribute="height" multiplier="1:1" id="SPp-4J-WpT"/>
@@ -1280,8 +1283,7 @@
                                     </subviews>
                                     <constraints>
                                         <constraint firstAttribute="trailingMargin" secondItem="AUI-Bd-TPx" secondAttribute="trailing" id="CdL-7q-Es8"/>
-                                        <constraint firstItem="Ehb-mU-Mpn" firstAttribute="height" secondItem="DtM-Jy-ED2" secondAttribute="height" multiplier="0.9" id="QUf-8U-zZo"/>
-                                        <constraint firstItem="AUI-Bd-TPx" firstAttribute="top" secondItem="DtM-Jy-ED2" secondAttribute="topMargin" id="Til-Vw-7ww"/>
+                                        <constraint firstItem="AUI-Bd-TPx" firstAttribute="top" secondItem="DtM-Jy-ED2" secondAttribute="topMargin" id="Pnr-ea-prj"/>
                                         <constraint firstItem="AUI-Bd-TPx" firstAttribute="leading" secondItem="DtM-Jy-ED2" secondAttribute="leadingMargin" id="mrC-pb-oWJ"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="AUI-Bd-TPx" secondAttribute="bottom" id="ydn-oT-JGB"/>
                                     </constraints>
@@ -1300,6 +1302,7 @@
                             <outlet property="delegate" destination="bhr-Dj-ObL" id="VDm-yV-voR"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" title="Messages" id="mw8-IT-gPT"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="U5e-cf-py0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1417,8 +1420,9 @@
                                     <segue destination="jdI-ma-Bac" kind="show" id="c00-bi-Udq"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&quot;I've never seen anybody who can churn out the same thing over and over again and call it revolutionary like this man&quot;" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sNa-Hr-NiM" userLabel="LSampleReview">
-                                <rect key="frame" x="16" y="537.33333333333337" width="343" height="61"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sNa-Hr-NiM" userLabel="LSampleReview">
+                                <rect key="frame" x="16" y="537.33333333333337" width="343" height="101.66666666666663"/>
+                                <string key="text">"A true professional and an absolute pleasure to be around, this helpr went above and beyond what I expected from a hired hand through an app. I'm never using JobJar, TaskRabbit, or AdamHelps again!"</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -11885,9 +11889,9 @@ AAAABAEAAAAAAAAAWQAAAAAAAAAAAAAAAAAIBZk
         </namedColor>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Hot-sp-g1e"/>
+        <segue reference="RTk-ct-WvE"/>
         <segue reference="edr-cc-jQm"/>
-        <segue reference="WXI-hz-ulL"/>
+        <segue reference="HaN-QN-iNf"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" name="RoyalPurple"/>
 </document>

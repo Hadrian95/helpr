@@ -22,6 +22,7 @@
 		459F129F219D032D0032CC5E /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459F129E219D032D0032CC5E /* ProfileViewController.swift */; };
 		459F12A1219D037F0032CC5E /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459F12A0219D037F0032CC5E /* SettingsTableViewController.swift */; };
 		45AE32B7218A617B005F2A8B /* ImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45AE32B6218A617B005F2A8B /* ImageCollectionViewCell.swift */; };
+		55850C1A222DB04700BDC61D /* MessagePreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55850C19222DB04700BDC61D /* MessagePreview.swift */; };
 		55C56ABB220A2DD900B81E8C /* MessageTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C56ABA220A2DD900B81E8C /* MessageTableViewController.swift */; };
 		55C56ABD220A2E6B00B81E8C /* MessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C56ABC220A2E6B00B81E8C /* MessageTableViewCell.swift */; };
 		55C56ABF220CDED100B81E8C /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C56ABE220CDED100B81E8C /* User.swift */; };
@@ -97,6 +98,7 @@
 		459F129E219D032D0032CC5E /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		459F12A0219D037F0032CC5E /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		45AE32B6218A617B005F2A8B /* ImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewCell.swift; sourceTree = "<group>"; };
+		55850C19222DB04700BDC61D /* MessagePreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagePreview.swift; sourceTree = "<group>"; };
 		55C56ABA220A2DD900B81E8C /* MessageTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageTableViewController.swift; sourceTree = "<group>"; };
 		55C56ABC220A2E6B00B81E8C /* MessageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageTableViewCell.swift; sourceTree = "<group>"; };
 		55C56ABE220CDED100B81E8C /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -261,6 +263,7 @@
 		AC9682AE21A6000400A161D6 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				55850C19222DB04700BDC61D /* MessagePreview.swift */,
 				55C56ABE220CDED100B81E8C /* User.swift */,
 				4576E8C321890A7C00471AB4 /* Post.swift */,
 				CA2F723E21A35E4A00AAF19F /* UserProfile.swift */,
@@ -660,6 +663,7 @@
 				ACB40CC721AF6BBA00477C1F /* JobInformation.swift in Sources */,
 				AC23225C219BD61F003EFB62 /* Date+timeAgoSinceDate.swift in Sources */,
 				AC01C7EF21ABB684000EEB37 /* StorageHelper.swift in Sources */,
+				55850C1A222DB04700BDC61D /* MessagePreview.swift in Sources */,
 				F783AB0421791E5B0010F034 /* PostAdTableViewController.swift in Sources */,
 				55C56ABF220CDED100B81E8C /* User.swift in Sources */,
 				ACBC29AE21B5F28E00EE1406 /* UITextField+BottomBorder.swift in Sources */,
