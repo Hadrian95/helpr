@@ -10,12 +10,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "helpr/Controllers/Firebase Helpers/DatabaseHelper.swift"
-            timestampString = "572566480.9204299"
+            timestampString = "573122030.3751169"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "25"
             endingLineNumber = "25"
-            landmarkName = "createUser(email:password:completion:)"
+            landmarkName = "hilmiIsAFuckingMoron(completion:)"
             landmarkType = "7">
             <Locations>
                <Location
@@ -58,7 +58,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "helpr/Controllers/Firebase Helpers/DatabaseHelper.swift"
-            timestampString = "572566480.920566"
+            timestampString = "573122030.375232"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "31"
@@ -74,12 +74,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "helpr/Controllers/Firebase Helpers/DatabaseHelper.swift"
-            timestampString = "572566480.920626"
+            timestampString = "573122030.375308"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "26"
             endingLineNumber = "26"
-            landmarkName = "createUser(email:password:completion:)"
+            landmarkName = "hilmiIsAFuckingMoron(completion:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -90,7 +90,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "helpr/Controllers/Firebase Helpers/DatabaseHelper.swift"
-            timestampString = "572566480.920681"
+            timestampString = "573122030.375362"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "35"
@@ -106,11 +106,27 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "helpr/Controllers/Firebase Helpers/DatabaseHelper.swift"
-            timestampString = "572566480.920733"
+            timestampString = "573122030.3754129"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "36"
             endingLineNumber = "36"
+            landmarkName = "createUser(email:password:completion:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "helpr/Controllers/Firebase Helpers/DatabaseHelper.swift"
+            timestampString = "573122030.375464"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "40"
+            endingLineNumber = "40"
             landmarkName = "DatabaseHelper"
             landmarkType = "3">
          </BreakpointContent>
@@ -122,23 +138,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "helpr/Controllers/Firebase Helpers/DatabaseHelper.swift"
-            timestampString = "572566480.920785"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "40"
-            endingLineNumber = "40"
-            landmarkName = "addJobInformation(dataToSave:tags:jobID:completion:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "helpr/Controllers/Firebase Helpers/DatabaseHelper.swift"
-            timestampString = "572566480.920837"
+            timestampString = "573122030.375515"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "32"
@@ -154,7 +154,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "helpr/Controllers/Firebase Helpers/DatabaseHelper.swift"
-            timestampString = "572566480.92089"
+            timestampString = "573122030.375566"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "59"
@@ -170,7 +170,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "helpr/Controllers/Firebase Helpers/DatabaseHelper.swift"
-            timestampString = "572566480.9209419"
+            timestampString = "573122030.375617"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "49"
@@ -218,7 +218,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "helpr/Controllers/Firebase Helpers/DatabaseHelper.swift"
-            timestampString = "572566480.920994"
+            timestampString = "573122030.375668"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "58"
@@ -234,7 +234,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "helpr/Controllers/Firebase Helpers/DatabaseHelper.swift"
-            timestampString = "572566480.9210449"
+            timestampString = "573122030.375717"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "41"
@@ -282,7 +282,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "helpr/Controllers/Firebase Helpers/DatabaseHelper.swift"
-            timestampString = "572566480.921097"
+            timestampString = "573122030.3757679"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "42"
@@ -298,7 +298,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "helpr/Controllers/Firebase Helpers/DatabaseHelper.swift"
-            timestampString = "572566480.9211479"
+            timestampString = "573122030.375818"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "43"
@@ -314,7 +314,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "helpr/Controllers/Firebase Helpers/DatabaseHelper.swift"
-            timestampString = "572566480.921199"
+            timestampString = "573122030.375868"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "44"
@@ -330,12 +330,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "helpr/Controllers/Firebase Helpers/DatabaseHelper.swift"
-            timestampString = "572566480.9212511"
+            timestampString = "573122030.375918"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "45"
             endingLineNumber = "45"
             landmarkName = "addJobInformation(dataToSave:tags:jobID:completion:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "helpr/Controllers/PostAdTableViewController.swift"
+            timestampString = "573122030.375977"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "166"
+            endingLineNumber = "166"
+            landmarkName = "exitPostAd(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

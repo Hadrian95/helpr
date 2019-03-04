@@ -11,6 +11,7 @@ import os.log
 import MapKit
 import CoreLocation
 import FirebaseAuth
+import Firebase
 
 class PostAdTableViewController: UITableViewController, UITextViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, MKMapViewDelegate, CLLocationManagerDelegate, MKLocalSearchCompleterDelegate {
     
@@ -34,6 +35,8 @@ class PostAdTableViewController: UITableViewController, UITextViewDelegate, UICo
     var indexPathForCell : IndexPath = [] //variable to allow updating of photos
     var customPhotoAdded = false;
     var addPhotoExists = true;
+    var regionLat : CLLocationDegrees = 0.0
+    var regionLong : CLLocationDegrees = 0.0
     let locationManager = CLLocationManager()
     var searchCompleter = MKLocalSearchCompleter()
     var searchResults = [MKLocalSearchCompletion]()
@@ -176,6 +179,7 @@ class PostAdTableViewController: UITableViewController, UITextViewDelegate, UICo
         let description = tvDescription.text ?? "No description provided"
         // let tags = tfTags.text ?? ""
         let tags = ["iOS", "Yeet", "YOLO", "Y DID I SIGN UP FOR DIS"]
+        //let location = GeoPoint(latitude: regionLat, longitude: regionLong)
         let lastGoodPic = postPhotos.count - 2
         let pictures = Array(postPhotos[0...lastGoodPic])
         
@@ -390,7 +394,7 @@ class PostAdTableViewController: UITableViewController, UITextViewDelegate, UICo
         
         //Ignoring user
         UIApplication.shared.beginIgnoringInteractionEvents()
-        
+
         //Activity Indicator
         let activityIndicator = UIActivityIndicatorView()
         activityIndicator.style = UIActivityIndicatorView.Style.gray
@@ -437,11 +441,6 @@ class PostAdTableViewController: UITableViewController, UITextViewDelegate, UICo
         let region = MKCoordinateRegion(center: mapView.userLocation.coordinate, span: mapView.region.span)
         mapView.setRegion(region, animated: true)
     }
-    @IBAction func handleCenterLocation2(_ sender: UIImageView) {
-        print("Center location tapped")
-        let region = MKCoordinateRegion(center: mapView.userLocation.coordinate, span: mapView.region.span)
-        mapView.setRegion(region, animated: true)
-    }
     
     //Shows mapPin image once the mapView is scrolled
     //TODO: reverse geocode address from mapView.region.center
@@ -451,8 +450,8 @@ class PostAdTableViewController: UITableViewController, UITextViewDelegate, UICo
         mapView.region.center = mapView.centerCoordinate
         
         //round lat and long to 6 digits
-        let regionLat = Double(mapView.region.center.latitude * 1000000).rounded() / 1000000
-        let regionLong = Double(mapView.region.center.longitude * 1000000).rounded() / 1000000
+        regionLat = Double(mapView.region.center.latitude * 1000000).rounded() / 1000000
+        regionLong = Double(mapView.region.center.longitude * 1000000).rounded() / 1000000
         let userLat = mapView.userLocation.coordinate.latitude
         let userLong = mapView.userLocation.coordinate.longitude
         
