@@ -47,7 +47,7 @@ class ProfileViewController: UIViewController {
             }
             
             ivProfilePic.layer.cornerRadius = ivProfilePic.frame.width / 2
-            ivProfilePic.layer.borderWidth = 1
+            ivProfilePic.layer.borderWidth = 2
             ivProfilePic.layer.borderColor = UIColor.lightGray.cgColor
         }
         

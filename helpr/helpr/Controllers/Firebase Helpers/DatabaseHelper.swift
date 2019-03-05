@@ -22,10 +22,6 @@ class DatabaseHelper {
         jobs = [Job]()
     }
 
-    func hilmiIsAFuckingMoron(completion: @escaping (Bool) -> ()) {
-        completion(true)
-    }
-
     func createUser(email: String, password: String, completion: @escaping (Error?) -> ()){
         Auth.auth().createUser(withEmail: email, password: password) { (user, error) in
             if error == nil {

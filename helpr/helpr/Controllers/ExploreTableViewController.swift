@@ -11,7 +11,7 @@ import os.log
 import Firebase
 import CodableFirebase
 import FirebaseUI
-class ExploreTableViewController: UITableViewController, UISearchResultsUpdating{
+class ExploreTableViewController: UITableViewController, UISearchBarDelegate {
     
     //MARK: Properties
     var database = DatabaseHelper()
@@ -21,8 +21,6 @@ class ExploreTableViewController: UITableViewController, UISearchResultsUpdating
     var filteredJobs = [Job]()
     var isPurple = Bool()
     let cellSpacingHeight: CGFloat = 5
-    
-    let searchController = UISearchController(searchResultsController: nil)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,14 +48,10 @@ class ExploreTableViewController: UITableViewController, UISearchResultsUpdating
         
         //loadSampleJobs()
         //loadJobs()
-        filteredJobs = ExploreTableViewController.jobs
+//        filteredJobs = ExploreTableViewController.jobs
         isPurple = false
         self.tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
-        searchController.searchResultsUpdater = self
-        searchController.hidesNavigationBarDuringPresentation = false
-        searchController.dimsBackgroundDuringPresentation = false
-        searchController.searchBar.backgroundColor = UIColor(named: "RoyalPurple")
-        tableView.tableHeaderView = searchController.searchBar
+//        searchBar.delegate = self
         
         definesPresentationContext = true
     }
@@ -68,8 +62,8 @@ class ExploreTableViewController: UITableViewController, UISearchResultsUpdating
     }
     
     // MARK: - UISearchResultsUpdating Delegate
-    func updateSearchResults(for searchController: UISearchController) {
-        if let searchText = searchController.searchBar.text, !searchText.isEmpty {
+    func updateSearchResults(for searchBar: UISearchBar) {
+        if let searchText = searchBar.text, !searchText.isEmpty {
             filteredJobs = ExploreTableViewController.jobs.filter { job in
                 return job.information.category.lowercased().contains(searchText.lowercased())
             }
@@ -87,9 +81,9 @@ class ExploreTableViewController: UITableViewController, UISearchResultsUpdating
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if isFiltering() {
-            return filteredJobs.count
-        }
+//        if isFiltering() {
+//            return filteredJobs.count
+//        }
         return ExploreTableViewController.jobs.count
     }
 
@@ -104,11 +98,11 @@ class ExploreTableViewController: UITableViewController, UISearchResultsUpdating
 
         // fetches the appropriate job for the data source layout
         let job : Job
-        if isFiltering() {
-            job = filteredJobs[indexPath.row]
-        } else {
+//        if isFiltering() {
+//            job = filteredJobs[indexPath.row]
+//        } else {
             job = ExploreTableViewController.jobs[indexPath.row]
-        }
+//        }
         
         cell.layer.cornerRadius = 10.0
         cell.layer.masksToBounds = true
@@ -217,12 +211,12 @@ class ExploreTableViewController: UITableViewController, UISearchResultsUpdating
             
             let selectedJob: Job
             // fetches the appropriate job
-            if isFiltering() {
-                selectedJob = filteredJobs[indexPath.row]
-            } else {
+//            if isFiltering() {
+//                selectedJob = filteredJobs[indexPath.row]
+//            } else {
                 selectedJob = ExploreTableViewController.jobs[indexPath.row]
-            }
-            
+//            }
+          
             jobViewController.job = selectedJob
             
         case "CreatePost":
@@ -237,12 +231,12 @@ class ExploreTableViewController: UITableViewController, UISearchResultsUpdating
     
     //MARK: Search-related methods
 
-    private func searchBarIsEmpty() -> Bool {
-        // Returns true if the text is empty or nil
-        return searchController.searchBar.text?.isEmpty ?? true
-    }
-    
-    private func isFiltering() -> Bool {
-        return searchController.isActive && !searchBarIsEmpty()
-    }
+//    private func searchBarIsEmpty() -> Bool {
+//        // Returns true if the text is empty or nil
+//        return searchBar.text?.isEmpty ?? true
+//    }
+//
+//    private func isFiltering() -> Bool {
+//        return !searchBarIsEmpty()
+//    }
 }
