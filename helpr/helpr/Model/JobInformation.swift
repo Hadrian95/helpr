@@ -24,7 +24,6 @@ class JobInformation: Codable {
     var pictures = [String?]() // contains urls for images
     var tags = [String?]()
     var distance: Int
-    var location: GeoPoint
     var postalCode: String
     var postedTime: Date
     var favourite: Bool
@@ -33,7 +32,7 @@ class JobInformation: Codable {
     
     //MARK: Initialization
     
-    init?(title: String, category: String, description: String, pictures: [String?], tags: [String], distance: Int, location: GeoPoint, postalCode: String, postedTime: Date, email: String) {
+    init?(title: String, category: String, description: String, pictures: [String?], tags: [String], distance: Int, postalCode: String, postedTime: Date, email: String) {
         self.title = title
         self.category = category
         self.postDescription = description
@@ -46,7 +45,6 @@ class JobInformation: Codable {
         }
         
         self.distance = distance
-        self.location = location
         self.favourite = false
         if (!postalCode.isEmpty){
             self.postalCode = postalCode
@@ -58,7 +56,7 @@ class JobInformation: Codable {
         self.id = UUID().uuidString
     }
     
-    init?(title: String, category: String, description: String, pictures: [String?], tags: [String], distance: Int, location: GeoPoint, postalCode: String, postedTime: Date, email: String, id: String) {
+    init?(title: String, category: String, description: String, pictures: [String?], tags: [String], distance: Int, postalCode: String, postedTime: Date, email: String, id: String) {
         self.title = title
         self.category = category
         self.postDescription = description
@@ -72,7 +70,6 @@ class JobInformation: Codable {
         
         self.distance = distance
         self.favourite = false
-        self.location = location
         if (!postalCode.isEmpty){
             self.postalCode = postalCode
         }else{

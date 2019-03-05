@@ -380,10 +380,10 @@ class PostAdTableViewController: UITableViewController, UITextViewDelegate, UICo
     @IBAction func lockLocation(_ sender: UIButton) {
         mapView.isScrollEnabled = !mapView.isScrollEnabled
         btnCenterLoc.isEnabled = !btnCenterLoc.isEnabled
-        if (btnlockLoc.currentTitle == "Lock") {
-            btnlockLoc.setTitle("Unlock", for: .normal)
+        if (btnlockLoc.currentImage == UIImage.init(named: "lock")) {
+            btnlockLoc.setImage(UIImage.init(named: "unlock"), for: .normal)
         }
-        else { btnlockLoc.setTitle("Lock", for: .normal) }
+        else { btnlockLoc.setImage(UIImage.init(named: "lock"), for: .normal) }
     }
     
     @IBAction func autocompleteLocation(_ sender: UITextField) {
