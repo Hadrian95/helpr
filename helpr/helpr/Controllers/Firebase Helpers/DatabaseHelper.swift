@@ -109,7 +109,8 @@ class DatabaseHelper {
                         distance: 0,
                         postalCode: "T3A 1B6",
                         postedTime: document.data()["postedTime"]! as! Date,
-                        email: (Auth.auth().currentUser?.email)!,
+                        email: "walter.alvarez@live.com"
+                        ,//(Auth.auth().currentUser?.email)!,
                         id: document.data()["id"]! as! Int)
 //                    let storage = StorageHelper()
 //                    storage.loadImages(job: job!)

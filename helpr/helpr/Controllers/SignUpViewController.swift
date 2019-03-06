@@ -35,11 +35,29 @@ class SignUpViewController: UIViewController {
         lEmail.setBottomBorder()
         lPassword.setBottomBorder()
         lConfirmPass.setBottomBorder()
-        
-        
     }
+    
+    @IBAction func didTapView(_ sender: UITapGestureRecognizer) {
+        view.endEditing(true)
+    }
+    
     @IBAction func cancel(_ sender: Any) {
         dismiss(animated: true, completion: nil)
+    }
+    
+    @IBAction func doneEditing(_ sender: UITextField) {
+        if sender.accessibilityIdentifier == "nameField" {
+            lEmail.becomeFirstResponder()
+        }
+        else if sender.accessibilityIdentifier == "emailField"{
+            lPassword.becomeFirstResponder()
+        }
+        else if sender.accessibilityIdentifier == "passwordField"{
+            lConfirmPass.becomeFirstResponder()
+        }
+        else {
+            sender.resignFirstResponder()
+        }
     }
     
     @IBAction func goToSignIn(_ sender: Any) {

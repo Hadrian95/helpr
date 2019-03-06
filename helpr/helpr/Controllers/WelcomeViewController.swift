@@ -16,12 +16,17 @@ class WelcomeViewController: UIViewController {
     
     var storage = StorageHelper()
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         let database = DatabaseHelper()
         
         // Do any additional setup after loading the view, typically from a nib.
+        /*
         let handle = Auth.auth().addStateDidChangeListener { (auth,user) in
             if (user != nil) {
                 database.getUser() { (user) -> () in
@@ -37,10 +42,11 @@ class WelcomeViewController: UIViewController {
                 print ("No user signed in.")
             }
         }
-        
+        */
         bStart.layer.cornerRadius = 5
         bStart.layer.borderWidth = 2
-        bStart.layer.borderColor = UIColor(named: "RoyalPurple")?.cgColor
+        bStart.layer.borderColor = UIColor.white.cgColor
+        
     }
 }
 

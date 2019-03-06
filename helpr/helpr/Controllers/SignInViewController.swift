@@ -24,9 +24,6 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
         let width   = self.view.frame.width
         let height  = self.view.frame.height
         scrollView.contentSize = CGSize(width: width, height: height - 40)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
-        
         
         bLogIn.layer.cornerRadius = 5
         bLogIn.layer.borderWidth = 2
@@ -37,23 +34,34 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
         passwordField.setBottomBorder()
         
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        addObservers()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        removeObservers()
+    }
+    
+    //if empty area in view tapped, dismiss keyboard
+    @IBAction func didTapView(_ sender: UITapGestureRecognizer) {
+        view.endEditing(true)
+    }
+    
+    
     @IBAction func cancel(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
     
-    @IBAction func nextField(_ sender: UITextField) {
-        if sender.accessibilityIdentifier == "emailField" {
-            print("Hit return on email field")
+    @IBAction func doneEditing(_ sender: UITextField) {
+       if sender.accessibilityIdentifier == "emailField" {
             passwordField.becomeFirstResponder()
         }
         else {
-            print("Hit return on password field")
             passwordField.resignFirstResponder()
         }
-    }
-    
-    @IBAction func touchUpOutside(_ sender: UITextField) {
-        sender.resignFirstResponder()
     }
     
     @IBAction func signInDidPress(_ sender: Any) {
@@ -65,11 +73,9 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
                 guard (authResult?.user) != nil else { return }
 
                 self.saveUser()
-                let alert = UIAlertController(title: "Sign-in successful", message: "You have successfully signed in!", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "OK", style: .default, handler:{ action in self.performSegue(withIdentifier: "successfulSignIn", sender: self) }))
-                self.present(alert, animated: true, completion: nil)
-                //successfulSignIn
-                
+//                let alert = UIAlertController(title: "Sign-in successful", message: "You have successfully signed in!", preferredStyle: .alert)
+//                alert.addAction(UIAlertAction(title: "OK", style: .default, handler:{ action in self.performSegue(withIdentifier: "successfulSignIn", sender: self) }))
+//                self.present(alert, animated: true, completion: nil)
 
             }else{
                 if let errCode = AuthErrorCode(rawValue: error!._code) {
@@ -107,6 +113,15 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
     }
     
     //MARK: Methods to manage keybaord
+    func addObservers() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+    }
+    
+    func removeObservers() {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
     @objc func keyboardWillHide(notification: Notification) {
         let contentInsets = UIEdgeInsets.zero
         scrollView.contentInset = contentInsets
