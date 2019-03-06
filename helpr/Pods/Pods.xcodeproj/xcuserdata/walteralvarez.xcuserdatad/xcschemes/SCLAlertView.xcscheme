@@ -14,10 +14,10 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "1890F752F1F694E6E524EB235237D450"
-               BlueprintName = "nanopb"
+               BlueprintIdentifier = "40A51EB40D01F4E6FADFC9C1A087E2B7"
+               BlueprintName = "SCLAlertView"
                ReferencedContainer = "container:Pods.xcodeproj"
-               BuildableName = "nanopb.framework">
+               BuildableName = "SCLAlertView.framework">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

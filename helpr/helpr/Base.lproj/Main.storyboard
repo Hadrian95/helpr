@@ -7,12 +7,14 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--Job Details-->
         <scene sceneID="zJj-H9-JxA">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hOV-LJ-OMl" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="sBI-Rt-p2d" customClass="JobDetailsViewController" customModule="helpr" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="PJl-tp-haJ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="729"/>
@@ -69,7 +71,7 @@
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                         <state key="normal" title="Bid"/>
                                         <connections>
-                                            <action selector="bidOnClick:" destination="sBI-Rt-p2d" eventType="touchUpInside" id="dVJ-Em-x1Y"/>
+                                            <segue destination="dsU-qh-EFZ" kind="presentation" id="qne-Ud-nhZ"/>
                                         </connections>
                                     </button>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="AEM-8L-Oea" userLabel="Job Photos">
@@ -167,9 +169,8 @@
                         <outlet property="jobTitle" destination="Wtv-5Z-6bi" id="4Q7-Gp-rYq"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="hOV-LJ-OMl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-191.19999999999999" y="2179.8029556650249"/>
+            <point key="canvasLocation" x="-1663" y="2180"/>
         </scene>
         <!--Explore-->
         <scene sceneID="pJ0-4u-ZV2">
@@ -1952,6 +1953,172 @@
             </objects>
             <point key="canvasLocation" x="-1660" y="2918"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="8gF-r7-KWA">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fdp-0k-WAo" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <navigationController id="dsU-qh-EFZ" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="DZp-BW-iVX">
+                        <rect key="frame" x="0.0" y="44" width="375" height="96"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" red="0.69019607839999997" green="0.41176470590000003" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </textAttributes>
+                        <textAttributes key="largeTitleTextAttributes">
+                            <color key="textColor" red="0.69019607839999997" green="0.41176470590000003" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </textAttributes>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="MtA-Jt-paV" kind="relationship" relationship="rootViewController" id="tGY-mw-8r1"/>
+                    </connections>
+                </navigationController>
+            </objects>
+            <point key="canvasLocation" x="-937" y="2184"/>
+        </scene>
+        <!--Bid Controller-->
+        <scene sceneID="wWO-VT-Hhj">
+            <objects>
+                <tableViewController id="MtA-Jt-paV" userLabel="Bid Controller" customClass="BidTableViewController" customModule="helpr" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="TM1-di-Yl3">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <sections>
+                            <tableViewSection headerTitle="" id="OCo-Qi-QNv">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="eFo-2i-Hzq">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="eFo-2i-Hzq" id="fe1-O5-grG">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.666666666666664"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <stackView opaque="NO" contentMode="scaleToFill" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="hhE-zR-kB1">
+                                                    <rect key="frame" x="16" y="8" width="343" height="28"/>
+                                                    <subviews>
+                                                        <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Bid Amount" textAlignment="natural" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="BdW-PF-ezt">
+                                                            <rect key="frame" x="0.0" y="0.0" width="198" height="28"/>
+                                                            <nil key="textColor"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                            <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
+                                                            <connections>
+                                                                <action selector="bidAmtBegin:" destination="MtA-Jt-paV" eventType="editingDidBegin" id="VvR-7q-qKO"/>
+                                                                <action selector="bidAmtEnd:" destination="MtA-Jt-paV" eventType="editingDidEnd" id="fLV-2h-DnH"/>
+                                                                <action selector="tfChanged:" destination="MtA-Jt-paV" eventType="editingChanged" id="ydK-B8-fV3"/>
+                                                            </connections>
+                                                        </textField>
+                                                        <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="RYJ-Hd-Fz4">
+                                                            <rect key="frame" x="206" y="0.0" width="137" height="29"/>
+                                                            <segments>
+                                                                <segment title="Hourly"/>
+                                                                <segment title="Flat Rate"/>
+                                                            </segments>
+                                                        </segmentedControl>
+                                                    </subviews>
+                                                </stackView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="hhE-zR-kB1" firstAttribute="leading" secondItem="fe1-O5-grG" secondAttribute="leading" constant="16" id="Elo-TI-aTd"/>
+                                                <constraint firstAttribute="trailing" secondItem="hhE-zR-kB1" secondAttribute="trailing" constant="16" id="La8-R0-Bmk"/>
+                                                <constraint firstItem="hhE-zR-kB1" firstAttribute="centerY" secondItem="fe1-O5-grG" secondAttribute="centerY" id="NUT-7B-Pux"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="gsT-zi-qT9">
+                                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="gsT-zi-qT9" id="WIu-Rc-ETm">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.666666666666664"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <stackView opaque="NO" contentMode="scaleToFill" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="PmQ-dp-4Qk">
+                                                    <rect key="frame" x="16" y="8" width="343" height="28"/>
+                                                    <subviews>
+                                                        <textField opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="749" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Time to Complete" textAlignment="natural" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="Y4o-Sf-fre">
+                                                            <rect key="frame" x="0.0" y="0.0" width="144" height="28"/>
+                                                            <nil key="textColor"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                            <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
+                                                            <connections>
+                                                                <action selector="tfChanged:" destination="MtA-Jt-paV" eventType="editingChanged" id="dl6-dg-rtf"/>
+                                                            </connections>
+                                                        </textField>
+                                                        <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="Awf-zE-lzH">
+                                                            <rect key="frame" x="152" y="0.0" width="191" height="29"/>
+                                                            <segments>
+                                                                <segment title="Minutes"/>
+                                                                <segment title="Hours"/>
+                                                                <segment title="Days"/>
+                                                            </segments>
+                                                        </segmentedControl>
+                                                    </subviews>
+                                                </stackView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="PmQ-dp-4Qk" firstAttribute="centerY" secondItem="WIu-Rc-ETm" secondAttribute="centerY" id="8jG-8z-T0b"/>
+                                                <constraint firstAttribute="trailing" secondItem="PmQ-dp-4Qk" secondAttribute="trailing" constant="16" id="hSs-nf-WIl"/>
+                                                <constraint firstItem="PmQ-dp-4Qk" firstAttribute="leading" secondItem="WIu-Rc-ETm" secondAttribute="leading" constant="16" id="kcJ-kh-BFt"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection headerTitle="Select Dates:" id="Hw3-aA-1Te">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="gWH-V1-nPG">
+                                        <rect key="frame" x="0.0" y="116" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="gWH-V1-nPG" id="dvj-mx-Q4t">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.666666666666664"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Calendar to go in this space" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TCi-M2-mU2">
+                                                    <rect key="frame" x="20" y="11.333333333333336" width="213" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="TCi-M2-mU2" firstAttribute="leading" secondItem="dvj-mx-Q4t" secondAttribute="leading" constant="20" symbolic="YES" id="rgb-oz-fo9"/>
+                                                <constraint firstItem="TCi-M2-mU2" firstAttribute="centerY" secondItem="dvj-mx-Q4t" secondAttribute="centerY" id="t5p-Qi-VtR"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="MtA-Jt-paV" id="jXK-tm-Qkz"/>
+                            <outlet property="delegate" destination="MtA-Jt-paV" id="aCz-Dk-LDU"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Bid On Job" id="vaO-Nd-mbf">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="pG7-Mu-6Nw">
+                            <connections>
+                                <action selector="btnCancel:" destination="MtA-Jt-paV" id="ZEu-Gb-IBo"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" enabled="NO" title="Place Bid" id="TB8-ED-nFq">
+                            <connections>
+                                <action selector="btnPlaceBid:" destination="MtA-Jt-paV" id="KEz-37-an5"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="bidTable" destination="TM1-di-Yl3" id="I8c-6x-Tn4"/>
+                        <outlet property="btnCancel" destination="pG7-Mu-6Nw" id="SST-iU-wbB"/>
+                        <outlet property="btnPlaceBid" destination="TB8-ED-nFq" id="Y0g-mz-ygd"/>
+                        <outlet property="scRate" destination="RYJ-Hd-Fz4" id="byZ-0E-Jzd"/>
+                        <outlet property="scTimeUnit" destination="Awf-zE-lzH" id="2Ja-cQ-RE6"/>
+                        <outlet property="tfBidAmt" destination="BdW-PF-ezt" id="OTP-2A-WjK"/>
+                        <outlet property="tfCompTime" destination="Y4o-Sf-fre" id="37Y-Zc-ZOJ"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5Qx-e0-PL6" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-191" y="2180"/>
+        </scene>
         <!--Settings-->
         <scene sceneID="5HF-kZ-6zK">
             <objects>
@@ -1983,6 +2150,7 @@
                                                 <constraint firstItem="l61-Jg-csm" firstAttribute="leading" secondItem="9sk-4d-Jqv" secondAttribute="leading" constant="20" symbolic="YES" id="EmB-sZ-WDh"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <color key="tintColor" name="RoyalPurple"/>
                                         <connections>
                                             <segue destination="XaG-2T-6iX" kind="show" id="li5-PJ-g4N"/>
                                         </connections>
@@ -11912,9 +12080,6 @@ AAAABAEAAAAAAAAAWQAAAAAAAAAAAAAAAAAIBZk
         <image name="messages" width="32" height="32"/>
         <image name="settings" width="32" height="32"/>
         <image name="steve" width="400" height="266"/>
-        <namedColor name="RoyalPurple">
-            <color red="0.69019607843137254" green="0.41176470588235292" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
         <namedColor name="RoyalPurple">
             <color red="0.69019607843137254" green="0.41176470588235292" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

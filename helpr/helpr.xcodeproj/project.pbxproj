@@ -22,6 +22,7 @@
 		459F129F219D032D0032CC5E /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459F129E219D032D0032CC5E /* ProfileViewController.swift */; };
 		459F12A1219D037F0032CC5E /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459F12A0219D037F0032CC5E /* SettingsTableViewController.swift */; };
 		45AE32B7218A617B005F2A8B /* ImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45AE32B6218A617B005F2A8B /* ImageCollectionViewCell.swift */; };
+		4B2DB5B7222F5D830067EE01 /* BidTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2DB5B6222F5D830067EE01 /* BidTableViewController.swift */; };
 		55850C1A222DB04700BDC61D /* MessagePreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55850C19222DB04700BDC61D /* MessagePreview.swift */; };
 		55C56ABB220A2DD900B81E8C /* MessageTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C56ABA220A2DD900B81E8C /* MessageTableViewController.swift */; };
 		55C56ABD220A2E6B00B81E8C /* MessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C56ABC220A2E6B00B81E8C /* MessageTableViewCell.swift */; };
@@ -98,6 +99,7 @@
 		459F129E219D032D0032CC5E /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		459F12A0219D037F0032CC5E /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		45AE32B6218A617B005F2A8B /* ImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewCell.swift; sourceTree = "<group>"; };
+		4B2DB5B6222F5D830067EE01 /* BidTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BidTableViewController.swift; sourceTree = "<group>"; };
 		55850C19222DB04700BDC61D /* MessagePreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagePreview.swift; sourceTree = "<group>"; };
 		55C56ABA220A2DD900B81E8C /* MessageTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageTableViewController.swift; sourceTree = "<group>"; };
 		55C56ABC220A2E6B00B81E8C /* MessageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageTableViewCell.swift; sourceTree = "<group>"; };
@@ -221,6 +223,7 @@
 				AC01C7F021ABB93A000EEB37 /* Extensions */,
 				ACFD809921A7766B009D0182 /* Backend */,
 				CA2F724821A3671100AAF19F /* AddPhoneViewController.swift */,
+				4B2DB5B6222F5D830067EE01 /* BidTableViewController.swift */,
 				4598BC9321A8B3640058096B /* CategoriesTableViewController.swift */,
 				CA2F724621A366C400AAF19F /* ChangeEmailViewController.swift */,
 				CA2F725421A368C900AAF19F /* ChangePasswordViewController.swift */,
@@ -502,15 +505,11 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputFileListPaths = (
-			);
 			inputPaths = (
 				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
 				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-helprUITests-checkManifestLockResult.txt",
 			);
@@ -524,15 +523,11 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputFileListPaths = (
-			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-helpr/Pods-helpr-resources.sh",
 				"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseFirestore/gRPCCertificates.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/gRPCCertificates.bundle",
 			);
@@ -546,8 +541,6 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputFileListPaths = (
-			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-helpr/Pods-helpr-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/BoringSSL-GRPC/openssl_grpc.framework",
@@ -555,6 +548,7 @@
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
+				"${BUILT_PRODUCTS_DIR}/SCLAlertView/SCLAlertView.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 				"${BUILT_PRODUCTS_DIR}/gRPC-C++/grpcpp.framework",
 				"${BUILT_PRODUCTS_DIR}/gRPC-Core/grpc.framework",
@@ -562,14 +556,13 @@
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openssl_grpc.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CodableFirebase.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SCLAlertView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpcpp.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpc.framework",
@@ -586,15 +579,11 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputFileListPaths = (
-			);
 			inputPaths = (
 				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
 				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-helpr-checkManifestLockResult.txt",
 			);
@@ -608,15 +597,11 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputFileListPaths = (
-			);
 			inputPaths = (
 				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
 				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-helprTests-checkManifestLockResult.txt",
 			);
@@ -637,6 +622,7 @@
 				AC01C7F521ABC13D000EEB37 /* ViewController+CameraHandling.swift in Sources */,
 				AC01C7F321ABC0D5000EEB37 /* DSCameraHandler.swift in Sources */,
 				4576E8B82188D84100471AB4 /* SignUpViewController.swift in Sources */,
+				4B2DB5B7222F5D830067EE01 /* BidTableViewController.swift in Sources */,
 				4576E8C421890A7C00471AB4 /* Post.swift in Sources */,
 				CA2F725121A3678500AAF19F /* ReviewsTableViewController.swift in Sources */,
 				AC01C7F721ABD199000EEB37 /* FileHelpers.swift in Sources */,
@@ -862,7 +848,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = helpr;
+				PRODUCT_BUNDLE_IDENTIFIER = ca.helpr;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
@@ -885,7 +871,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = helpr;
+				PRODUCT_BUNDLE_IDENTIFIER = ca.helpr;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
