@@ -1,19 +1,26 @@
 //
-//  SettingsTableViewController.swift
+//  BidTableViewController.swift
 //  helpr
 //
-//  Created by walter.alvarez on 2018-11-14.
-//  Copyright © 2018 ryan.konynenbelt. All rights reserved.
+//  Created by Walter Alvarez on 2019-03-05.
+//  Copyright © 2019 ryan.konynenbelt. All rights reserved.
 //
 
 import UIKit
-import Firebase
 
-class SettingsTableViewController: UITableViewController {
-
+class BidTableViewController: UITableViewController {
+    var job: Job?
+    @IBOutlet var bidTable: UITableView!
+    @IBOutlet weak var tfBidAmt: UITextField!
+    @IBOutlet weak var scRate: UISegmentedControl!
+    @IBOutlet weak var tfCompTime: UITextField!
+    @IBOutlet weak var scTimeUnit: UISegmentedControl!
+    @IBOutlet weak var btnCancel: UIBarButtonItem!
+    @IBOutlet weak var btnPlaceBid: UIBarButtonItem!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        navigationItem.title = job?.information.title
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -21,31 +28,53 @@ class SettingsTableViewController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
 
-    // MARK: - Table view data source
-
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return 4
+    @IBAction func btnCancel(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
     }
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch section {
-        case 0:
-            return 4
-        case 1:
-            return 3
-        case 2:
-            return 2
-        case 3:
-            return 2
-        default:
-            return 0
+    
+    @IBAction func btnPlaceBid(_ sender: Any) {
+        print("Bid placed")
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    
+    @IBAction func bidAmtBegin(_ sender: Any) {
+        if (tfBidAmt.text == "") {
+            tfBidAmt.text = "$"
         }
     }
     
-    override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-        if let headerView = view as? UITableViewHeaderFooterView {
-            //headerView.contentView.backgroundColor = .white
-            headerView.textLabel?.textColor = UIColor.init(named: "RoyalPurple")
+    @IBAction func bidAmtEnd(_ sender: Any) {
+        if (tfBidAmt.text == "$") {
+            tfBidAmt.text = ""
+        }
+    }
+    
+    @IBAction func tfChanged(_ sender: Any) {
+        if (tfBidAmt.text != "" && tfBidAmt.text != "$" && tfCompTime.text != "") {
+            btnPlaceBid.isEnabled = true
+        }
+        else {
+            btnPlaceBid.isEnabled = false
+        }
+    }
+    
+    // MARK: - Table view data source
+
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        // #warning Incomplete implementation, return the number of sections
+        return 2
+    }
+
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        // #warning Incomplete implementation, return the number of rows
+        switch section {
+        case 0:
+            return 2
+        case 1:
+            return 1
+        default:
+            return 0
         }
     }
 
@@ -104,20 +133,4 @@ class SettingsTableViewController: UITableViewController {
     }
     */
 
-    //MARK: Actions
-    @IBAction func doLogOut(_ sender: Any) {
-        let firebaseAuth = Auth.auth()
-        do {
-            try firebaseAuth.signOut()
-            if let storyboard = self.storyboard {
-                let vc = storyboard.instantiateViewController(withIdentifier: "StartScreen") as! WelcomeViewController
-                self.present(vc, animated: false, completion: nil)
-            }
-            
-        } catch let signOutError as NSError {
-            print ("Error signing out: %@", signOutError)
-        }
-    }
-    
-    
 }
