@@ -220,7 +220,7 @@ class ExploreTableViewController: UITableViewController, UISearchBarDelegate {
             jobViewController.job = selectedJob
             
         case "CreatePost":
-            guard let createPostViewController = segue.destination as? PostAdTableViewController else {
+            guard let createPostViewController = segue.destination as? UINavigationController else {
                 fatalError("Unexpected destination: \(segue.destination)")
             }
             

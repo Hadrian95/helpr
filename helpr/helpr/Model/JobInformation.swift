@@ -28,11 +28,12 @@ class JobInformation: Codable {
     var postedTime: Date
     var favourite: Bool
     var email: String
-    var id: String
+    var firebaseID: String
+    var id: Int
     
     //MARK: Initialization
     
-    init?(title: String, category: String, description: String, pictures: [String?], tags: [String], distance: Int, postalCode: String, postedTime: Date, email: String) {
+    init?(title: String, category: String, description: String, pictures: [String?], tags: [String], distance: Int, postalCode: String, postedTime: Date, email: String, id: Int) {
         self.title = title
         self.category = category
         self.postDescription = description
@@ -53,10 +54,11 @@ class JobInformation: Codable {
         }
         self.postedTime = postedTime
         
-        self.id = UUID().uuidString
+        self.firebaseID = UUID().uuidString
+        self.id = id
     }
     
-    init?(title: String, category: String, description: String, pictures: [String?], tags: [String], distance: Int, postalCode: String, postedTime: Date, email: String, id: String) {
+    init?(title: String, category: String, description: String, pictures: [String?], tags: [String], distance: Int, postalCode: String, postedTime: Date, email: String, firebaseID: String, id: Int) {
         self.title = title
         self.category = category
         self.postDescription = description
@@ -77,6 +79,7 @@ class JobInformation: Codable {
         }
         self.postedTime = postedTime
         
+        self.firebaseID = firebaseID
         self.id = id
     }
 }

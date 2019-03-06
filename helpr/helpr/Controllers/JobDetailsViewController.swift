@@ -43,7 +43,7 @@ class JobDetailsViewController: UIViewController, UICollectionViewDataSource, UI
         
         jobDescription.layer.cornerRadius = 8
         if let job = job {
-            navigationItem.title = job.information.category
+            navigationItem.title = "Job #" + String(job.information.id)
             jobTitle.text = job.information.title
             jobDescription.text = job.information.postDescription
             //jobPic.image = job.pictureData[0]

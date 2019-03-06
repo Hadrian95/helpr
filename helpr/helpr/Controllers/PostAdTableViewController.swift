@@ -29,8 +29,10 @@ class PostAdTableViewController: UITableViewController, UITextViewDelegate, UICo
     @IBOutlet weak var btnCenterLoc: UIButton!
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var mapPin: UIImageView!
+    @IBOutlet weak var cancelBtn: UIBarButtonItem!
     
     var job: Job?
+    var db = Firestore.firestore()
     var postPhotos = [UIImage]() //allow update of UICollectionViewCells
     var indexPathForCell : IndexPath = [] //variable to allow updating of photos
     var customPhotoAdded = false;
@@ -157,20 +159,25 @@ class PostAdTableViewController: UITableViewController, UITextViewDelegate, UICo
 
     }
     
-    //on cancel we must restore every field to startup values since there is no 'Back' button to handle this
-    @IBAction func exitPostAd(_ sender: UIBarButtonItem) {
-        lCategory.text = "No Category Selected"
+    @IBAction func exit(_ sender: UIBarButtonItem) {
         CategoriesTableViewController.selectedCellText = ""
-        lCategory.textColor = UIColor.lightGray
-        tfTitle.placeholder = "No Title Provided"
-        tvDescription.textColor = UIColor.lightGray
-        tvDescription.text = "Enter your post description here"
-        tfTags.placeholder = "#sampleTag"
-        postPhotos.removeAll()
-        postPhotos.insert(UIImage(named: "addPhoto")!, at: 0)
-        self.cvPhotos.reloadData()
-        customPhotoAdded = false
+        self.dismiss(animated: true, completion: nil)
     }
+    
+//    //on cancel we must restore every field to startup values since there is no 'Back' button to handle this
+//    @IBAction func exitPostAd(_ sender: UIBarButtonItem) {
+//        lCategory.text = "No Category Selected"
+//        CategoriesTableViewController.selectedCellText = ""
+//        lCategory.textColor = UIColor.lightGray
+//        tfTitle.placeholder = "No Title Provided"
+//        tvDescription.textColor = UIColor.lightGray
+//        tvDescription.text = "Enter your post description here"
+//        tfTags.placeholder = "#sampleTag"
+//        postPhotos.removeAll()
+//        postPhotos.insert(UIImage(named: "addPhoto")!, at: 0)
+//        self.cvPhotos.reloadData()
+//        customPhotoAdded = false
+//    }
     
     //when saving we must add the Job object consisting of all the UIView values and call the 'exitPostAd' function to reset fields for next time this view is loaded
     @IBAction func finishAddingPost(_ sender: UIBarButtonItem) {
@@ -185,17 +192,28 @@ class PostAdTableViewController: UITableViewController, UITextViewDelegate, UICo
         
         // Set the job to be passed to HomeTableViewController after the unwind segue.
         if (category?.trimmingCharacters(in: .whitespaces) != "") && (title.trimmingCharacters(in: .whitespaces) != "") {
-            job = Job(title: title, category: category!, description: description, pictureURLs: [], tags: tags, distance: 10, postalCode: "WH0CR5", postedTime: Date(), email: (UserProfile.email))
-            //HomeTableViewController.jobs.append(job!)
-            
+            let jobID = NSUUID().uuidString // generate job id for db
             let storage = StorageHelper()
             let database = DatabaseHelper()
             let userID = Auth.auth().currentUser?.uid
-            let jobID = NSUUID().uuidString // generate job id for db
+            var id = 0
             
-            job?.information.id = jobID
-            
-            storage.saveImages(job: job!, imagesArray: pictures, createJob: true, jobID: jobID)
+            // get highest job id within database and add 1 for new job id
+            let jobsRef = db.collection("jobs")
+            let query = jobsRef.order(by: "id", descending: true).limit(to: 1)
+            query.getDocuments() { (querySnapshot, error) in
+                if let error = error {
+                    print("Error getting documents: \(error)")
+                } else {
+                    for document in querySnapshot!.documents {
+                        id = (document.data()["id"]! as! Int) + 1
+                    }
+                    self.job = Job(title: title, category: category!, description: description, pictureURLs: [], tags: tags, distance: 10, postalCode: "WH0CR5", postedTime: Date(), email: (UserProfile.email), firebaseID: jobID, id: id)
+                    //HomeTableViewController.jobs.append(job!)
+                    
+                    storage.saveImages(job: self.job!, imagesArray: pictures, createJob: true, jobID: jobID)
+                }
+            }
             // HomeTableViewController.jobs.append(job!)
             
 //            let dataToSave = ["category": category, "description": description, "location": "200–298 Ellis St 94102 San Francisco, CA", "postedTime": Date(), "posterID": userID, "title": title, "pictureURLs": job?.information.pictures] as [String : Any]
@@ -211,11 +229,9 @@ class PostAdTableViewController: UITableViewController, UITextViewDelegate, UICo
 //                }
 //            }
             
-            self.exitPostAd(self.postBtn)
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadExplore"), object: nil)
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadMyJobs"), object: nil)
-            self.navigationController?.popViewController(animated: true)
-            self.tabBarController?.selectedIndex = 0
+            exit(cancelBtn)
         }
         //title or category were not provided
         else {

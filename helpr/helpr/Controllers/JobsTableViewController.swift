@@ -65,7 +65,14 @@ class JobsTableViewController: UITableViewController, UISearchResultsUpdating {
         jobsSegment.setWidth(UIScreen.main.bounds.width/2, forSegmentAt: 0)
         jobsSegment.setWidth(UIScreen.main.bounds.width/2, forSegmentAt: 1)
         jobsSegment.transform = CGAffineTransform(scaleX: 1.05, y: 1.25)
-        
+//        jobsSegment.setTitleTextAttributes([
+//            NSAttributedString.Key.font : UIFont.systemFont(ofSize: 18, weight: UIFont.Weight.regular)
+//            ], for: .normal)
+//
+//        jobsSegment.setTitleTextAttributes([
+//            NSAttributedString.Key.font : UIFont.systemFont(ofSize: 18, weight: UIFont.Weight.regular)
+//            ], for: .selected)
+//
         definesPresentationContext = true
     }
     
@@ -217,7 +224,7 @@ class JobsTableViewController: UITableViewController, UISearchResultsUpdating {
             jobViewController.job = selectedJob
             
         case "jobsCreatePost":
-            guard let createPostViewController = segue.destination as? PostAdTableViewController else {
+            guard let createPostViewController = segue.destination as? UINavigationController else {
                 fatalError("Unexpected destination: \(segue.destination)")
             }
             

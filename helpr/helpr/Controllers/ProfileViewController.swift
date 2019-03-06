@@ -16,8 +16,6 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var lblRating: UILabel!
     @IBOutlet weak var lblJobCount: UILabel!
     @IBOutlet weak var btnSkills: UIButton!
-    @IBOutlet weak var tvReviews: UITableView!
-    @IBOutlet weak var lblSkillCount: UILabel!
     
     private var storage: StorageHelper = StorageHelper()
     private var database: DatabaseHelper = DatabaseHelper()
@@ -35,8 +33,8 @@ class ProfileViewController: UIViewController {
             }
         }else{
             lblName.text = UserProfile.name
-            lblSkillCount.text = String(UserProfile.skills.count)
-            //btnSkills.setTitle(String(UserProfile.skills.count) + " skills", for: .normal)
+            //lblSkillCount.text = String(UserProfile.skills.count)
+            btnSkills.setTitle(String(UserProfile.skills.count) + " Skills", for: .normal)
             
             // get profile pic from database, use default picture if an error occurs
             database.getUser() { (user) in
@@ -47,8 +45,8 @@ class ProfileViewController: UIViewController {
             }
             
             ivProfilePic.layer.cornerRadius = ivProfilePic.frame.width / 2
-            ivProfilePic.layer.borderWidth = 2
-            ivProfilePic.layer.borderColor = UIColor.lightGray.cgColor
+            ivProfilePic.layer.borderWidth = 3
+            ivProfilePic.layer.borderColor = UIColor.init(named: "RoyalPurple")?.cgColor
         }
         
     }

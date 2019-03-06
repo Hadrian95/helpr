@@ -109,7 +109,8 @@ class DatabaseHelper {
                         distance: 0,
                         postalCode: "T3A 1B6",
                         postedTime: document.data()["postedTime"]! as! Date,
-                        email: (Auth.auth().currentUser?.email)!)
+                        email: (Auth.auth().currentUser?.email)!,
+                        id: document.data()["id"]! as! Int)
 //                    let storage = StorageHelper()
 //                    storage.loadImages(job: job!)
                     jobs.append(job!)
@@ -137,7 +138,8 @@ class DatabaseHelper {
                     postalCode: "T3A 1B6",
                     postedTime: document.data()?["postedTime"]! as! Date,
                     email: (Auth.auth().currentUser?.email)!,
-                    id: document.documentID)
+                    firebaseID: document.documentID,
+                    id: document.data()?["id"]! as! Int)
 //                let storage = StorageHelper()
 //                storage.loadImages(job: job!)
                 completion(job!)

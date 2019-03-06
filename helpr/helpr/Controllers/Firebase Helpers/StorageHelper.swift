@@ -22,7 +22,7 @@ class StorageHelper{
         return storageRef.child("profilePictures").child(Auth.auth().currentUser!.uid)
     }
     private func getJobReference(job: Job) -> StorageReference {
-        return storageRef.child("jobPictures").child(job.information.id)
+        return storageRef.child("jobPictures").child(job.information.firebaseID)
     }
     
     func saveImages(job: Job, imagesArray : [UIImage], createJob: Bool, jobID: String){
@@ -32,7 +32,7 @@ class StorageHelper{
             
             let database = DatabaseHelper()
             let userID = Auth.auth().currentUser?.uid
-            let dataToSave = ["category": job.information.category, "description": job.information.postDescription, "location": "200–298 Ellis St 94102 San Francisco, CA", "postedTime": Date(), "posterID": userID, "title": job.information.title, "pictureURLs": job.information.pictures] as [String : Any]
+            let dataToSave = ["id": job.information.id, "category": job.information.category, "description": job.information.postDescription, "location": "200–298 Ellis St 94102 San Francisco, CA", "postedTime": Date(), "posterID": userID, "title": job.information.title, "pictureURLs": job.information.pictures] as [String : Any]
             
             database.addJobInformation(dataToSave: dataToSave, tags: job.information.tags as! [String], jobID: jobID) {
                 (error) in
@@ -48,7 +48,7 @@ class StorageHelper{
     func loadImages(job: Job){
         if job.information.pictures.count < 1 { return }
         
-        downloadImages(jobID: job.information.id, images: job.information.pictures as! [String]){ downloadedImages in
+        downloadImages(jobID: job.information.firebaseID, images: job.information.pictures as! [String]){ downloadedImages in
             job.pictureData = downloadedImages
             print("Anything")
         }
