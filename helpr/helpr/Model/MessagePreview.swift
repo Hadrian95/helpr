@@ -14,9 +14,11 @@ import CodableFirebase
 class MessagePreview {
     var senderName = ""
     var mPreview = ""
-    var picture = UIImage()
+    var picture: UIImage?
     var bidAmt = ""
     var mTime = ""
+    var partnerID = ""
+    var partnerPicRef = ""
     
     init?(name: String, preview: String, pic: UIImage, bid: String, time: String) {
         senderName = name
@@ -24,5 +26,9 @@ class MessagePreview {
         picture = pic
         bidAmt = bid
         mTime = time
+    }
+    
+    init?() {
+        
     }
 }

@@ -57,7 +57,83 @@ class DatabaseHelper {
         docRef = colRef.document(jobID)
         docRef.setData(["completed": false])
     }
-
+    
+    func createBid(bidAmt: Float, rateType: String, timeEst: Float, timeUnit: String, job: Job, userID: String, chatID: String, completion: @escaping (Error?) -> ()) {
+        
+        let bidInfo = ["bid" : ["amount" : bidAmt, "rateType": rateType], "timeEstimate" : ["amount" : timeEst, "unit" : timeUnit]]
+        
+        // create a chat document for this bid
+        docRef = db.collection("chats").document(chatID)
+        docRef.setData(["job": job.information.id, "jobFirebaseID": job.information.firebaseID]) { (error) in
+            if error != nil {
+                print("Error adding data to chat doc")
+            }else{
+                print("Data has been successfully added to chat doc")
+            }
+        }
+        
+        // create the first message exchanged within newly created chat document
+        let messageID = NSUUID().uuidString
+        let bidMsg = "Hi! I can do your posted job (\"" + job.information.title + "\") for $" + String(bidAmt) + " " + rateType
+        let content = bidMsg + " and it would take me about " + String(timeEst) + " " + timeUnit
+        docRef = db.collection("chats").document(chatID).collection("messages").document(messageID)
+        docRef.setData(["content" : content, "created" : Date(), "senderID" : userID, "senderName" : UserProfile.name.components(separatedBy: " ")[0]]) { (error) in
+            if error != nil {
+                print("Error adding data to chat messages collection")
+            }else{
+                print("Data has been successfully added to chat messages collection")
+            }
+        }
+        
+        // add bidder to "bidders" collection for job being bid on
+        colRef = db.collection("jobs").document(job.information.firebaseID).collection("bidders")
+        docRef = colRef.document(userID)
+        docRef.setData(bidInfo) { (error) in
+            if error != nil {
+                print("Error adding data to jobs bidders collection")
+                completion(nil)
+            }else{
+                print("Data has been successfully added to jobs bidders collection!")
+                completion(error)
+            }
+        }
+        
+        // get posters profile picture
+        // ****** job.information.email is actually poster id, needs to be refactored, thanks Helm ****** //
+        docRef = db.collection("users").document(job.information.email) // email is actually poster id, needs to be refactored
+        docRef.getDocument() { (document, error) in
+            if let document = document, document.exists {
+                let posterName = document.data()?["name"] as! String
+                let posterPicRef = document.data()?["profilePic"] as! String
+                // create conversation reference in bidder's conversations log
+                let bidderDocRef = self.db.collection("users").document(userID).collection("conversations").document()
+                bidderDocRef.setData(["active" : true, "chatID" : chatID, "chatPartnerName" : posterName.components(separatedBy: " ")[0], "chatPartnerID" : job.information.email, "chatPartnerPicRef" : posterPicRef, "jobID" : job.information.id]) { (error) in
+                    if error != nil {
+                        print("Error adding data to bidder's conversations collection")
+                        completion(nil)
+                    }else{
+                        print("Data has been successfully added to bidder's conversations collection!")
+                        completion(error)
+                    }
+                }
+            } else {
+                print("User who posted job does not exist")
+            }
+        }
+        
+        // create conversation reference in poster's conversations log
+        colRef = db.collection("users").document(job.information.email).collection("conversations")
+        docRef = colRef.document()
+        docRef.setData(["active" : true, "chatID" : chatID, "chatPartnerName": UserProfile.name.components(separatedBy: " ")[0], "chatPartnerID" : userID, "chatPartnerPicRef" : UserProfile.profilePicRef, "jobID": job.information.id]) { (error) in
+            if error != nil {
+                print("Error adding data to poster's conversations collection")
+                completion(nil)
+            }else{
+                print("Data has been successfully added to poster's conversations collection!")
+                completion(error)
+            }
+        }
+    }
 
     func addUserInformation(dataToSave: [String: Any], photoURL: String?, completion: @escaping (Error?) -> ()) {
         let userID = Auth.auth().currentUser?.uid
@@ -109,8 +185,12 @@ class DatabaseHelper {
                         distance: 0,
                         postalCode: "T3A 1B6",
                         postedTime: document.data()["postedTime"]! as! Date,
+<<<<<<< HEAD
                         email: "walter.alvarez@live.com"
                         ,//(Auth.auth().currentUser?.email)!,
+=======
+                        email: document.data()["posterID"]! as! String,
+>>>>>>> d4eb879957128f6f80a948e2aa468fa1f95ad8f1
                         id: document.data()["id"]! as! Int)
 //                    let storage = StorageHelper()
 //                    storage.loadImages(job: job!)
@@ -138,7 +218,7 @@ class DatabaseHelper {
                     distance: 0,
                     postalCode: "T3A 1B6",
                     postedTime: document.data()?["postedTime"]! as! Date,
-                    email: (Auth.auth().currentUser?.email)!,
+                    email: document.data()?["posterID"]! as! String,
                     firebaseID: document.documentID,
                     id: document.data()?["id"]! as! Int)
 //                let storage = StorageHelper()
@@ -146,6 +226,79 @@ class DatabaseHelper {
                 completion(job!)
             } else {
                 print("Job document does not exist")
+            }
+        }
+    }
+    
+    func getBidAmt(chatID: String, chatPartnerID: String, completion: @escaping (String) -> ()) {
+        db.collection("chats").document(chatID).getDocument() { (document, error) in
+            if let document = document, document.exists {
+                let jobFBID = document.data()?["jobFirebaseID"] as! String
+                var bidStr = ""
+                var userID = Auth.auth().currentUser?.uid
+                self.db.collection("jobs").document(jobFBID).getDocument() { (document, error) in
+                    if let document = document, document.exists {
+                        let posterID = document.data()?["posterID"] as! String
+                        
+                        // I am the poster of the job, bidder document will be under chat partner's id
+                        if (posterID == userID) {
+                        self.db.collection("jobs").document(jobFBID).collection("bidders").document(chatPartnerID).getDocument() { (document, error) in
+                                let bid = document?.data()!["bid"] as! [String: Any]
+                                let amt = bid["amount"] as! Float
+                                let rate = bid["rateType"] as! String
+                                
+                                switch (rate) {
+                                case "flat":
+                                    bidStr = "$" + String(amt) + "flat"
+                                    break;
+                                default:
+                                    bidStr = "$" + String(amt) + "/hr"
+                                }
+                                completion(bidStr)
+                            }
+                        }
+                        // I am the bidder, bidder document will be stored under my id
+                        else {
+                            self.db.collection("jobs").document(jobFBID).collection("bidders").document(userID!).getDocument() { (document, error) in
+                                let bid = document?.data()!["bid"] as! [String: Any]
+                                let amt = bid["amount"] as! Float
+                                let rate = bid["rateType"] as! String
+                                
+                                switch (rate) {
+                                case "flat":
+                                    bidStr = "$" + String(amt) + "flat"
+                                    break;
+                                default:
+                                    bidStr = "$" + String(amt) + "/hr"
+                                }
+                                completion(bidStr)
+                            }
+                        }
+                    } else {
+                        print("Job document does not exist")
+                    }
+                }
+            } else {
+                print("Chat document does not exist")
+            }
+        }
+    }
+    
+    // get latest message info once chat id has been parsed from user's conversations collection
+    func getMsgPreview(chatID: String, completion: @escaping (String, Date, String) -> ()) {
+        
+        print("trying to grab chat message preview for chat id: " + chatID)
+        
+        self.db.collection("chats").document(chatID).collection("messages").order(by: "created", descending: true).limit(to: 1).getDocuments() { (querySnapshot, error) in
+            if let error = error {
+                print("Error getting message preview: \(error)")
+            } else {
+                for document in querySnapshot!.documents {
+                    let content = document.data()["content"] as! String
+                    let created = document.data()["created"] as! Date
+                    let senderName = document.data()["senderName"] as! String
+                    completion(content, created, senderName)
+                }
             }
         }
     }

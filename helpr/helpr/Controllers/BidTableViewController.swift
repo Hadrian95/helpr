@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class BidTableViewController: UITableViewController {
     var job: Job?
@@ -28,28 +29,63 @@ class BidTableViewController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
 
+    //Cancel button in nav bar selected
     @IBAction func btnCancel(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
     
+    //Place bid button in nav bar selected
+    //to do: create bid
     @IBAction func btnPlaceBid(_ sender: Any) {
-        print("Bid placed")
+        let userID = Auth.auth().currentUser?.uid
+        let database = DatabaseHelper()
+        let bidAmtStr = tfBidAmt.text?.split(separator: "$", maxSplits: 1, omittingEmptySubsequences: true)
+        let bidAmount = Float(bidAmtStr![0])
+        var rateType = ""
+        switch (scRate.selectedSegmentIndex) {
+        case 0:
+            rateType = "hourly"
+        default:
+            rateType = "flat"
+        }
+        let timeEstStr = tfCompTime.text!
+        let timeEstimate = Float(timeEstStr)
+        var timeUnit = ""
+        switch (scTimeUnit.selectedSegmentIndex) {
+        case 0:
+            timeUnit = "minutes"
+        case 1:
+            timeUnit = "hours"
+        default:
+            timeUnit = "days"
+        }
+        let chatID = NSUUID().uuidString
+        database.createBid(bidAmt: bidAmount!, rateType: rateType, timeEst: timeEstimate!, timeUnit: timeUnit, job: job!, userID: userID!, chatID: chatID) { (err) in
+            if err != nil {
+                print(err!._code)
+            } else {
+                print("bid succesfully added")
+            }
+        }
         self.dismiss(animated: true, completion: nil)
     }
     
-    
+    //User begins editing Bid Amount text field (prepends string with $)
     @IBAction func bidAmtBegin(_ sender: Any) {
         if (tfBidAmt.text == "") {
             tfBidAmt.text = "$"
         }
     }
     
+    //User stops editing Bid Amount text field (removed $ if no other input logged)
     @IBAction func bidAmtEnd(_ sender: Any) {
         if (tfBidAmt.text == "$") {
             tfBidAmt.text = ""
         }
     }
     
+    //while user editing, checks if both bid amount and time estimate are non empty values
+    //if that's the case, enable Place Bid nav button
     @IBAction func tfChanged(_ sender: Any) {
         if (tfBidAmt.text != "" && tfBidAmt.text != "$" && tfCompTime.text != "") {
             btnPlaceBid.isEnabled = true
