@@ -7,20 +7,69 @@
 //
 
 import UIKit
+import Firebase
+import CodableFirebase
 
 class MessageTableViewController: UITableViewController {
     var mPreviews = [MessagePreview]()
+    var db = Firestore.firestore()
+    var database = DatabaseHelper()
+    var userID = Auth.auth().currentUser?.uid
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadPreviews(notification:)), name: NSNotification.Name(rawValue: "reloadMessagePreviews"), object: nil)
         
         loadSampleMessagePreviews()
+        
+        db.collection("users").document(userID!).collection("conversations").order(by: "jobID", descending: true)
+            .addSnapshotListener { querySnapshot, error in
+            guard let snapshot = querySnapshot else {
+                print("Error fetching conversations snapshots: \(String(describing: error))")
+                return
+            }
+            snapshot.documentChanges.forEach { diff in
+                if (diff.type == .added) {
+                    let active = diff.document.data()["active"] as! Bool
+                    if (active) {
+                        var msgPreview = MessagePreview()
+                        
+                        let chatID = diff.document.data()["chatID"] as! String
+                        let partnerName = diff.document.data()["chatPartnerName"] as! String
+                        let chatPartnerID = diff.document.data()["chatPartnerID"] as! String
+                        let partnerPicRef = diff.document.data()["chatPartnerPicRef"] as! String
+                        
+                        msgPreview?.partnerID = chatPartnerID
+                        msgPreview?.partnerPicRef = partnerPicRef
+                        msgPreview?.senderName = partnerName
+                        
+                        DispatchQueue.main.async {
+                            self.database.getBidAmt(chatID: chatID, chatPartnerID: chatPartnerID) { (bid) in
+                                msgPreview?.bidAmt = bid
+                                self.database.getMsgPreview(chatID: chatID) { (content, created, senderName) in
+                                    msgPreview?.mPreview = content
+                                    msgPreview?.mTime =  created.timeAgoSinceDate(currentDate: Date(), numericDates: true)
+                                    
+                                    self.mPreviews.append(msgPreview!)
+                                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadMessagePreviews"), object: nil)
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
+    }
+    
+    // reload on new message preview added
+    @objc func reloadPreviews(notification: NSNotification){
+        self.tableView.reloadData()
     }
 
     // MARK: - Table view data source
@@ -48,7 +97,17 @@ class MessageTableViewController: UITableViewController {
         
         cell.lblName.text = preview.senderName
         cell.lblMsgPreview.text = preview.mPreview
-        cell.ivProfilePic.image = preview.picture
+        
+        if (preview.picture != nil) {
+            cell.ivProfilePic.image = preview.picture
+        } else {
+            // get other user's image from database, use default picture if an error occurs
+            let storageRef = Storage.storage().reference()
+            let ref = storageRef.child("profilePictures").child(preview.partnerID).child(preview.partnerPicRef)
+            let phImage = UIImage(named: "defaultPhoto.png")
+            cell.ivProfilePic.sd_setImage(with: ref, placeholderImage: phImage)
+        }
+        
         cell.lblBidAmt.text = preview.bidAmt
         cell.lblMsgTime.text = preview.mTime
 

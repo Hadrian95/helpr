@@ -14,7 +14,6 @@
         <!--Job Details-->
         <scene sceneID="zJj-H9-JxA">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="hOV-LJ-OMl" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="sBI-Rt-p2d" customClass="JobDetailsViewController" customModule="helpr" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="PJl-tp-haJ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="729"/>
@@ -116,6 +115,8 @@
                                     </collectionView>
                                     <pageControl contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="84O-JW-nGn">
                                         <rect key="frame" x="0.0" y="328" width="375" height="0.0"/>
+                                        <color key="pageIndicatorTintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="currentPageIndicatorTintColor" name="RoyalPurple"/>
                                         <connections>
                                             <action selector="changePhoto:" destination="sBI-Rt-p2d" eventType="valueChanged" id="gWZ-eu-lB9"/>
                                         </connections>
@@ -126,7 +127,7 @@
                                     <constraint firstItem="1Au-DV-yXy" firstAttribute="leading" secondItem="xgj-U9-lD6" secondAttribute="leading" id="8TZ-qe-GrC"/>
                                     <constraint firstItem="Wtv-5Z-6bi" firstAttribute="top" secondItem="AEM-8L-Oea" secondAttribute="bottom" constant="9" id="9Ai-OZ-Pth"/>
                                     <constraint firstItem="Wtv-5Z-6bi" firstAttribute="leading" secondItem="Kwm-fw-5e8" secondAttribute="leading" id="IhP-Ek-gaJ"/>
-                                    <constraint firstItem="AEM-8L-Oea" firstAttribute="bottom" secondItem="84O-JW-nGn" secondAttribute="bottom" id="IwI-cv-nKT"/>
+                                    <constraint firstItem="AEM-8L-Oea" firstAttribute="bottom" secondItem="84O-JW-nGn" secondAttribute="top" id="IwI-cv-nKT"/>
                                     <constraint firstAttribute="trailing" secondItem="xgj-U9-lD6" secondAttribute="trailing" constant="2" id="Kgz-MV-GnG"/>
                                     <constraint firstAttribute="trailing" secondItem="84O-JW-nGn" secondAttribute="trailing" id="Ory-Qb-Pfg"/>
                                     <constraint firstItem="Kwm-fw-5e8" firstAttribute="trailing" secondItem="1Au-DV-yXy" secondAttribute="trailing" id="X30-7J-wyD"/>
@@ -169,6 +170,7 @@
                         <outlet property="jobTitle" destination="Wtv-5Z-6bi" id="4Q7-Gp-rYq"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hOV-LJ-OMl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1663" y="2180"/>
         </scene>
@@ -1956,7 +1958,6 @@
         <!--Navigation Controller-->
         <scene sceneID="8gF-r7-KWA">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="fdp-0k-WAo" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController id="dsU-qh-EFZ" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="DZp-BW-iVX">
                         <rect key="frame" x="0.0" y="44" width="375" height="96"/>
@@ -1972,6 +1973,7 @@
                         <segue destination="MtA-Jt-paV" kind="relationship" relationship="rootViewController" id="tGY-mw-8r1"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fdp-0k-WAo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-937" y="2184"/>
         </scene>
@@ -12089,7 +12091,7 @@ AAAABAEAAAAAAAAAWQAAAAAAAAAAAAAAAAAIBZk
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="2ZH-Gy-scq"/>
-        <segue reference="Oum-yd-8WK"/>
+        <segue reference="edr-cc-jQm"/>
         <segue reference="WXI-hz-ulL"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" name="RoyalPurple"/>

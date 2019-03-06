@@ -179,10 +179,23 @@ class StorageHelper{
             }
             
         }
-        
-
     }
+    
     func loadProfilePicture(picRef: String, completion: @escaping (UIImage) -> ()){
+        let reference = getProfilePictureReference().child(picRef)
+        print("ref \(reference)")
+        
+        reference.getData(maxSize: 15 * 1024 * 1024) { data, error in
+            if let error = error {
+                // Uh-oh, an error occurred!
+                print(error.localizedDescription)
+            } else {
+                completion(UIImage(data: data!)!)
+            }
+        }
+    }
+    
+    func loadProfilePicture(userID: String, picRef: String, completion: @escaping (UIImage) -> ()){
         let reference = getProfilePictureReference().child(picRef)
         print("ref \(reference)")
         
