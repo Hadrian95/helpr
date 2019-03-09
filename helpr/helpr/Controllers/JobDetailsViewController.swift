@@ -59,11 +59,40 @@ class JobDetailsViewController: UIViewController, UICollectionViewDataSource, UI
         // Do any additional setup after loading the view.
     }
 
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let navController = segue.destination as? UINavigationController
-        let bidViewController = navController!.viewControllers.first as! BidTableViewController
-        bidViewController.job = job!
+    @IBAction func bidBtnAction(_ sender: UIButton) {
+        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+        
+        if (Auth.auth().currentUser?.uid != nil) {
+            let navController = storyBoard.instantiateViewController(withIdentifier: "BidNavController") as! UINavigationController
+            let bidViewController = navController.viewControllers.first as! BidTableViewController
+            bidViewController.job = job!
+            self.present(navController, animated:true, completion:nil)
+
+        }
+        else {
+            let alertView = SCLAlertView()
+            alertView.addButton("Sign Up") {
+                let signUpNavController = storyBoard.instantiateViewController(withIdentifier: "SignUpNavController") as! UINavigationController
+                self.present(signUpNavController, animated:true, completion:nil)
+                //self.dismiss(animated: true, completion: nil)
+                
+            }
+            alertView.showWarning("Warning", subTitle: "In order to place a bid on a job you must be logged into the application.")
+        }
     }
+    /*
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if (Auth.auth().currentUser?.uid != nil) {
+            let navController = segue.destination as? UINavigationController
+            let bidViewController = navController!.viewControllers.first as! BidTableViewController
+            bidViewController.job = job!
+        }
+        else {
+            _ = SCLAlertView().showWarning("Warning", subTitle: "In order to bid on a job you must be logged into the application.")
+            var alert = SCLAlertView(appearance: )
+        }
+    }
+ */
  
     
     //MARK: - CollectionView methods
@@ -85,7 +114,7 @@ class JobDetailsViewController: UIViewController, UICollectionViewDataSource, UI
         // get job image from database, use default picture if an error occurs
         let storageRef = Storage.storage().reference()
         let ref = storageRef.child(arrJobPhotos[indexPath.row])
-        let phImage = UIImage(named: "defaultPhoto.png")
+        let phImage = UIImage(named: "jobDefault.png")
         cell.jobPhoto.sd_setImage(with: ref, placeholderImage: phImage)
         //cell.jobPhoto.image = arrJobPhotos[indexPath.row]
         return cell

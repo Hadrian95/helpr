@@ -63,7 +63,6 @@ class SignUpViewController: UIViewController {
     @IBAction func goToSignIn(_ sender: Any) {
         if let storyboard = self.storyboard {
             let vc = storyboard.instantiateViewController(withIdentifier: "SignInViewController") as! SignInViewController
-            self.dismiss(animated: true, completion: nil)
             self.present(vc, animated: true, completion: nil)
         }
     }

@@ -16,21 +16,45 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var lblRating: UILabel!
     @IBOutlet weak var lblJobCount: UILabel!
     @IBOutlet weak var btnSkills: UIButton!
+    @IBOutlet weak var profileInfoView: UIView!
+    @IBOutlet weak var profileAddInfoView: UIView!
+    @IBOutlet weak var profilelessContentView: UIView!
+    @IBOutlet weak var signUp: UIButton!
+    @IBOutlet weak var bSettings: UIBarButtonItem!
     
     private var storage: StorageHelper = StorageHelper()
     private var database: DatabaseHelper = DatabaseHelper()
     private var picRef: String = ""
     
     override func viewDidLoad() {
-        let userRef = Auth.auth().currentUser?.uid
-        
         super.viewDidLoad()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        let userRef = Auth.auth().currentUser?.uid
         if Auth.auth().currentUser == nil {
             // User is not signed in.
+            signUp.backgroundColor = UIColor(named: "RoyalPurple")
+            signUp.layer.borderWidth = 2
+            signUp.layer.cornerRadius = 5
+            signUp.layer.borderColor = UIColor(named: "RoyalPurple")?.cgColor
+            //hide default view
+            profileInfoView.isHidden = true
+            profileAddInfoView.isHidden = true
+            bSettings.isEnabled = false
+            
+            //show sign in option
+            profilelessContentView.isHidden = false
+            
+            /*
             if let storyboard = self.storyboard {
                 let vc = storyboard.instantiateViewController(withIdentifier: "StartScreen") as! WelcomeViewController
                 self.present(vc, animated: true, completion: nil)
             }
+             */
+            
         }else{
             lblName.text = UserProfile.name
             //lblSkillCount.text = String(UserProfile.skills.count)
@@ -40,7 +64,7 @@ class ProfileViewController: UIViewController {
             database.getUser() { (user) in
                 let storageRef = Storage.storage().reference()
                 let ref = storageRef.child("profilePictures").child(userRef!).child(user!.picRef)
-                let phImage = UIImage(named: "defaultPhoto.png")
+                let phImage = UIImage(named: "userProfileDefault.png")
                 self.ivProfilePic.sd_setImage(with: ref, placeholderImage: phImage)
             }
             
@@ -48,7 +72,11 @@ class ProfileViewController: UIViewController {
             ivProfilePic.layer.borderWidth = 3
             ivProfilePic.layer.borderColor = UIColor.init(named: "RoyalPurple")?.cgColor
         }
-        
+    }
+    @IBAction func signInAction(_ sender: UIButton) {
+        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+        let signUpNavController = storyBoard.instantiateViewController(withIdentifier: "SignUpNavController") as! UINavigationController
+        self.present(signUpNavController, animated:true, completion:nil)
     }
     
     //MARK: Action

@@ -185,12 +185,7 @@ class DatabaseHelper {
                         distance: 0,
                         postalCode: "T3A 1B6",
                         postedTime: document.data()["postedTime"]! as! Date,
-<<<<<<< HEAD
-                        email: "walter.alvarez@live.com"
-                        ,//(Auth.auth().currentUser?.email)!,
-=======
                         email: document.data()["posterID"]! as! String,
->>>>>>> d4eb879957128f6f80a948e2aa468fa1f95ad8f1
                         id: document.data()["id"]! as! Int)
 //                    let storage = StorageHelper()
 //                    storage.loadImages(job: job!)
@@ -231,6 +226,11 @@ class DatabaseHelper {
     }
     
     func getBidAmt(chatID: String, chatPartnerID: String, completion: @escaping (String) -> ()) {
+        
+        //used for converting float to monetary value, formatted and in current locale currency
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .currency
+        
         db.collection("chats").document(chatID).getDocument() { (document, error) in
             if let document = document, document.exists {
                 let jobFBID = document.data()?["jobFirebaseID"] as! String
@@ -248,11 +248,16 @@ class DatabaseHelper {
                                 let rate = bid["rateType"] as! String
                                 
                                 switch (rate) {
-                                case "flat":
-                                    bidStr = "$" + String(amt) + "flat"
+                                case "hourly":
+                                    if let formattedBidAmt = formatter.string(from: amt as NSNumber) {
+                                        bidStr = "\(formattedBidAmt)/hr"
+                                    }
+                                    else {
+                                        bidStr = "undefined"
+                                    }
                                     break;
                                 default:
-                                    bidStr = "$" + String(amt) + "/hr"
+                                    bidStr = formatter.string(from: amt as NSNumber) ?? "undefined"
                                 }
                                 completion(bidStr)
                             }
@@ -265,11 +270,16 @@ class DatabaseHelper {
                                 let rate = bid["rateType"] as! String
                                 
                                 switch (rate) {
-                                case "flat":
-                                    bidStr = "$" + String(amt) + "flat"
+                                case "hourly":
+                                    if let formattedBidAmt = formatter.string(from: amt as NSNumber) {
+                                        bidStr = "\(formattedBidAmt)/hr"
+                                    }
+                                    else {
+                                        bidStr = "undefined"
+                                    }
                                     break;
                                 default:
-                                    bidStr = "$" + String(amt) + "/hr"
+                                    bidStr = formatter.string(from: amt as NSNumber) ?? "undefined"
                                 }
                                 completion(bidStr)
                             }

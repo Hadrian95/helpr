@@ -75,7 +75,7 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
                 self.saveUser()
 //                let alert = UIAlertController(title: "Sign-in successful", message: "You have successfully signed in!", preferredStyle: .alert)
 //                alert.addAction(UIAlertAction(title: "OK", style: .default, handler:{ action in self.performSegue(withIdentifier: "successfulSignIn", sender: self) }))
-//                self.present(alert, animated: true, completion: nil)
+                self.performSegue(withIdentifier: "successfulSignIn", sender: self)
 
             }else{
                 if let errCode = AuthErrorCode(rawValue: error!._code) {

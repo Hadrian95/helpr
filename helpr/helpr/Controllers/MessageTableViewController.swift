@@ -104,7 +104,7 @@ class MessageTableViewController: UITableViewController {
             // get other user's image from database, use default picture if an error occurs
             let storageRef = Storage.storage().reference()
             let ref = storageRef.child("profilePictures").child(preview.partnerID).child(preview.partnerPicRef)
-            let phImage = UIImage(named: "defaultPhoto.png")
+            let phImage = UIImage(named: "jobDefault.png")
             cell.ivProfilePic.sd_setImage(with: ref, placeholderImage: phImage)
         }
         

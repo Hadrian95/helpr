@@ -39,24 +39,25 @@ class JobsTableViewController: UITableViewController, UISearchResultsUpdating {
         
         setNeedsStatusBarAppearanceUpdate()
         filteredJobs = ExploreTableViewController.jobs
-        
-        db.collection("users").document(userID!).collection("posts")
-            .addSnapshotListener { querySnapshot, error in
-                guard let snapshot = querySnapshot else {
-                    print("Error fetching user posts snapshots: \(String(describing: error))")
-                    return
-                }
-                snapshot.documentChanges.forEach { diff in
-                    if (diff.type == .added) {
-                        let postID = diff.document.documentID
-                        DispatchQueue.main.async {
-                            self.database.getJob(jobID: postID) { (post) in
-                                self.postedJobs.append(post)
-                                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadMyJobs"), object: nil)
+        if (userID != nil) {
+            db.collection("users").document(userID!).collection("posts")
+                .addSnapshotListener { querySnapshot, error in
+                    guard let snapshot = querySnapshot else {
+                        print("Error fetching user posts snapshots: \(String(describing: error))")
+                        return
+                    }
+                    snapshot.documentChanges.forEach { diff in
+                        if (diff.type == .added) {
+                            let postID = diff.document.documentID
+                            DispatchQueue.main.async {
+                                self.database.getJob(jobID: postID) { (post) in
+                                    self.postedJobs.append(post)
+                                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadMyJobs"), object: nil)
+                                }
                             }
                         }
                     }
-                }
+            }
         }
         
         isPurple = false
@@ -138,7 +139,7 @@ class JobsTableViewController: UITableViewController, UISearchResultsUpdating {
         // get job image from database, use default picture if an error occurs
         let storageRef = Storage.storage().reference()
         let ref = storageRef.child((job.information.pictures[0])!)
-        let phImage = UIImage(named: "defaultPhoto.png")
+        let phImage = UIImage(named: "jobDefault.png")
         cell.jobPic.sd_setImage(with: ref, placeholderImage: phImage)
         
         cell.jobDistance.text = String(job.information.distance) + " km"

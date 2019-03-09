@@ -50,11 +50,11 @@ class LaunchScreenViewController: UIViewController {
                     }
                 }
                 let nextViewController = storyBoard.instantiateViewController(withIdentifier: "TabBarViewController") as! MyTabBarViewController
-                self.present(nextViewController, animated:false, completion:nil)
+                self.present(nextViewController, animated:true, completion:nil)
             }
             else {
                 let nextViewController = storyBoard.instantiateViewController(withIdentifier: "StartScreen") as! WelcomeViewController
-                self.present(nextViewController, animated:false, completion:nil)
+                self.present(nextViewController, animated:true, completion:nil)
             }
             
         }

@@ -22,6 +22,7 @@
 		459F129F219D032D0032CC5E /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459F129E219D032D0032CC5E /* ProfileViewController.swift */; };
 		459F12A1219D037F0032CC5E /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459F12A0219D037F0032CC5E /* SettingsTableViewController.swift */; };
 		45AE32B7218A617B005F2A8B /* ImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45AE32B6218A617B005F2A8B /* ImageCollectionViewCell.swift */; };
+		4B04E0DE22319A4C00224EC3 /* SkillsListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B04E0DD22319A4C00224EC3 /* SkillsListTableViewController.swift */; };
 		4B2DB5B7222F5D830067EE01 /* BidTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2DB5B6222F5D830067EE01 /* BidTableViewController.swift */; };
 		55850C1A222DB04700BDC61D /* MessagePreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55850C19222DB04700BDC61D /* MessagePreview.swift */; };
 		55C56ABB220A2DD900B81E8C /* MessageTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C56ABA220A2DD900B81E8C /* MessageTableViewController.swift */; };
@@ -99,6 +100,7 @@
 		459F129E219D032D0032CC5E /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		459F12A0219D037F0032CC5E /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		45AE32B6218A617B005F2A8B /* ImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewCell.swift; sourceTree = "<group>"; };
+		4B04E0DD22319A4C00224EC3 /* SkillsListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillsListTableViewController.swift; sourceTree = "<group>"; };
 		4B2DB5B6222F5D830067EE01 /* BidTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BidTableViewController.swift; sourceTree = "<group>"; };
 		55850C19222DB04700BDC61D /* MessagePreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagePreview.swift; sourceTree = "<group>"; };
 		55C56ABA220A2DD900B81E8C /* MessageTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageTableViewController.swift; sourceTree = "<group>"; };
@@ -246,6 +248,7 @@
 				CA2F724A21A3673B00AAF19F /* SkillsTableViewController.swift */,
 				CA2F724221A3667100AAF19F /* UpdateNameViewController.swift */,
 				AC3E4FD721B74066009AA6FD /* LaunchScreenViewController.swift */,
+				4B04E0DD22319A4C00224EC3 /* SkillsListTableViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -620,6 +623,7 @@
 				CA2F725321A3679E00AAF19F /* PrivacyTableViewController.swift in Sources */,
 				4598BC9821A8B8BF0058096B /* CategoriesTableViewCell.swift in Sources */,
 				AC01C7F521ABC13D000EEB37 /* ViewController+CameraHandling.swift in Sources */,
+				4B04E0DE22319A4C00224EC3 /* SkillsListTableViewController.swift in Sources */,
 				AC01C7F321ABC0D5000EEB37 /* DSCameraHandler.swift in Sources */,
 				4576E8B82188D84100471AB4 /* SignUpViewController.swift in Sources */,
 				4B2DB5B7222F5D830067EE01 /* BidTableViewController.swift in Sources */,

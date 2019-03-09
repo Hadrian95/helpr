@@ -115,7 +115,7 @@ class ExploreTableViewController: UITableViewController, UISearchBarDelegate {
         // get job image from database, use default picture if an error occurs
         let storageRef = Storage.storage().reference()
         let ref = storageRef.child((job.information.pictures[0])!)
-        let phImage = UIImage(named: "defaultPhoto.png")
+        let phImage = UIImage(named: "jobDefault.png")
         cell.jobPic.sd_setImage(with: ref, placeholderImage: phImage)
         
         cell.jobDistance.text = String(job.information.distance) + " km"

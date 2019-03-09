@@ -10,12 +10,13 @@ import UIKit
 
 class CategoriesTableViewController: UITableViewController {
 
-    let categories = ["Assembly", "Cleaning", "General", "Minor Repair", "Technology","Tutoring"]
+    var categories = ["Automotive", "Cleaning", "Design", "Development", "Furniture Assembly", "Minor Repair", "Technology", "Tech Repair", "Tutoring", "Web Design"]
+    var sortedCategories = [""]
     static var selectedCellText = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        sortedCategories = categories.sorted()
         // Uncomment the following line to preserve selection between presentations
         self.clearsSelectionOnViewWillAppear = false
 
@@ -32,7 +33,7 @@ class CategoriesTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return categories.count
+        return sortedCategories.count
     }
 
     
@@ -42,7 +43,7 @@ class CategoriesTableViewController: UITableViewController {
         }
         
         // Configure the cell...
-        cell.lCategoryName.text = categories[indexPath.row]
+        cell.lCategoryName.text = sortedCategories[indexPath.row]
         
         return cell
     }
@@ -50,7 +51,7 @@ class CategoriesTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         NSLog("You selected cell number: \(indexPath.row)!")
         
-        CategoriesTableViewController.selectedCellText = categories[indexPath.row]
+        CategoriesTableViewController.selectedCellText = sortedCategories[indexPath.row]
         _ = navigationController?.popViewController(animated: true)
     }
 
