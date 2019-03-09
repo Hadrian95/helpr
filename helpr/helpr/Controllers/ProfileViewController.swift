@@ -20,6 +20,7 @@ class ProfileViewController: UIViewController {
     private var storage: StorageHelper = StorageHelper()
     private var database: DatabaseHelper = DatabaseHelper()
     private var picRef: String = ""
+    var userID: String = ""
     
     override func viewDidLoad() {
         let userRef = Auth.auth().currentUser?.uid
@@ -32,16 +33,36 @@ class ProfileViewController: UIViewController {
                 self.present(vc, animated: true, completion: nil)
             }
         }else{
-            lblName.text = UserProfile.name
-            //lblSkillCount.text = String(UserProfile.skills.count)
-            btnSkills.setTitle(String(UserProfile.skills.count) + " Skills", for: .normal)
-            
-            // get profile pic from database, use default picture if an error occurs
-            database.getUser() { (user) in
-                let storageRef = Storage.storage().reference()
-                let ref = storageRef.child("profilePictures").child(userRef!).child(user!.picRef)
-                let phImage = UIImage(named: "defaultPhoto.png")
-                self.ivProfilePic.sd_setImage(with: ref, placeholderImage: phImage)
+            if (userID == "") {
+                lblName.text = UserProfile.name
+                //lblSkillCount.text = String(UserProfile.skills.count)
+                btnSkills.setTitle(String(UserProfile.skills.count) + " Skills", for: .normal)
+                
+                // get profile pic from database, use default picture if an error occurs
+                database.getUser() { (user) in
+                    let storageRef = Storage.storage().reference()
+                    let ref = storageRef.child("profilePictures").child(userRef!).child(user!.picRef)
+                    let phImage = UIImage(named: "defaultPhoto.png")
+                    self.ivProfilePic.sd_setImage(with: ref, placeholderImage: phImage)
+                }
+            } else {
+                self.navigationItem.rightBarButtonItem = nil // get rid of settings when viewing other user's profile
+                ivProfilePic.isUserInteractionEnabled = false // cannot change picture when viewing other user's profile
+                
+                lblName.text = UserProfile.name
+                //lblSkillCount.text = String(UserProfile.skills.count)
+                btnSkills.setTitle(String(UserProfile.skills.count) + " Skills", for: .normal)
+                
+                // get profile pic from database, use default picture if an error occurs
+                database.getUser(uID: userID) { (user) in
+                    self.lblName.text = user?.name.components(separatedBy: " ")[0]
+                    let skills = user!.skills
+                    self.btnSkills.setTitle(String(skills.count) + " Skills", for: .normal)
+                    let storageRef = Storage.storage().reference()
+                    let ref = storageRef.child("profilePictures").child(self.userID).child(user!.picRef)
+                    let phImage = UIImage(named: "defaultPhoto.png")
+                    self.ivProfilePic.sd_setImage(with: ref, placeholderImage: phImage)
+                }
             }
             
             ivProfilePic.layer.cornerRadius = ivProfilePic.frame.width / 2

@@ -152,15 +152,35 @@ class MessageTableViewController: UITableViewController {
     }
     */
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        super.prepare(for: segue, sender: sender)
+        
+        switch (segue.identifier ?? "") {
+            
+        case "showUserProfile":
+            guard let userProfileVC = segue.destination as? ProfileViewController else {
+                fatalError("Unexpected destination: \(segue.destination)")
+            }
+            
+            guard let selectedPreviewCell = sender as? MessageTableViewCell else {
+                fatalError("Unexpected message sender: \(sender)")
+            }
+            
+            guard let indexPath = tableView.indexPath(for: selectedPreviewCell) else {
+                fatalError("The selected message cell is not being displayed by the table")
+            }
+            
+            let uID = mPreviews[indexPath.row].partnerID
+            userProfileVC.userID = uID
+            
+        default:
+            fatalError("Unexpected Segue Identifier; \(segue.identifier)")
+        }
     }
-    */
     
     private func loadSampleMessagePreviews() {
         guard let m1 = MessagePreview(name: "Walter", preview: "Adrian makes a pretty good point, I would listen to him on this. You won't be disappointed.", pic: UIImage(named: "Walter")!, bid: "$35/hr", time: "5 mins") else {

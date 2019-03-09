@@ -1242,8 +1242,9 @@
                                         <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="AUI-Bd-TPx">
                                             <rect key="frame" x="16" y="11" width="343" height="68"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Ehb-mU-Mpn">
+                                                <imageView clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Ehb-mU-Mpn">
                                                     <rect key="frame" x="0.0" y="0.0" width="68" height="68"/>
+                                                    <gestureRecognizers/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="Ehb-mU-Mpn" secondAttribute="height" multiplier="1:1" id="SPp-4J-WpT"/>
                                                     </constraints>
@@ -1303,6 +1304,7 @@
                                     <outlet property="lblMsgPreview" destination="6ju-0u-bEg" id="HEJ-xh-sSO"/>
                                     <outlet property="lblMsgTime" destination="ebG-8G-OGx" id="VYL-0v-dRL"/>
                                     <outlet property="lblName" destination="pen-ad-ALi" id="egV-hq-ug3"/>
+                                    <segue destination="0aR-oA-iag" kind="show" identifier="showUserProfile" id="y6n-u6-Fez"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -12090,9 +12092,10 @@ AAAABAEAAAAAAAAAWQAAAAAAAAAAAAAAAAAIBZk
         </namedColor>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="2ZH-Gy-scq"/>
+        <segue reference="bJd-TH-Z24"/>
+        <segue reference="y6n-u6-Fez"/>
         <segue reference="edr-cc-jQm"/>
-        <segue reference="WXI-hz-ulL"/>
+        <segue reference="HaN-QN-iNf"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" name="RoyalPurple"/>
 </document>

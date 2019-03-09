@@ -149,10 +149,29 @@ class DatabaseHelper {
         }
     }
 
+    // get current user
     func getUser(completion: @escaping (UserInfo?) -> () ) {
         let userID = Auth.auth().currentUser?.uid
         let user = UserInfo()
         docRef = db.collection("users").document(userID!)
+        docRef.getDocument { (document, error) in
+            if let document = document, document.exists {
+                //let userData = document.data().map(String.init(describing:)) ?? "nil"
+                user.name = document.data()?["name"]! as! String
+                user.email = document.data()?["email"]! as! String
+                user.skills = document.data()?["skills"] as! [String]
+                user.picRef = document.data()?["profilePic"]! as! String
+                completion(user)
+            } else {
+                print("Document does not exist")
+            }
+        }
+    }
+    
+    // get user with known id, can probably consolidate these two getUser methods into one and refactor
+    func getUser(uID: String, completion: @escaping (UserInfo?) -> () ) {
+        let user = UserInfo()
+        docRef = db.collection("users").document(uID)
         docRef.getDocument { (document, error) in
             if let document = document, document.exists {
                 //let userData = document.data().map(String.init(describing:)) ?? "nil"
