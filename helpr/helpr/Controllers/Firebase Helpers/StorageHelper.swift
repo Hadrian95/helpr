@@ -161,8 +161,6 @@ class StorageHelper{
         }
     }
     
-    
-    
     func updateProfile(picture: UIImage, completion: @escaping (String) -> ()){
         var data = Data()
         data = picture.pngData()!

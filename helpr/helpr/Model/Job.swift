@@ -49,15 +49,15 @@ class Job {
         else {
             switch (information.category) {
             case "Technology":
-                let photo = UIImage(named: "comphelp")
+                let photo = UIImage(named: "techDefault")
                 UIImagePictures.append(photo)
                 break
             case "Tutoring":
-                let photo = UIImage(named: "TutorDefault")
+                let photo = UIImage(named: "tutorDefault")
                 UIImagePictures.append(photo)
                 break
             case "Cleaning":
-                let photo = UIImage(named: "cleaning")
+                let photo = UIImage(named: "cleanDefault")
                 UIImagePictures.append(photo)
                 break
             default:

@@ -19,9 +19,15 @@ class BidTableViewController: UITableViewController {
     @IBOutlet weak var btnCancel: UIBarButtonItem!
     @IBOutlet weak var btnPlaceBid: UIBarButtonItem!
     
+    let locale = Locale.current
+    var currencySymbol = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = job?.information.title
+        guard let jobNumber = job?.information.id else {return}
+        navigationItem.title = "Bid on Job # \(jobNumber)"
+        currencySymbol = locale.currencySymbol!
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -39,14 +45,14 @@ class BidTableViewController: UITableViewController {
     @IBAction func btnPlaceBid(_ sender: Any) {
         let userID = Auth.auth().currentUser?.uid
         let database = DatabaseHelper()
-        let bidAmtStr = tfBidAmt.text?.split(separator: "$", maxSplits: 1, omittingEmptySubsequences: true)
+        let bidAmtStr = tfBidAmt.text?.split(separator: Character(currencySymbol), maxSplits: 1, omittingEmptySubsequences: true)
         let bidAmount = Float(bidAmtStr![0])
         var rateType = ""
         switch (scRate.selectedSegmentIndex) {
         case 0:
             rateType = "hourly"
         default:
-            rateType = "flat"
+            rateType = ""
         }
         let timeEstStr = tfCompTime.text!
         let timeEstimate = Float(timeEstStr)
@@ -73,13 +79,13 @@ class BidTableViewController: UITableViewController {
     //User begins editing Bid Amount text field (prepends string with $)
     @IBAction func bidAmtBegin(_ sender: Any) {
         if (tfBidAmt.text == "") {
-            tfBidAmt.text = "$"
+            tfBidAmt.text = currencySymbol
         }
     }
     
     //User stops editing Bid Amount text field (removed $ if no other input logged)
     @IBAction func bidAmtEnd(_ sender: Any) {
-        if (tfBidAmt.text == "$") {
+        if (tfBidAmt.text == currencySymbol) {
             tfBidAmt.text = ""
         }
     }
@@ -87,7 +93,7 @@ class BidTableViewController: UITableViewController {
     //while user editing, checks if both bid amount and time estimate are non empty values
     //if that's the case, enable Place Bid nav button
     @IBAction func tfChanged(_ sender: Any) {
-        if (tfBidAmt.text != "" && tfBidAmt.text != "$" && tfCompTime.text != "") {
+        if (tfBidAmt.text != "" && tfBidAmt.text != currencySymbol && tfCompTime.text != "") {
             btnPlaceBid.isEnabled = true
         }
         else {

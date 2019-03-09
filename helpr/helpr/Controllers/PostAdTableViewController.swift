@@ -25,6 +25,7 @@ class PostAdTableViewController: UITableViewController, UITextViewDelegate, UICo
     @IBOutlet weak var postBtn: UIBarButtonItem!
     @IBOutlet weak var cvPhotos: UICollectionView!
     @IBOutlet var tgrPhotos: UITapGestureRecognizer!
+    @IBOutlet var tapMapView: UITapGestureRecognizer!
     @IBOutlet weak var btnlockLoc: UIButton!
     @IBOutlet weak var btnCenterLoc: UIButton!
     @IBOutlet weak var mapView: MKMapView!
@@ -68,6 +69,12 @@ class PostAdTableViewController: UITableViewController, UITextViewDelegate, UICo
         if CategoriesTableViewController.selectedCellText != "" {
             lCategory.textColor = UIColor.black
             lCategory.text = CategoriesTableViewController.selectedCellText
+            if (lCategory.text != "No Category Selected" && tfTitle.text != "") {
+                postBtn.isEnabled = true
+            }
+            else {
+                postBtn.isEnabled = false
+            }
             updateCollectionView()
         }
     }
@@ -164,21 +171,6 @@ class PostAdTableViewController: UITableViewController, UITextViewDelegate, UICo
         self.dismiss(animated: true, completion: nil)
     }
     
-//    //on cancel we must restore every field to startup values since there is no 'Back' button to handle this
-//    @IBAction func exitPostAd(_ sender: UIBarButtonItem) {
-//        lCategory.text = "No Category Selected"
-//        CategoriesTableViewController.selectedCellText = ""
-//        lCategory.textColor = UIColor.lightGray
-//        tfTitle.placeholder = "No Title Provided"
-//        tvDescription.textColor = UIColor.lightGray
-//        tvDescription.text = "Enter your post description here"
-//        tfTags.placeholder = "#sampleTag"
-//        postPhotos.removeAll()
-//        postPhotos.insert(UIImage(named: "addPhoto")!, at: 0)
-//        self.cvPhotos.reloadData()
-//        customPhotoAdded = false
-//    }
-    
     //when saving we must add the Job object consisting of all the UIView values and call the 'exitPostAd' function to reset fields for next time this view is loaded
     @IBAction func finishAddingPost(_ sender: UIBarButtonItem) {
         let category = lCategory.text
@@ -191,54 +183,32 @@ class PostAdTableViewController: UITableViewController, UITextViewDelegate, UICo
         let pictures = Array(postPhotos[0...lastGoodPic])
         
         // Set the job to be passed to HomeTableViewController after the unwind segue.
-        if (category?.trimmingCharacters(in: .whitespaces) != "") && (title.trimmingCharacters(in: .whitespaces) != "") {
-            let jobID = NSUUID().uuidString // generate job id for db
-            let storage = StorageHelper()
-            let database = DatabaseHelper()
-            let userID = Auth.auth().currentUser?.uid
-            var id = 0
-            
-            // get highest job id within database and add 1 for new job id
-            let jobsRef = db.collection("jobs")
-            let query = jobsRef.order(by: "id", descending: true).limit(to: 1)
-            query.getDocuments() { (querySnapshot, error) in
-                if let error = error {
-                    print("Error getting documents: \(error)")
-                } else {
-                    for document in querySnapshot!.documents {
-                        id = (document.data()["id"]! as! Int) + 1
-                    }
-                    self.job = Job(title: title, category: category!, description: description, pictureURLs: [], tags: tags, distance: 10, postalCode: "WH0CR5", postedTime: Date(), email: (UserProfile.email), firebaseID: jobID, id: id)
-                    //HomeTableViewController.jobs.append(job!)
-                    
-                    storage.saveImages(job: self.job!, imagesArray: pictures, createJob: true, jobID: jobID)
+        let jobID = NSUUID().uuidString // generate job id for db
+        let storage = StorageHelper()
+        let database = DatabaseHelper()
+        let userID = Auth.auth().currentUser?.uid
+        var id = 0
+        
+        // get highest job id within database and add 1 for new job id
+        let jobsRef = db.collection("jobs")
+        let query = jobsRef.order(by: "id", descending: true).limit(to: 1)
+        query.getDocuments() { (querySnapshot, error) in
+            if let error = error {
+                print("Error getting documents: \(error)")
+            } else {
+                for document in querySnapshot!.documents {
+                    id = (document.data()["id"]! as! Int) + 1
                 }
+                self.job = Job(title: title, category: category!, description: description, pictureURLs: [], tags: tags, distance: 10, postalCode: "WH0CR5", postedTime: Date(), email: (UserProfile.email), firebaseID: jobID, id: id)
+                //HomeTableViewController.jobs.append(job!)
+                
+                storage.saveImages(job: self.job!, imagesArray: pictures, createJob: true, jobID: jobID)
             }
-            // HomeTableViewController.jobs.append(job!)
-            
-//            let dataToSave = ["category": category, "description": description, "location": "200–298 Ellis St 94102 San Francisco, CA", "postedTime": Date(), "posterID": userID, "title": title, "pictureURLs": job?.information.pictures] as [String : Any]
-//            database.addJobInformation(dataToSave: dataToSave, tags: tags, jobID: jobID) { (error) in
-//                if error != nil {
-//                    print(error!._code)
-//                    self.handleError(error!)
-//                }else {
-//                    self.exitPostAd(self.postBtn)
-//                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadExplore"), object: nil)
-//                    self.navigationController?.popViewController(animated: true)
-//                    self.tabBarController?.selectedIndex = 0
-//                }
-//            }
-            
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadExplore"), object: nil)
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadMyJobs"), object: nil)
-            exit(cancelBtn)
         }
-        //title or category were not provided
-        else {
-            let alert = UIAlertController(title: "Insufficient Info Provided", message: "Please provide at minimum a category and title for your post to help find suitable Helprs for your needs.", preferredStyle: UIAlertController.Style.alert)
-            alert.addAction(UIAlertAction(title: "Retry", style: UIAlertAction.Style.default, handler: nil))
-            self.present(alert, animated: true, completion: nil)
-        }
+            
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadExplore"), object: nil)
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadMyJobs"), object: nil)
+        exit(cancelBtn)
     }
     
     //called when the tag textField is tapped aka Editing Begins
@@ -263,11 +233,17 @@ class PostAdTableViewController: UITableViewController, UITextViewDelegate, UICo
         tvDescription.becomeFirstResponder()
     }
     
-    //called when title textField is dismissed. Originally used for more textFields but class has since evolved. Consider refactoring
+    @IBAction func titleChanged(_ sender: UITextField) {
+        if (lCategory.text != "No Category Selected" && tfTitle.text != "") {
+            postBtn.isEnabled = true
+        }
+        else {
+            postBtn.isEnabled = false
+        }
+    }
+    //called when title textField is dismissed
     @IBAction func fieldDoneEditing(_ sender: Any) {
         (sender as AnyObject).resignFirstResponder()
-        print("Ending field edit")
-        //self.view.endEditing(true)
     }
 
     //clear 'placeholder' text and change Save button behaviour
@@ -303,12 +279,26 @@ class PostAdTableViewController: UITableViewController, UITextViewDelegate, UICo
         if (!customPhotoAdded) {
             print("Only default item in postPhotos")
             switch lCategory.text {
+            case "Automotive":
+                postPhotos[0] = UIImage(named: "automotiveDefault")!
             case "Cleaning":
-                postPhotos[0] = UIImage(named: "CleanDefault")!
+                postPhotos[0] = UIImage(named: "cleanDefault")!
+            case "Design":
+                postPhotos[0] = UIImage(named: "designDefault")!
+            case "Development":
+                postPhotos[0] = UIImage(named: "devDefault")!
+            case "Furniture Assembly":
+                postPhotos[0] = UIImage(named: "fAssemblyDefault")!
+            case "Minor Repair":
+                postPhotos[0] = UIImage(named: "minorRepairDefault")!
             case "Technology":
-                postPhotos[0] = UIImage(named: "TechDefault")!
+                postPhotos[0] = UIImage(named: "techDefault")!
+            case "Tech Repair":
+                postPhotos[0] = UIImage(named: "techRepairDefault")!
             case "Tutoring":
-                postPhotos[0] = UIImage(named: "TutorDefault")!
+                postPhotos[0] = UIImage(named: "tutorDefault")!
+            case "Web Design":
+                postPhotos[0] = UIImage(named: "webDesignDefault")!
             default:
                 print("Unhandled Case")
             }
@@ -393,6 +383,16 @@ class PostAdTableViewController: UITableViewController, UITextViewDelegate, UICo
         dismiss(animated: true, completion: nil)
     }
     
+    //MARK: MapView Functions
+    
+    //to present full screen mapView on touch
+    @IBAction func mapViewActn(_ sender: UITapGestureRecognizer) {
+        print("mapView tapped")
+    }
+    
+    
+    
+    //prevent mapScrolling
     @IBAction func lockLocation(_ sender: UIButton) {
         mapView.isScrollEnabled = !mapView.isScrollEnabled
         btnCenterLoc.isEnabled = !btnCenterLoc.isEnabled
@@ -465,11 +465,14 @@ class PostAdTableViewController: UITableViewController, UITextViewDelegate, UICo
         //update mapView center
         mapView.region.center = mapView.centerCoordinate
         
-        //round lat and long to 6 digits
-        regionLat = Double(mapView.region.center.latitude * 1000000).rounded() / 1000000
-        regionLong = Double(mapView.region.center.longitude * 1000000).rounded() / 1000000
+        //round lat and long to 14 digits
+        regionLat = Double(mapView.region.center.latitude * 100000000000000).rounded() / 100000000000000
+        regionLong = Double(mapView.region.center.longitude * 100000000000000).rounded() / 100000000000000
         let userLat = mapView.userLocation.coordinate.latitude
         let userLong = mapView.userLocation.coordinate.longitude
+        
+        print("regionLat:   \(regionLat)  regionLong:   \(regionLong)")
+        print("userLat:     \(userLat)    userLong:   \(userLong)")
         
         // reverseGeocodeLocation converts 'center' into user-friendly place name
         let center = CLLocation(latitude: mapView.region.center.latitude, longitude: mapView.region.center.longitude)
@@ -500,7 +503,7 @@ class PostAdTableViewController: UITableViewController, UITextViewDelegate, UICo
         }
         
         //compare region and user location to determine whether to show map pin
-        if (userLat == regionLat) && (userLong == regionLong) {
+        if (abs(userLat - regionLat) < 0.0001) && (abs(userLong - regionLong) < 0.00001) {
             mapPin.isHidden = true
         }
         else {

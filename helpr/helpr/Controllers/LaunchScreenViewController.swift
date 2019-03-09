@@ -10,6 +10,10 @@ import UIKit
 import Firebase
 class LaunchScreenViewController: UIViewController {
 
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    } 
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         loadJobs()
@@ -34,8 +38,25 @@ class LaunchScreenViewController: UIViewController {
             //ExploreTableViewController.jobs = jobs
             let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
             
-            let nextViewController = storyBoard.instantiateViewController(withIdentifier: "StartScreen") as! WelcomeViewController
-            self.present(nextViewController, animated:false, completion:nil)
+            if (Auth.auth().currentUser?.uid != nil) {
+                _ = Auth.auth().addStateDidChangeListener { (auth,user) in
+                    if (user != nil) {
+                        database.getUser() { (user) -> () in
+                            UserProfile.name = user!.name
+                            UserProfile.email = user!.email
+                            UserProfile.skills = user!.skills
+                            UserProfile.profilePicRef = user!.picRef
+                        }
+                    }
+                }
+                let nextViewController = storyBoard.instantiateViewController(withIdentifier: "TabBarViewController") as! MyTabBarViewController
+                self.present(nextViewController, animated:true, completion:nil)
+            }
+            else {
+                let nextViewController = storyBoard.instantiateViewController(withIdentifier: "StartScreen") as! WelcomeViewController
+                self.present(nextViewController, animated:true, completion:nil)
+            }
+            
         }
     }
 }
