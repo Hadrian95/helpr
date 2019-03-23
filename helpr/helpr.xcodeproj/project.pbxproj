@@ -25,6 +25,9 @@
 		4B04E0DE22319A4C00224EC3 /* SkillsListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B04E0DD22319A4C00224EC3 /* SkillsListTableViewController.swift */; };
 		4B2DB5B7222F5D830067EE01 /* BidTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2DB5B6222F5D830067EE01 /* BidTableViewController.swift */; };
 		55850C1A222DB04700BDC61D /* MessagePreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55850C19222DB04700BDC61D /* MessagePreview.swift */; };
+		559DA7D42238632100A9B77F /* NewExploreTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559DA7D32238632100A9B77F /* NewExploreTableViewController.swift */; };
+		559DA7D622386AB700A9B77F /* ExploreCategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559DA7D522386AB700A9B77F /* ExploreCategoryTableViewCell.swift */; };
+		559DA7E0223873F300A9B77F /* ExploreJobCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559DA7DF223873F300A9B77F /* ExploreJobCollectionViewCell.swift */; };
 		55C56ABB220A2DD900B81E8C /* MessageTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C56ABA220A2DD900B81E8C /* MessageTableViewController.swift */; };
 		55C56ABD220A2E6B00B81E8C /* MessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C56ABC220A2E6B00B81E8C /* MessageTableViewCell.swift */; };
 		55C56ABF220CDED100B81E8C /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C56ABE220CDED100B81E8C /* User.swift */; };
@@ -103,6 +106,9 @@
 		4B04E0DD22319A4C00224EC3 /* SkillsListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillsListTableViewController.swift; sourceTree = "<group>"; };
 		4B2DB5B6222F5D830067EE01 /* BidTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BidTableViewController.swift; sourceTree = "<group>"; };
 		55850C19222DB04700BDC61D /* MessagePreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagePreview.swift; sourceTree = "<group>"; };
+		559DA7D32238632100A9B77F /* NewExploreTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewExploreTableViewController.swift; sourceTree = "<group>"; };
+		559DA7D522386AB700A9B77F /* ExploreCategoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ExploreCategoryTableViewCell.swift; path = helpr/View/ExploreCategoryTableViewCell.swift; sourceTree = SOURCE_ROOT; };
+		559DA7DF223873F300A9B77F /* ExploreJobCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreJobCollectionViewCell.swift; sourceTree = "<group>"; };
 		55C56ABA220A2DD900B81E8C /* MessageTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageTableViewController.swift; sourceTree = "<group>"; };
 		55C56ABC220A2E6B00B81E8C /* MessageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageTableViewCell.swift; sourceTree = "<group>"; };
 		55C56ABE220CDED100B81E8C /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -221,22 +227,23 @@
 		AC9682AC21A5FFE800A161D6 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				AC01C7F121ABB950000EEB37 /* Firebase Helpers */,
-				AC01C7F021ABB93A000EEB37 /* Extensions */,
-				ACFD809921A7766B009D0182 /* Backend */,
 				CA2F724821A3671100AAF19F /* AddPhoneViewController.swift */,
+				ACFD809921A7766B009D0182 /* Backend */,
 				4B2DB5B6222F5D830067EE01 /* BidTableViewController.swift */,
 				4598BC9321A8B3640058096B /* CategoriesTableViewController.swift */,
 				CA2F724621A366C400AAF19F /* ChangeEmailViewController.swift */,
 				CA2F725421A368C900AAF19F /* ChangePasswordViewController.swift */,
-				CA2F724C21A3676000AAF19F /* FavoriteLocationsViewController.swift */,
 				4576E8B92188EE6500471AB4 /* ExploreTableViewController.swift */,
+				AC01C7F021ABB93A000EEB37 /* Extensions */,
+				CA2F724C21A3676000AAF19F /* FavoriteLocationsViewController.swift */,
+				AC01C7F121ABB950000EEB37 /* Firebase Helpers */,
 				CA12A384218962C50063ED97 /* JobDetailsViewController.swift */,
 				4576E8BB2188EEAB00471AB4 /* JobsTableViewController.swift */,
-				4576E8B52188D57F00471AB4 /* WelcomeViewController.swift */,
-				55C56ABA220A2DD900B81E8C /* MessageTableViewController.swift */,
+				AC3E4FD721B74066009AA6FD /* LaunchScreenViewController.swift */,
 				4576E8BD2188EEBD00471AB4 /* MessagesTableViewControllerOld.swift */,
+				55C56ABA220A2DD900B81E8C /* MessageTableViewController.swift */,
 				4576E8BF2188F22200471AB4 /* MyTabBarViewController.swift */,
+				559DA7D32238632100A9B77F /* NewExploreTableViewController.swift */,
 				CA2F724E21A3676F00AAF19F /* PaymentInfoViewController.swift */,
 				F783AB0321791E5B0010F034 /* PostAdTableViewController.swift */,
 				CA2F725221A3679E00AAF19F /* PrivacyTableViewController.swift */,
@@ -245,10 +252,10 @@
 				459F12A0219D037F0032CC5E /* SettingsTableViewController.swift */,
 				4576E8B32188CA0000471AB4 /* SignInViewController.swift */,
 				4576E8B72188D84100471AB4 /* SignUpViewController.swift */,
+				4B04E0DD22319A4C00224EC3 /* SkillsListTableViewController.swift */,
 				CA2F724A21A3673B00AAF19F /* SkillsTableViewController.swift */,
 				CA2F724221A3667100AAF19F /* UpdateNameViewController.swift */,
-				AC3E4FD721B74066009AA6FD /* LaunchScreenViewController.swift */,
-				4B04E0DD22319A4C00224EC3 /* SkillsListTableViewController.swift */,
+				4576E8B52188D57F00471AB4 /* WelcomeViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -256,8 +263,10 @@
 		AC9682AD21A5FFF200A161D6 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				559DA7DF223873F300A9B77F /* ExploreJobCollectionViewCell.swift */,
 				4598BC9721A8B8BF0058096B /* CategoriesTableViewCell.swift */,
 				CA12A38221893AFB0063ED97 /* HomeTableViewCell.swift */,
+				559DA7D522386AB700A9B77F /* ExploreCategoryTableViewCell.swift */,
 				45AE32B6218A617B005F2A8B /* ImageCollectionViewCell.swift */,
 				ACF49B38218FB8A00021A63C /* JobsTableViewCell.swift */,
 				ACF49B36218FA68A0021A63C /* MyPostsTableViewCell.swift */,
@@ -650,7 +659,9 @@
 				ACFD809B21A77694009D0182 /* DatabaseHelper.swift in Sources */,
 				CA2F724B21A3673B00AAF19F /* SkillsTableViewController.swift in Sources */,
 				AC3E4FD821B74066009AA6FD /* LaunchScreenViewController.swift in Sources */,
+				559DA7D42238632100A9B77F /* NewExploreTableViewController.swift in Sources */,
 				ACB40CC721AF6BBA00477C1F /* JobInformation.swift in Sources */,
+				559DA7E0223873F300A9B77F /* ExploreJobCollectionViewCell.swift in Sources */,
 				AC23225C219BD61F003EFB62 /* Date+timeAgoSinceDate.swift in Sources */,
 				AC01C7EF21ABB684000EEB37 /* StorageHelper.swift in Sources */,
 				55850C1A222DB04700BDC61D /* MessagePreview.swift in Sources */,
@@ -665,6 +676,7 @@
 				CA2F724321A3667100AAF19F /* UpdateNameViewController.swift in Sources */,
 				4576E8C02188F22200471AB4 /* MyTabBarViewController.swift in Sources */,
 				CA2F724721A366C400AAF19F /* ChangeEmailViewController.swift in Sources */,
+				559DA7D622386AB700A9B77F /* ExploreCategoryTableViewCell.swift in Sources */,
 				4576E8B42188CA0000471AB4 /* SignInViewController.swift in Sources */,
 				459F12A1219D037F0032CC5E /* SettingsTableViewController.swift in Sources */,
 			);
