@@ -482,7 +482,7 @@ class PostAdTableViewController: UITableViewController, UITextViewDelegate, UICo
         
         print("regionLat:   \(regionLat)  regionLong:   \(regionLong)")
         print("userLat:     \(userLat)    userLong:   \(userLong)")
-        
+
         // reverseGeocodeLocation converts 'center' into user-friendly place name
         let center = CLLocation(latitude: regionLat, longitude: regionLong)
         
