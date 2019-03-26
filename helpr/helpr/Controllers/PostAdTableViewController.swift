@@ -50,7 +50,7 @@ class PostAdTableViewController: UITableViewController, UITextViewDelegate, UICo
         super.viewDidLoad()
         
         tvDescription.delegate = self
-        postPhotos.insert(UIImage(named: "addPhoto")!, at: 0)
+        postPhotos.insert(UIImage(named: "plusPurple")!, at: 0)
         addDoneButton()
         self.locationManager.requestAlwaysAuthorization()
         //self.locationManager.requestWhenInUseAuthorization()
@@ -320,8 +320,8 @@ class PostAdTableViewController: UITableViewController, UITextViewDelegate, UICo
     //ensures that when a photo is added or changed there is another photo that explicitly shows the add photo
     func checkaddPhoto() {
         let lastIndex = postPhotos.count - 1
-        if postPhotos[lastIndex] != UIImage(named: "addPhoto") && (postPhotos.count < 5) {
-            postPhotos.insert(UIImage(named: "addPhoto")!, at: lastIndex+1)
+        if postPhotos[lastIndex] != UIImage(named: "plusPurple") && (postPhotos.count < 5) {
+            postPhotos.insert(UIImage(named: "plusPurple")!, at: lastIndex+1)
         }
     }
     
