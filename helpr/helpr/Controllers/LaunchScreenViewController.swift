@@ -49,7 +49,7 @@ class LaunchScreenViewController: UIViewController {
                         }
                     }
                 }
-                let nextViewController = storyBoard.instantiateViewController(withIdentifier: "TabBarViewController") as! MyTabBarViewController
+                let nextViewController = storyBoard.instantiateViewController(withIdentifier: "TabBarViewController") as! EBRoundedTabBarController
                 self.present(nextViewController, animated:true, completion:nil)
             }
             else {

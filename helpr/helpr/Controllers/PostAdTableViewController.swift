@@ -43,6 +43,8 @@ class PostAdTableViewController: UITableViewController, UITextViewDelegate, UICo
     let locationManager = CLLocationManager()
     var searchCompleter = MKLocalSearchCompleter()
     var searchResults = [MKLocalSearchCompletion]()
+    var address = [String: String]()
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -178,15 +180,22 @@ class PostAdTableViewController: UITableViewController, UITextViewDelegate, UICo
         let description = tvDescription.text ?? "No description provided"
         // let tags = tfTags.text ?? ""
         let tags = ["iOS", "Yeet", "YOLO", "Y DID I SIGN UP FOR DIS"]
-        //let location = GeoPoint(latitude: regionLat, longitude: regionLong)
+        let location = GeoPoint(latitude: regionLat, longitude: regionLong)
+        
+        var random = Double.random(in: -0.004 ... 0.004)
+        let anonLat = regionLat + random
+        random = Double.random(in: -0.004 ... 0.004)
+        let anonLong = regionLong + random
+        
+        let anonLocation = GeoPoint(latitude: anonLat, longitude: anonLong)
         let lastGoodPic = postPhotos.count - 2
         let pictures = Array(postPhotos[0...lastGoodPic])
         
         // Set the job to be passed to HomeTableViewController after the unwind segue.
         let jobID = NSUUID().uuidString // generate job id for db
         let storage = StorageHelper()
-        let database = DatabaseHelper()
-        let userID = Auth.auth().currentUser?.uid
+        //let database = DatabaseHelper()
+        //let userID = Auth.auth().currentUser?.uid
         var id = 0
         
         // get highest job id within database and add 1 for new job id
@@ -199,7 +208,7 @@ class PostAdTableViewController: UITableViewController, UITextViewDelegate, UICo
                 for document in querySnapshot!.documents {
                     id = (document.data()["id"]! as! Int) + 1
                 }
-                self.job = Job(title: title, category: category!, description: description, pictureURLs: [], tags: tags, distance: 10, postalCode: "WH0CR5", postedTime: Date(), email: (UserProfile.email), firebaseID: jobID, id: id)
+                self.job = Job(title: title, category: category!, description: description, pictureURLs: [], tags: tags, address: self.address, location: location, anonLocation: anonLocation, distance: 10, postalCode: "WH0CR5", postedTime: Date(), email: (UserProfile.email), firebaseID: jobID, id: id)
                 //HomeTableViewController.jobs.append(job!)
                 
                 storage.saveImages(job: self.job!, imagesArray: pictures, createJob: true, jobID: jobID)
@@ -475,7 +484,7 @@ class PostAdTableViewController: UITableViewController, UITextViewDelegate, UICo
         print("userLat:     \(userLat)    userLong:   \(userLong)")
         
         // reverseGeocodeLocation converts 'center' into user-friendly place name
-        let center = CLLocation(latitude: mapView.region.center.latitude, longitude: mapView.region.center.longitude)
+        let center = CLLocation(latitude: regionLat, longitude: regionLong)
         
         let geoCoder = CLGeocoder()
         geoCoder.reverseGeocodeLocation(center) { [weak self] (placemarks, error) in
@@ -491,14 +500,14 @@ class PostAdTableViewController: UITableViewController, UITextViewDelegate, UICo
                 return
             }
             
-            let name = placemark.name ?? ""
-            let postalCode = placemark.postalCode ?? ""
-            let city = placemark.locality ?? ""
-            let stateProv = placemark.administrativeArea ?? ""
-            //let countryCode = placemark.isoCountryCode ?? ""
+            self.address["name"] = placemark.name ?? ""
+            self.address["postalCode"] = placemark.postalCode ?? ""
+            self.address["city"] = placemark.locality ?? ""
+            self.address["stateProv"] = placemark.administrativeArea ?? ""
+            self.address["countryCode"] = placemark.isoCountryCode ?? ""
             
             DispatchQueue.main.async {
-                self.tfLocation.text = "\(name) \(postalCode) \(city), \(stateProv)"
+                self.tfLocation.text = "\(self.address["name"] ?? "") \(self.address["postalCode"] ?? "") \(self.address["city"] ?? ""), \(self.address["stateProv"] ?? "")"
             }
         }
         

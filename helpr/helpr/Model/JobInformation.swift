@@ -10,9 +10,12 @@ import UIKit
 import Firebase
 import CodableFirebase
 
-extension GeoPoint: GeoPointType {
+struct CustomGeoPoint : Codable {
+    var latitude: Double
+    var longitude: Double
+    
     enum CodingKeys: String, CodingKey {
-        case longitude, latitude
+        case latitude, longitude
     }
 }
 
@@ -23,6 +26,9 @@ class JobInformation: Codable {
     var postDescription: String
     var pictures = [String?]() // contains urls for images
     var tags = [String?]()
+    var address: [String : String]
+    var location = CustomGeoPoint(latitude: 0,longitude: 0)
+    var anonLocation = CustomGeoPoint(latitude: 0, longitude: 0)
     var distance: Int
     var postalCode: String
     var postedTime: Date
@@ -33,7 +39,7 @@ class JobInformation: Codable {
     
     //MARK: Initialization
     
-    init?(title: String, category: String, description: String, pictures: [String?], tags: [String], distance: Int, postalCode: String, postedTime: Date, email: String, id: Int) {
+    init?(title: String, category: String, description: String, pictures: [String?], tags: [String], address: [String : String], location: GeoPoint, anonLocation: GeoPoint, distance: Int, postalCode: String, postedTime: Date, email: String, id: Int) {
         self.title = title
         self.category = category
         self.postDescription = description
@@ -44,7 +50,9 @@ class JobInformation: Codable {
         }else {
             self.tags = ["test tags"]
         }
-        
+        self.address = address
+        self.location = CustomGeoPoint(latitude: location.latitude, longitude: location.longitude)
+        self.anonLocation = CustomGeoPoint(latitude: anonLocation.latitude, longitude: anonLocation.longitude)
         self.distance = distance
         self.favourite = false
         if (!postalCode.isEmpty){
@@ -58,7 +66,7 @@ class JobInformation: Codable {
         self.id = id
     }
     
-    init?(title: String, category: String, description: String, pictures: [String?], tags: [String], distance: Int, postalCode: String, postedTime: Date, email: String, firebaseID: String, id: Int) {
+    init?(title: String, category: String, description: String, pictures: [String?], tags: [String], address: [String : String], location: GeoPoint, anonLocation: GeoPoint, distance: Int, postalCode: String, postedTime: Date, email: String, firebaseID: String, id: Int) {
         self.title = title
         self.category = category
         self.postDescription = description
@@ -69,7 +77,9 @@ class JobInformation: Codable {
         }else {
             self.tags = ["test tags"]
         }
-        
+        self.address = address
+        self.location = CustomGeoPoint(latitude: location.latitude, longitude: location.longitude)
+        self.anonLocation = CustomGeoPoint(latitude: anonLocation.latitude, longitude: anonLocation.longitude)
         self.distance = distance
         self.favourite = false
         if (!postalCode.isEmpty){

@@ -11,8 +11,9 @@ import Firebase
 import CodableFirebase
 import FirebaseUI
 import SCLAlertView
+import MapKit
 
-class JobDetailsViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+class JobDetailsViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, MKMapViewDelegate {
     
     var job : Job?
     var bidAmount : Double = 0
@@ -26,6 +27,7 @@ class JobDetailsViewController: UIViewController, UICollectionViewDataSource, UI
     @IBOutlet weak var jobPostedTime: UILabel!
     @IBOutlet weak var jobPhotos: UICollectionView!
     @IBOutlet weak var jobPicsControl: UIPageControl!
+    @IBOutlet weak var mapView: MKMapView!
     
     var arrJobPhotos = [String]() //allow update of UICollectionViewCells
     var indexPathForCell : IndexPath = [] //variable to allow updating of photos
@@ -56,7 +58,16 @@ class JobDetailsViewController: UIViewController, UICollectionViewDataSource, UI
         jobPicsControl.numberOfPages = arrJobPhotos.count
         self.jobPhotos.reloadData()
         
-        // Do any additional setup after loading the view.
+        //center mapView on Job location
+        mapView.delegate = self
+        let span = MKCoordinateSpan(latitudeDelta: 0.025, longitudeDelta: 0.025)
+        let lat = job?.information.anonLocation.latitude
+        let long = job?.information.anonLocation.longitude
+        let center = CLLocation(latitude: lat ?? 0, longitude: long ?? 0)
+        let recenterRegion = MKCoordinateRegion(center: center.coordinate, span: span)
+        mapView.setRegion(recenterRegion, animated: true)
+        addRadiusCircle(location: center)
+        
     }
 
     @IBAction func bidBtnAction(_ sender: UIButton) {
@@ -132,7 +143,25 @@ class JobDetailsViewController: UIViewController, UICollectionViewDataSource, UI
         self.jobPhotos.contentOffset.x = CGFloat(Int(self.jobPhotos.frame.width) * jobPicsControl.currentPage)
     }
     
-    // MARK: - Private Methods
+    // MARK: - MapView methods
+    func addRadiusCircle(location: CLLocation){
+        let circle = MKCircle(center: location.coordinate, radius: 500 as CLLocationDistance)
+        mapView.addOverlay(circle)
+    }
+    
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        if let overlay = overlay as? MKCircle {
+            let circle = MKCircleRenderer(overlay: overlay)
+            circle.strokeColor = UIColor.purple
+            circle.fillColor = UIColor(named: "RoyalPurple")
+            circle.alpha = 0.5
+            circle.lineWidth = 1
+            return circle
+        }
+        else {
+            return MKOverlayRenderer(overlay: overlay)
+        }
+    }
 
     /*
     // MARK: - Navigation

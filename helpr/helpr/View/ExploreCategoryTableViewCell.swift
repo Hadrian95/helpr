@@ -14,6 +14,7 @@ class ExploreCategoryTableViewCell: UITableViewCell {
     @IBOutlet weak var jobCollectionView: UICollectionView!
     
     public func setScrollPosition(x: CGFloat) {
+       print(jobCollectionView)
         jobCollectionView.setContentOffset(CGPoint(x: x >= 0 ? x : 0, y: 0), animated: false)
     }
     

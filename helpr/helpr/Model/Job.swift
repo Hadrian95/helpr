@@ -19,17 +19,17 @@ class Job {
     
     
     //MARK: Initialization
-    init?(title: String, category: String, description: String, pictureURLs: [String], tags: [String], distance: Int, postalCode: String, postedTime: Date, email: String, id: Int) {
+    init?(title: String, category: String, description: String, pictureURLs: [String], tags: [String], address: [String : String], location: GeoPoint, anonLocation: GeoPoint, distance: Int, postalCode: String, postedTime: Date, email: String, id: Int) {
         
-        information = JobInformation(title: title, category: category, description: description, pictures: pictureURLs, tags: tags, distance: distance, postalCode: postalCode, postedTime: postedTime, email: email, id: id)!
+        information = JobInformation(title: title, category: category, description: description, pictures: pictureURLs, tags: tags, address: address, location: location, anonLocation: anonLocation, distance: distance, postalCode: postalCode, postedTime: postedTime, email: email, id: id)!
         
         pictureData = []
     }
     
     //init with id
-    init?(title: String, category: String, description: String, pictureURLs: [String], tags: [String], distance: Int, postalCode: String, postedTime: Date, email: String, firebaseID: String, id: Int) {
+    init?(title: String, category: String, description: String, pictureURLs: [String], tags: [String], address: [String : String], location: GeoPoint, anonLocation: GeoPoint, distance: Int, postalCode: String, postedTime: Date, email: String, firebaseID: String, id: Int) {
         
-        information = JobInformation(title: title, category: category, description: description, pictures: pictureURLs, tags: tags, distance: distance, postalCode: postalCode, postedTime: postedTime, email: email, firebaseID: firebaseID, id: id)!
+        information = JobInformation(title: title, category: category, description: description, pictures: pictureURLs, tags: tags, address: address, location: location, anonLocation: anonLocation, distance: distance, postalCode: postalCode, postedTime: postedTime, email: email, firebaseID: firebaseID, id: id)!
         
         pictureData = []
     }
