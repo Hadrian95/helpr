@@ -17,6 +17,7 @@ class MessageCollectionViewCell: UICollectionViewCell {
         tv.translatesAutoresizingMaskIntoConstraints = false
         tv.backgroundColor = UIColor.clear
         tv.textColor = .white
+        tv.inputView = UIView.init();
         return tv
     }()
     
@@ -74,6 +75,10 @@ class MessageCollectionViewCell: UICollectionViewCell {
         textView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
         textView.rightAnchor.constraint(equalTo: bubbleView.rightAnchor).isActive = true
         textView.heightAnchor.constraint(equalTo: self.heightAnchor).isActive = true
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        return textField != self.textView;
     }
     
     required init?(coder aDecoder: NSCoder) {

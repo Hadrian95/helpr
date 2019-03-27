@@ -1411,7 +1411,7 @@
         <!--Profile-->
         <scene sceneID="pTw-vq-RR7">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="eLF-pk-CA7" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="ProfileViewNavController" automaticallyAdjustsScrollViewInsets="NO" id="eLF-pk-CA7" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Profile" image="account" id="cPa-gy-q4n"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="7vb-nR-fw7">
@@ -1438,7 +1438,6 @@
         <!--User Name-->
         <scene sceneID="op6-Cf-syE">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="A1f-Gb-6TU" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <collectionViewController storyboardIdentifier="ChatLogController" title="User Name" id="kt3-YM-GjB" customClass="ChatLogController" customModule="helpr" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="Kwp-SK-ySa">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="729"/>
@@ -1457,6 +1456,7 @@
                         </connections>
                     </collectionView>
                 </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="A1f-Gb-6TU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="597.60000000000002" y="2179.8029556650249"/>
         </scene>

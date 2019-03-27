@@ -75,6 +75,9 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
         collectionView?.register(MessageCollectionViewCell.self, forCellWithReuseIdentifier: cellId)
         
         setupNavBarWithUser()
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "calendar"), style: .plain, target: self, action: #selector(showAvailability))
+        let gesture = UITapGestureRecognizer(target: self, action:  #selector(self.showProfile))
+        navigationController?.navigationBar.addGestureRecognizer(gesture)
         setupInputComponents()
         setupKeyboardObservers()
     }
@@ -99,7 +102,7 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
         let keyboardFrame = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as AnyObject).cgRectValue
         let keyboardDuration = (notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as AnyObject).doubleValue
         
-        containerViewBottomAnchor?.constant = -keyboardFrame!.height + 84
+        containerViewBottomAnchor?.constant = -keyboardFrame!.height + 49
         UIView.animate(withDuration: keyboardDuration!, animations: {
             self.view.layoutIfNeeded()
         })
@@ -188,7 +191,6 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
     func setupNavBarWithUser() {
         let titleView = UIView()
         titleView.frame = CGRect(x: 0, y: 0, width: 100, height: 40)
-        //        titleView.backgroundColor = UIColor.redColor()
         
         let containerView = UIView()
         containerView.translatesAutoresizingMaskIntoConstraints = false
@@ -218,6 +220,7 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
         containerView.addSubview(nameLabel)
         nameLabel.text = self.partnerName
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
+        nameLabel.textColor = UIColor(named: "RoyalPurple")
         //need x,y,width,height anchors
         nameLabel.leftAnchor.constraint(equalTo: profileImageView.rightAnchor, constant: 8).isActive = true
         nameLabel.centerYAnchor.constraint(equalTo: profileImageView.centerYAnchor).isActive = true
@@ -226,7 +229,7 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
         
         containerView.centerXAnchor.constraint(equalTo: titleView.centerXAnchor).isActive = true
         containerView.centerYAnchor.constraint(equalTo: titleView.centerYAnchor).isActive = true
-        
+
         self.navigationItem.titleView = titleView
         
         //        titleView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(showChatController)))
@@ -275,6 +278,21 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
         separatorLineView.heightAnchor.constraint(equalToConstant: 1).isActive = true
     }
     
+    @objc func showProfile() {
+        print("Gesture Tap Recognized")
+//        let viewController = storyboard?.instantiateViewController(withIdentifier: "ProfileViewController") as! ProfileViewController
+//        viewController.modalPresentationStyle = .currentContext
+//        viewController.userID = self.partnerID
+//        self.present(viewController, animated:true, completion:nil)
+        let profileController = storyboard?.instantiateViewController(withIdentifier: "ProfileViewController") as! ProfileViewController
+        print(profileController.navigationController?.title)
+        profileController.userID = self.partnerID
+        let navController = UINavigationController(rootViewController: profileController)
+        navController.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(named: "RoyalPurple")]
+        navController.modalPresentationStyle = .currentContext
+        present(navController, animated: true, completion: nil)
+    }
+    
     @objc func handleSend() {
         let chatID = self.chatID
         let senderID = Auth.auth().currentUser?.uid
@@ -295,8 +313,14 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
         if (trimmed != "") {
             sendButton.isEnabled = true
         }
+        else if (trimmed == "") {
+            sendButton.isEnabled = false
+        }
     }
     
+    @objc func showAvailability() {
+        print("Calendar!")
+    }
 }
 
 

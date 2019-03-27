@@ -245,6 +245,7 @@
 				4598BC9321A8B3640058096B /* CategoriesTableViewController.swift */,
 				CA2F724621A366C400AAF19F /* ChangeEmailViewController.swift */,
 				CA2F725421A368C900AAF19F /* ChangePasswordViewController.swift */,
+				552E72F5224AD48F0098006B /* ChatLogController.swift */,
 				4576E8B92188EE6500471AB4 /* ExploreTableViewController.swift */,
 				AC01C7F021ABB93A000EEB37 /* Extensions */,
 				CA2F724C21A3676000AAF19F /* FavoriteLocationsViewController.swift */,
@@ -268,7 +269,6 @@
 				CA2F724A21A3673B00AAF19F /* SkillsTableViewController.swift */,
 				CA2F724221A3667100AAF19F /* UpdateNameViewController.swift */,
 				4576E8B52188D57F00471AB4 /* WelcomeViewController.swift */,
-				552E72F5224AD48F0098006B /* ChatLogController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
