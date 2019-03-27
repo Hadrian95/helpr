@@ -20,7 +20,7 @@ class MessageTableViewController: UITableViewController {
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(reloadPreviews(notification:)), name: NSNotification.Name(rawValue: "reloadMessagePreviews"), object: nil)
         
-        loadSampleMessagePreviews()
+        //loadSampleMessagePreviews()
         
         db.collection("users").document(userID!).collection("conversations").order(by: "jobID", descending: true)
             .addSnapshotListener { querySnapshot, error in
@@ -42,6 +42,7 @@ class MessageTableViewController: UITableViewController {
                         msgPreview?.partnerID = chatPartnerID
                         msgPreview?.partnerPicRef = partnerPicRef
                         msgPreview?.senderName = partnerName
+                        msgPreview?.chatID = chatID
                         
                         DispatchQueue.main.async {
                             self.database.getBidAmt(chatID: chatID, chatPartnerID: chatPartnerID) { (bid) in
@@ -51,7 +52,10 @@ class MessageTableViewController: UITableViewController {
                                     msgPreview?.mTime =  created.timeAgoSinceDate(currentDate: Date(), numericDates: true)
                                     
                                     self.mPreviews.append(msgPreview!)
-                                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadMessagePreviews"), object: nil)
+                                    
+                                    // only reload table view once, not for every new message preview it finds
+                                    self.timer?.invalidate()
+                                    self.timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(self.handleReloadTable), userInfo: nil, repeats: false)
                                 }
                             }
                         }
@@ -65,6 +69,15 @@ class MessageTableViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
+    }
+    
+    var timer: Timer?
+    
+    @objc func handleReloadTable() {
+        DispatchQueue.main.async(execute: {
+            print("we reloaded the table")
+            self.tableView.reloadData()
+        })
     }
     
     // reload on new message preview added
@@ -88,7 +101,7 @@ class MessageTableViewController: UITableViewController {
         
         let cellIdentifier = "MessagePreviewTableViewCell"
         
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? MessageTableViewCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? MessagePreviewTableViewCell else {
             fatalError("The dequeued cell is not an instance of HomeTableVieCell")
         }
         
@@ -154,51 +167,53 @@ class MessageTableViewController: UITableViewController {
 
     
     // MARK: - Navigation
-
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
         
         switch (segue.identifier ?? "") {
             
-        case "showUserProfile":
-            guard let userProfileVC = segue.destination as? ProfileViewController else {
-                fatalError("Unexpected destination: \(segue.destination)")
-            }
-            
-            guard let selectedPreviewCell = sender as? MessageTableViewCell else {
+        case "showChat":
+            guard let selectedPreviewCell = sender as? MessagePreviewTableViewCell else {
                 fatalError("Unexpected message sender: \(sender)")
             }
-            
+
             guard let indexPath = tableView.indexPath(for: selectedPreviewCell) else {
                 fatalError("The selected message cell is not being displayed by the table")
             }
-            
             let uID = mPreviews[indexPath.row].partnerID
-            userProfileVC.userID = uID
             
+            let viewController = segue.destination as? ChatLogController
+            viewController!.chatID = mPreviews[indexPath.row].chatID
+            viewController!.partnerID = uID
+            viewController!.partnerName = mPreviews[indexPath.row].senderName
+            viewController!.partnerPicRef = mPreviews[indexPath.row].partnerPicRef
+            print("Values: " + mPreviews[indexPath.row].chatID + " " + mPreviews[indexPath.row].senderName)
+
         default:
-            fatalError("Unexpected Segue Identifier; \(segue.identifier)")
+            //fatalError("Unexpected Segue Identifier; \(segue.identifier)")
+            let thisThing = 0
         }
     }
     
-    private func loadSampleMessagePreviews() {
-        guard let m1 = MessagePreview(name: "Walter", preview: "Adrian makes a pretty good point, I would listen to him on this. You won't be disappointed.", pic: UIImage(named: "Walter")!, bid: "$35/hr", time: "5 mins") else {
-            fatalError("Unable to instantiate message1")
-        }
-        
-        guard let m2 = MessagePreview(name: "Adrian", preview: "Wow, look at all this information you can see hardcoded into this view! Truly inspiring, deserves investment, much start-up", pic: UIImage(named: "Adrian")!, bid: "$25/hr", time: "9 mins") else {
-            fatalError("Unable to instantiate message1")
-        }
-        
-        guard let m3 = MessagePreview(name: "Christian", preview: "I'm in the Netherlands right now, working hard in spirit, Adrian and Walter are by far my superiors.", pic: UIImage(named: "Christian")!, bid: "$5/hr", time: "23 mins") else {
-            fatalError("Unable to instantiate message1")
-        }
-        
-        guard let m4 = MessagePreview(name: "Iker", preview: "Happy to be here, new kid on the block, I'm in business so automatically better than everyone.", pic: UIImage(named: "Iker")!, bid: "$50/hr", time: "45 mins") else {
-            fatalError("Unable to instantiate message1")
-        }
-        
-        mPreviews += [m1, m2, m3, m4]
-    }
+//    private func loadSampleMessagePreviews() {
+//        guard let m1 = MessagePreview(name: "Walter", preview: "Adrian makes a pretty good point, I would listen to him on this. You won't be disappointed.", pic: UIImage(named: "Walter")!, bid: "$35/hr", time: "5 mins") else {
+//            fatalError("Unable to instantiate message1")
+//        }
+//
+//        guard let m2 = MessagePreview(name: "Adrian", preview: "Wow, look at all this information you can see hardcoded into this view! Truly inspiring, deserves investment, much start-up", pic: UIImage(named: "Adrian")!, bid: "$25/hr", time: "9 mins") else {
+//            fatalError("Unable to instantiate message1")
+//        }
+//
+//        guard let m3 = MessagePreview(name: "Christian", preview: "I'm in the Netherlands right now, working hard in spirit, Adrian and Walter are by far my superiors.", pic: UIImage(named: "Christian")!, bid: "$5/hr", time: "23 mins") else {
+//            fatalError("Unable to instantiate message1")
+//        }
+//
+//        guard let m4 = MessagePreview(name: "Iker", preview: "Happy to be here, new kid on the block, I'm in business so automatically better than everyone.", pic: UIImage(named: "Iker")!, bid: "$50/hr", time: "45 mins") else {
+//            fatalError("Unable to instantiate message1")
+//        }
+//
+//        mPreviews += [m1, m2, m3, m4]
+//    }
 }

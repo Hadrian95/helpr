@@ -33,6 +33,19 @@ class DatabaseHelper {
             }
         }
     }
+    
+    func storeMessage(senderID: String, chatID: String, content: String, senderName: String, timestamp: Date) {
+        // create the first message exchanged within newly created chat document
+        let messageID = NSUUID().uuidString
+        docRef = db.collection("chats").document(chatID).collection("messages").document(messageID)
+        docRef.setData(["content" : content, "created" : timestamp, "senderID" : senderID, "senderName" : senderName]) { (error) in
+            if error != nil {
+                print("Error adding data to chat messages collection")
+            }else{
+                print("Data has been successfully added to chat messages collection")
+            }
+        }
+    }
 
     func addJobInformation(dataToSave: [String: Any], tags: [String], jobID: String, completion: @escaping (Error?) -> ()) {
         let userID = dataToSave["posterID"] as! String
@@ -134,7 +147,7 @@ class DatabaseHelper {
             }
         }
     }
-
+    
     func addUserInformation(dataToSave: [String: Any], photoURL: String?, completion: @escaping (Error?) -> ()) {
         let userID = Auth.auth().currentUser?.uid
         docRef = db.collection("users").document(userID!)

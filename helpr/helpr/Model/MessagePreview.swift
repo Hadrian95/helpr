@@ -19,8 +19,9 @@ class MessagePreview {
     var mTime = ""
     var partnerID = ""
     var partnerPicRef = ""
+    var chatID = ""
     
-    init?(name: String, preview: String, pic: UIImage, bid: String, time: String) {
+    init?(name: String, preview: String, pic: UIImage, bid: String, time: String, chatID: String) {
         senderName = name
         mPreview = preview
         picture = pic

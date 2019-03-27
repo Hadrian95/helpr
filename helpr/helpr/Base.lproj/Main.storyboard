@@ -211,7 +211,7 @@
             <objects>
                 <tableViewController title="Home" id="CRG-QK-wGU" userLabel="Explore" customClass="ExploreTableViewController" customModule="helpr" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="280" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="20" id="c5m-k4-TeE">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="729"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <color key="tintColor" white="1" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -303,13 +303,7 @@
                             <outlet property="delegate" destination="CRG-QK-wGU" id="utP-dz-wkI"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Explore" id="Dya-zo-DbQ">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="UsX-51-cJc">
-                            <connections>
-                                <segue destination="V50-gr-w4E" kind="presentation" identifier="CreatePost" id="bJd-TH-Z24"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Search" id="Dya-zo-DbQ"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6I1-rJ-mnI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1230,11 +1224,14 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Explore" id="Xjz-DO-HRE">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="Ofk-yp-b4e">
-                            <connections>
-                                <segue destination="V50-gr-w4E" kind="presentation" identifier="createPost" id="CaY-RC-8L1"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem systemItem="search" id="Ofk-yp-b4e">
+                                <connections>
+                                    <segue destination="CRG-QK-wGU" kind="show" identifier="showSearchJobs" id="dyS-6g-Y6w"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="Filter" image="filter" id="Z5D-v0-Rpc"/>
+                        </rightBarButtonItems>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OjQ-7Y-gaf" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1438,6 +1435,31 @@
             </objects>
             <point key="canvasLocation" x="1381.5999999999999" y="742.61083743842369"/>
         </scene>
+        <!--User Name-->
+        <scene sceneID="op6-Cf-syE">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="A1f-Gb-6TU" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <collectionViewController storyboardIdentifier="ChatLogController" title="User Name" id="kt3-YM-GjB" customClass="ChatLogController" customModule="helpr" customModuleProvider="target" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="Kwp-SK-ySa">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="729"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="b5h-et-t4v">
+                            <size key="itemSize" width="50" height="50"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                        <cells/>
+                        <connections>
+                            <outlet property="dataSource" destination="kt3-YM-GjB" id="K5I-Qg-pkm"/>
+                            <outlet property="delegate" destination="kt3-YM-GjB" id="PgW-Hh-oLt"/>
+                        </connections>
+                    </collectionView>
+                </collectionViewController>
+            </objects>
+            <point key="canvasLocation" x="597.60000000000002" y="2179.8029556650249"/>
+        </scene>
         <!--Messages-->
         <scene sceneID="kfS-iD-Hx5">
             <objects>
@@ -1447,7 +1469,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="MessagePreviewTableViewCell" rowHeight="90" id="kqO-aF-Cgm" customClass="MessageTableViewCell" customModule="helpr" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="MessagePreviewTableViewCell" rowHeight="90" id="kqO-aF-Cgm" customClass="MessagePreviewTableViewCell" customModule="helpr" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="375" height="90"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="kqO-aF-Cgm" id="DtM-Jy-ED2">
@@ -1519,7 +1541,7 @@
                                     <outlet property="lblMsgPreview" destination="6ju-0u-bEg" id="HEJ-xh-sSO"/>
                                     <outlet property="lblMsgTime" destination="ebG-8G-OGx" id="VYL-0v-dRL"/>
                                     <outlet property="lblName" destination="pen-ad-ALi" id="egV-hq-ug3"/>
-                                    <segue destination="0aR-oA-iag" kind="show" identifier="showUserProfile" id="y6n-u6-Fez"/>
+                                    <segue destination="kt3-YM-GjB" kind="show" identifier="showChat" id="t8s-gL-mAg"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -3609,6 +3631,7 @@
         <image name="centerLocation" width="33" height="33"/>
         <image name="cleanDefault" width="170" height="170"/>
         <image name="explore" width="32" height="32"/>
+        <image name="filter" width="25" height="25"/>
         <image name="imageView:jfT-XE-Jn6:image" width="360" height="360">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGVVZYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QEgcI
@@ -12399,10 +12422,8 @@ AAAABAEAAAAAAAAAWQAAAAAAAAAAAAAAAAAIBZk
         </namedColor>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="CaY-RC-8L1"/>
-        <segue reference="y6n-u6-Fez"/>
         <segue reference="edr-cc-jQm"/>
-        <segue reference="FCs-0e-GXX"/>
+        <segue reference="WXI-hz-ulL"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" name="RoyalPurple"/>
 </document>

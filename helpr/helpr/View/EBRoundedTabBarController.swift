@@ -14,7 +14,7 @@ class EBRoundedTabBarController: UITabBarController {
     // MARK: - Inner Types
     
     private struct Constants {
-        static let actionButtonSize = CGSize(width: 64, height: 64)
+        static var actionButtonSize = CGSize(width: 64, height: 64)
     }
     
     

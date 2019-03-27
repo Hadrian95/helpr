@@ -91,8 +91,6 @@ class ExploreTableViewController: UITableViewController, UISearchBarDelegate {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // table view cells are reused and should be dequeued using a cell identifier.
         let cellIdentifier = "HomeTableViewCell"
-        tableView.register(UINib(nibName: "HomeTableViewCell", bundle: nil), forCellReuseIdentifier: cellIdentifier)
-        
         guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? HomeTableViewCell else {
             fatalError("The dequeued cell is not an instance of HomeTableVieCell")
             }

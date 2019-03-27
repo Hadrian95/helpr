@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MessageTableViewCell: UITableViewCell {
+class MessagePreviewTableViewCell: UITableViewCell {
 
     @IBOutlet weak var ivProfilePic: UIImageView!
     @IBOutlet weak var lblName: UILabel!

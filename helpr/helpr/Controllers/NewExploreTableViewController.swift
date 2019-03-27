@@ -191,6 +191,11 @@ extension NewExploreTableViewController: UICollectionViewDelegate, UICollectionV
                 fatalError("Unexpected destination: \(segue.destination)")
             }
             
+        case "showSearchJobs":
+            guard let searchViewController = segue.destination as? ExploreTableViewController else {
+                fatalError("Unexpected destination: \(segue.destination)")
+            }
+            
         default:
             fatalError("Unexpected Segue Identifier; \(segue.identifier)")
         }
