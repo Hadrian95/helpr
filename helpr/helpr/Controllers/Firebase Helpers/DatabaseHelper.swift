@@ -119,19 +119,45 @@ class DatabaseHelper {
             if let document = document, document.exists {
                 let posterName = document.data()?["name"] as! String
                 let posterPicRef = document.data()?["profilePic"] as! String
+                
                 // create conversation reference in bidder's conversations log
-                let bidderDocRef = self.db.collection("users").document(userID).collection("conversations").document()
-                bidderDocRef.setData(["active" : true, "chatID" : chatID, "chatPartnerName" : posterName.components(separatedBy: " ")[0], "chatPartnerID" : job.information.email, "chatPartnerPicRef" : posterPicRef, "jobID" : job.information.id]) { (error) in
-                    if error != nil {
-                        print("Error adding data to bidder's conversations collection")
-                        completion(nil)
-                    }else{
-                        print("Data has been successfully added to bidder's conversations collection!")
-                        completion(error)
+                self.db.collection("users").document(userID).collection("conversations").whereField("chatID", isEqualTo: chatID).getDocuments() { (querySnapshot, error) in
+                    if let error = error {
+                        print("Error getting conversation doc: \(error)")
+                        let bidderDocRef = self.db.collection("users").document(userID).collection("conversations").document()
+                        bidderDocRef.setData(["active" : true, "chatID" : chatID, "chatPartnerName" : posterName.components(separatedBy: " ")[0], "chatPartnerID" : job.information.email, "chatPartnerPicRef" : posterPicRef, "jobID" : job.information.id]) { (error) in
+                            if error != nil {
+                                print("Error adding data to bidder's conversations collection")
+                                completion(nil)
+                            }else{
+                                print("Data has been successfully added to bidder's conversations collection!")
+                                completion(error)
+                            }
+                        }
+                    } else {
+                        // do nothing
                     }
                 }
             } else {
                 print("User who posted job does not exist")
+            }
+        }
+        
+        // create conversation reference in bidder's conversations log
+        self.db.collection("users").document(job.information.email).collection("conversations").whereField("chatID", isEqualTo: chatID).getDocuments() { (querySnapshot, error) in
+            if let error = error {
+                self.docRef = self.db.collection("users").document(job.information.email).collection("conversations").document()
+                self.docRef.setData(["active" : true, "chatID" : chatID, "chatPartnerName": UserProfile.name.components(separatedBy: " ")[0], "chatPartnerID" : userID, "chatPartnerPicRef" : UserProfile.profilePicRef, "jobID": job.information.id]) { (error) in
+                    if error != nil {
+                        print("Error adding data to poster's conversations collection")
+                        completion(nil)
+                    }else{
+                        print("Data has been successfully added to poster's conversations collection!")
+                        completion(error)
+                    }
+                }
+            } else {
+                // do nothing
             }
         }
         
@@ -264,15 +290,17 @@ class DatabaseHelper {
         }
     }
     
-    func getBidAmt(chatID: String, chatPartnerID: String, completion: @escaping (String) -> ()) {
+    func getBidAmt(chatID: String, chatPartnerID: String, completion: @escaping (String, Bool) -> ()) {
         
         //used for converting float to monetary value, formatted and in current locale currency
         let formatter = NumberFormatter()
         formatter.numberStyle = .currency
+        var accepted = false
         
         db.collection("chats").document(chatID).getDocument() { (document, error) in
             if let document = document, document.exists {
                 let jobFBID = document.data()?["jobFirebaseID"] as! String
+                accepted = document.data()?["accepted"] as! Bool
                 var bidStr = ""
                 var userID = Auth.auth().currentUser?.uid
                 self.db.collection("jobs").document(jobFBID).getDocument() { (document, error) in
@@ -303,7 +331,7 @@ class DatabaseHelper {
                                                 bidStr = formatter.string(from: amt as NSNumber) ?? "undefined"
                                             }
                                         }
-                                        completion(bidStr)
+                                        completion(bidStr, accepted)
                                     }
                                 }
                             }
@@ -331,7 +359,7 @@ class DatabaseHelper {
                                             bidStr = formatter.string(from: amt as NSNumber) ?? "undefined"
                                         }
                                     }
-                                completion(bidStr)
+                                completion(bidStr, accepted)
                                 }
                             }
                         }

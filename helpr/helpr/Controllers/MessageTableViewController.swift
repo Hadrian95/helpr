@@ -46,8 +46,9 @@ class MessageTableViewController: UITableViewController {
                         msgPreview?.chatID = chatID
                         
                         DispatchQueue.main.async {
-                            self.database.getBidAmt(chatID: chatID, chatPartnerID: chatPartnerID) { (bid) in
+                            self.database.getBidAmt(chatID: chatID, chatPartnerID: chatPartnerID) { (bid, accepted) in
                                 msgPreview?.bidAmt = bid
+                                msgPreview?.accepted = accepted
                                 self.database.getMsgPreview(chatID: chatID) { (content, created, senderName) in
                                     msgPreview?.mPreview = content
                                     msgPreview?.mTime =  created.timeAgoSinceDate(currentDate: Date(), numericDates: true)
@@ -68,6 +69,8 @@ class MessageTableViewController: UITableViewController {
                                 print("Error fetching latest preview snapshots: \(String(describing: error))")
                                 return
                             }
+                            var accepted = false
+                            
                             //let mPreview = self.mPreviews.filter{$0.chatID == chatID}.first
                             let index = self.mPreviews.firstIndex(where: { (mPreview) -> Bool in
                                 mPreview.chatID == chatID
@@ -75,13 +78,19 @@ class MessageTableViewController: UITableViewController {
                             if (index != nil) {
                                 snapshot.documentChanges.forEach { diff in
                                     if (diff.type == .added) {
-                                        self.mPreviews[index!].mPreview = diff.document.data()["content"] as! String
-                                        let created = diff.document.data()["created"] as! Date
-                                        self.mPreviews[index!].mTime = created.timeAgoSinceDate(currentDate: Date(), numericDates: true)
-                                        DispatchQueue.main.async(execute: {
-                                            print("we reloaded the table")
-                                            self.tableView.reloadData()
-                                        })
+                                        DispatchQueue.main.async {
+                                            self.database.getBidAmt(chatID: chatID, chatPartnerID: chatPartnerID) { (bid, accepted) in
+                                                self.mPreviews[index!].bidAmt = bid
+                                                self.mPreviews[index!].accepted = accepted
+                                                self.mPreviews[index!].mPreview = diff.document.data()["content"] as! String
+                                                let created = diff.document.data()["created"] as! Date
+                                                self.mPreviews[index!].mTime = created.timeAgoSinceDate(currentDate: Date(), numericDates: true)
+                                                DispatchQueue.main.async(execute: {
+                                                    print("we reloaded the table")
+                                                    self.tableView.reloadData()
+                                                })
+                                            }
+                                        }
                                     }
                                 }
                             }
