@@ -88,7 +88,7 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
+        super.viewWillDisappear(false)
         
         navigationController?.navigationBar.prefersLargeTitles = true
     }

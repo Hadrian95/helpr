@@ -22,6 +22,7 @@ class MessageTableViewController: UITableViewController {
         
         //loadSampleMessagePreviews()
         
+        // load in message previews based on active conversations user is a part of
         db.collection("users").document(userID!).collection("conversations").order(by: "jobID", descending: true)
             .addSnapshotListener { querySnapshot, error in
             guard let snapshot = querySnapshot else {
@@ -56,6 +57,32 @@ class MessageTableViewController: UITableViewController {
                                     // only reload table view once, not for every new message preview it finds
                                     self.timer?.invalidate()
                                     self.timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(self.handleReloadTable), userInfo: nil, repeats: false)
+                                }
+                            }
+                        }
+                        
+                        
+                        // reload message preiew on new message exchanged in chat log
+                        self.db.collection("chats").document(chatID).collection("messages").order(by: "created", descending: true).addSnapshotListener { querySnapshot, error in
+                            guard let snapshot = querySnapshot else {
+                                print("Error fetching latest preview snapshots: \(String(describing: error))")
+                                return
+                            }
+                            //let mPreview = self.mPreviews.filter{$0.chatID == chatID}.first
+                            let index = self.mPreviews.firstIndex(where: { (mPreview) -> Bool in
+                                mPreview.chatID == chatID
+                            })
+                            if (index != nil) {
+                                snapshot.documentChanges.forEach { diff in
+                                    if (diff.type == .added) {
+                                        self.mPreviews[index!].mPreview = diff.document.data()["content"] as! String
+                                        let created = diff.document.data()["created"] as! Date
+                                        self.mPreviews[index!].mTime = created.timeAgoSinceDate(currentDate: Date(), numericDates: true)
+                                        DispatchQueue.main.async(execute: {
+                                            print("we reloaded the table")
+                                            self.tableView.reloadData()
+                                        })
+                                    }
                                 }
                             }
                         }

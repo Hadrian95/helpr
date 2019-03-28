@@ -402,13 +402,7 @@
                             <outlet property="delegate" destination="Yes-Bf-das" id="PwS-yp-yoW"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Jobs" id="vak-Xb-zpA">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="AaU-2X-pOB">
-                            <connections>
-                                <segue destination="V50-gr-w4E" kind="presentation" identifier="jobsCreatePost" id="2ZH-Gy-scq"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Jobs" id="vak-Xb-zpA"/>
                     <connections>
                         <outlet property="JobsTableView" destination="YgU-ca-sfI" id="U4q-7U-u7R"/>
                         <outlet property="jobsSegment" destination="QGl-vY-KdD" id="BNo-mz-zdD"/>
