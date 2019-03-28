@@ -1455,6 +1455,9 @@
                             <outlet property="delegate" destination="kt3-YM-GjB" id="PgW-Hh-oLt"/>
                         </connections>
                     </collectionView>
+                    <connections>
+                        <segue destination="0aR-oA-iag" kind="show" identifier="showUserProfile" id="FXk-Rx-GQP"/>
+                    </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="A1f-Gb-6TU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -12422,6 +12425,7 @@ AAAABAEAAAAAAAAAWQAAAAAAAAAAAAAAAAAIBZk
         </namedColor>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="FXk-Rx-GQP"/>
         <segue reference="edr-cc-jQm"/>
         <segue reference="WXI-hz-ulL"/>
     </inferredMetricsTieBreakers>

@@ -73,11 +73,11 @@ class DatabaseHelper {
     
     func createBid(bidAmt: Float, rateType: String, timeEst: Float, timeUnit: String, job: Job, userID: String, chatID: String, completion: @escaping (Error?) -> ()) {
         
-        let bidInfo = ["bid" : ["amount" : bidAmt, "rateType": rateType], "timeEstimate" : ["amount" : timeEst, "unit" : timeUnit]]
+        let bidInfo = ["active" : true, "bidPostedTime": Date(), "bid" : ["amount" : bidAmt, "rateType": rateType], "timeEstimate" : ["amount" : timeEst, "unit" : timeUnit]] as [String : Any]
         
         // create a chat document for this bid
         docRef = db.collection("chats").document(chatID)
-        docRef.setData(["job": job.information.id, "jobFirebaseID": job.information.firebaseID]) { (error) in
+        docRef.setData(["accepted" : false, "job": job.information.id, "jobFirebaseID": job.information.firebaseID]) { (error) in
             if error != nil {
                 print("Error adding data to chat doc")
             }else{
@@ -99,8 +99,9 @@ class DatabaseHelper {
         }
         
         // add bidder to "bidders" collection for job being bid on
+        let bidID = NSUUID().uuidString
         colRef = db.collection("jobs").document(job.information.firebaseID).collection("bidders")
-        docRef = colRef.document(userID)
+        docRef = colRef.document(userID).collection("bids").document(bidID)
         docRef.setData(bidInfo) { (error) in
             if error != nil {
                 print("Error adding data to jobs bidders collection")
@@ -280,46 +281,58 @@ class DatabaseHelper {
                         
                         // I am the poster of the job, bidder document will be under chat partner's id
                         if (posterID == userID) {
-                        self.db.collection("jobs").document(jobFBID).collection("bidders").document(chatPartnerID).getDocument() { (document, error) in
-                                let bid = document?.data()!["bid"] as! [String: Any]
-                                let amt = bid["amount"] as! Float
-                                let rate = bid["rateType"] as! String
-                                
-                                switch (rate) {
-                                case "hourly":
-                                    if let formattedBidAmt = formatter.string(from: amt as NSNumber) {
-                                        bidStr = "\(formattedBidAmt)/hr"
+                            self.db.collection("jobs").document(jobFBID).collection("bidders").document(chatPartnerID).collection("bids").whereField("active", isEqualTo: true).order(by: "bidPostedTime", descending: true).limit(to: 1).getDocuments() { (querySnapshot, err) in
+                                    if let err = err {
+                                        print("Error getting bid docs: \(err)")
+                                    } else {
+                                        for document in querySnapshot!.documents {
+                                            let bid = document.data()["bid"] as! [String: Any]
+                                            let amt = bid["amount"] as! Float
+                                            let rate = bid["rateType"] as! String
+                                            
+                                            switch (rate) {
+                                            case "hourly":
+                                                if let formattedBidAmt = formatter.string(from: amt as NSNumber) {
+                                                    bidStr = "\(formattedBidAmt)/hr"
+                                                }
+                                                else {
+                                                    bidStr = "undefined"
+                                                }
+                                                break;
+                                            default:
+                                                bidStr = formatter.string(from: amt as NSNumber) ?? "undefined"
+                                            }
+                                        }
+                                        completion(bidStr)
                                     }
-                                    else {
-                                        bidStr = "undefined"
-                                    }
-                                    break;
-                                default:
-                                    bidStr = formatter.string(from: amt as NSNumber) ?? "undefined"
                                 }
-                                completion(bidStr)
                             }
-                        }
                         // I am the bidder, bidder document will be stored under my id
                         else {
-                            self.db.collection("jobs").document(jobFBID).collection("bidders").document(userID!).getDocument() { (document, error) in
-                                let bid = document?.data()!["bid"] as! [String: Any]
-                                let amt = bid["amount"] as! Float
-                                let rate = bid["rateType"] as! String
-                                
-                                switch (rate) {
-                                case "hourly":
-                                    if let formattedBidAmt = formatter.string(from: amt as NSNumber) {
-                                        bidStr = "\(formattedBidAmt)/hr"
+                            self.db.collection("jobs").document(jobFBID).collection("bidders").document(userID!).collection("bids").whereField("active", isEqualTo: true).order(by: "bidPostedTime", descending: true).limit(to: 1).getDocuments() { (querySnapshot, err) in
+                                if let err = err {
+                                    print("Error getting bid docs: \(err)")
+                                } else {
+                                    for document in querySnapshot!.documents {
+                                        let bid = document.data()["bid"] as! [String: Any]
+                                        let amt = bid["amount"] as! Float
+                                        let rate = bid["rateType"] as! String
+                                        
+                                        switch (rate) {
+                                        case "hourly":
+                                            if let formattedBidAmt = formatter.string(from: amt as NSNumber) {
+                                                bidStr = "\(formattedBidAmt)/hr"
+                                            }
+                                            else {
+                                                bidStr = "undefined"
+                                            }
+                                            break;
+                                        default:
+                                            bidStr = formatter.string(from: amt as NSNumber) ?? "undefined"
+                                        }
                                     }
-                                    else {
-                                        bidStr = "undefined"
-                                    }
-                                    break;
-                                default:
-                                    bidStr = formatter.string(from: amt as NSNumber) ?? "undefined"
-                                }
                                 completion(bidStr)
+                                }
                             }
                         }
                     } else {

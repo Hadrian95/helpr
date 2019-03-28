@@ -54,6 +54,7 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
                             self.messages.append(message)
                             DispatchQueue.main.async(execute: {
                                 self.collectionView?.reloadData()
+                                self.scrollToBottom()
                             })
                         }
                     }
@@ -66,8 +67,8 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
         
         observeMessages()
         
-        navigationItem.title = self.partnerName
         navigationController?.navigationBar.prefersLargeTitles = false
+        navigationController?.title = self.partnerName
         collectionView?.contentInset = UIEdgeInsets(top: 8, left: 0, bottom: 58, right: 0)
         collectionView?.scrollIndicatorInsets = UIEdgeInsets(top: 0, left: 0, bottom: 50, right: 0)
         collectionView?.alwaysBounceVertical = true
@@ -75,11 +76,21 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
         collectionView?.register(MessageCollectionViewCell.self, forCellWithReuseIdentifier: cellId)
         
         setupNavBarWithUser()
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "calendar"), style: .plain, target: self, action: #selector(showAvailability))
+        let reportBarBtn = UIBarButtonItem(image: UIImage(named: "reportUser"), style: .plain, target: self, action: #selector(reportUser))
+        reportBarBtn.tintColor = .red
+        navigationItem.setRightBarButtonItems([reportBarBtn, UIBarButtonItem(image: UIImage(named: "calendar"), style: .plain, target: self, action: #selector(showAvailability))], animated: false)
+//        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "calendar"), style: .plain, target: self, action: #selector(showAvailability))
+        
         let gesture = UITapGestureRecognizer(target: self, action:  #selector(self.showProfile))
         navigationController?.navigationBar.addGestureRecognizer(gesture)
         setupInputComponents()
         setupKeyboardObservers()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        navigationController?.navigationBar.prefersLargeTitles = true
     }
 
     override var canBecomeFirstResponder : Bool {
@@ -90,6 +101,8 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardDidShow), name: UIResponder.keyboardDidShowNotification, object: nil)
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -102,7 +115,8 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
         let keyboardFrame = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as AnyObject).cgRectValue
         let keyboardDuration = (notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as AnyObject).doubleValue
         
-        containerViewBottomAnchor?.constant = -keyboardFrame!.height + 49
+        let tabBarHeight = tabBarController?.tabBar.frame.size.height
+        containerViewBottomAnchor?.constant = -keyboardFrame!.height + tabBarHeight!
         UIView.animate(withDuration: keyboardDuration!, animations: {
             self.view.layoutIfNeeded()
         })
@@ -115,6 +129,10 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
         UIView.animate(withDuration: keyboardDuration!, animations: {
             self.view.layoutIfNeeded()
         })
+    }
+    
+    @objc func handleKeyboardDidShow(_ notification: Notification) {
+        scrollToBottom()
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -147,6 +165,7 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
             //outgoing blue
             cell.bubbleView.backgroundColor = UIColor(named: "RoyalPurple")
             cell.textView.textColor = UIColor.white
+            cell.textView.isEditable = false
             cell.profileImageView.isHidden = true
             
             cell.bubbleViewRightAnchor?.isActive = true
@@ -156,6 +175,7 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
             //incoming gray
             cell.bubbleView.backgroundColor = UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 1)
             cell.textView.textColor = UIColor.black
+            cell.textView.isEditable = false
             cell.profileImageView.isHidden = false
             
             cell.bubbleViewRightAnchor?.isActive = false
@@ -205,7 +225,6 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
         profileImageView.clipsToBounds = true
         profileImageView.sd_setImage(with: ref, placeholderImage: phImage)
 
-        
         containerView.addSubview(profileImageView)
         
         //ios 9 constraint anchors
@@ -279,18 +298,16 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
     }
     
     @objc func showProfile() {
+        self.performSegue(withIdentifier: "showUserProfile", sender: self)
         print("Gesture Tap Recognized")
-//        let viewController = storyboard?.instantiateViewController(withIdentifier: "ProfileViewController") as! ProfileViewController
-//        viewController.modalPresentationStyle = .currentContext
-//        viewController.userID = self.partnerID
-//        self.present(viewController, animated:true, completion:nil)
-        let profileController = storyboard?.instantiateViewController(withIdentifier: "ProfileViewController") as! ProfileViewController
-        print(profileController.navigationController?.title)
-        profileController.userID = self.partnerID
-        let navController = UINavigationController(rootViewController: profileController)
-        navController.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(named: "RoyalPurple")]
-        navController.modalPresentationStyle = .currentContext
-        present(navController, animated: true, completion: nil)
+    }
+    
+    private func scrollToBottom() {
+        let lastSectionIndex = 0
+        let lastItemIndex = (collectionView?.numberOfItems(inSection: lastSectionIndex))! - 1
+        let indexPath = NSIndexPath(item: lastItemIndex, section: lastSectionIndex)
+        
+        collectionView!.scrollToItem(at: indexPath as IndexPath, at: UICollectionView.ScrollPosition.bottom, animated: false)
     }
     
     @objc func handleSend() {
@@ -300,6 +317,7 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
         let timestamp = Date()
         dbHelper.storeMessage(senderID: senderID!, chatID: chatID, content: content, senderName: UserProfile.name.components(separatedBy: " ")[0], timestamp: timestamp)
         inputTextField.text = ""
+        scrollToBottom()
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -320,6 +338,30 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
     
     @objc func showAvailability() {
         print("Calendar!")
+    }
+    
+    @objc func reportUser() {
+        print("Report User!")
+    }
+    
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destination.
+        // Pass the selected object to the new view controller.
+        super.prepare(for: segue, sender: sender)
+        
+        switch (segue.identifier ?? "") {
+            
+        case "showUserProfile":
+            guard let userProfileVC = segue.destination as? ProfileViewController else {
+                fatalError("Unexpected destination: \(segue.destination)")
+            }
+            
+            userProfileVC.userID = self.partnerID
+            
+        default:
+            fatalError("Unexpected Segue Identifier; \(segue.identifier)")
+        }
     }
 }
 

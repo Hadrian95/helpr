@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "helpr/Controllers/Firebase Helpers/DatabaseHelper.swift"
-            timestampString = "575348173.6378959"
+            timestampString = "575427746.687722"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "355"
-            endingLineNumber = "355"
+            startingLineNumber = "368"
+            endingLineNumber = "368"
             landmarkName = "readJobs(completion:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -26,7 +26,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "helpr/Controllers/Firebase Helpers/DatabaseHelper.swift"
-            timestampString = "575348173.638037"
+            timestampString = "575427746.6881599"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "66"
@@ -42,23 +42,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "helpr/Controllers/Firebase Helpers/DatabaseHelper.swift"
-            timestampString = "575348173.638113"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "212"
-            endingLineNumber = "212"
-            landmarkName = "getJobs(completion:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "helpr/Controllers/Firebase Helpers/DatabaseHelper.swift"
-            timestampString = "575348173.638186"
+            timestampString = "575427746.688457"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "213"
@@ -74,11 +58,27 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "helpr/Controllers/Firebase Helpers/DatabaseHelper.swift"
-            timestampString = "575348173.638255"
+            timestampString = "575427746.688769"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "226"
-            endingLineNumber = "226"
+            startingLineNumber = "214"
+            endingLineNumber = "214"
+            landmarkName = "getJobs(completion:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "helpr/Controllers/Firebase Helpers/DatabaseHelper.swift"
+            timestampString = "575427746.689081"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "227"
+            endingLineNumber = "227"
             landmarkName = "getJobs(completion:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -378,11 +378,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "helpr/Controllers/Firebase Helpers/DatabaseHelper.swift"
-            timestampString = "575348173.638873"
+            timestampString = "575427746.68959"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "253"
-            endingLineNumber = "253"
+            startingLineNumber = "254"
+            endingLineNumber = "254"
             landmarkName = "getJob(jobID:completion:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -698,11 +698,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "helpr/Controllers/Firebase Helpers/DatabaseHelper.swift"
-            timestampString = "575348173.639388"
+            timestampString = "575427746.690105"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "140"
-            endingLineNumber = "140"
+            startingLineNumber = "141"
+            endingLineNumber = "141"
             landmarkName = "createBid(bidAmt:rateType:timeEst:timeUnit:job:userID:chatID:completion:)"
             landmarkType = "7">
             <Locations>
@@ -746,11 +746,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "helpr/Controllers/Firebase Helpers/DatabaseHelper.swift"
-            timestampString = "575348173.6394351"
+            timestampString = "575427746.690412"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "117"
-            endingLineNumber = "117"
+            startingLineNumber = "118"
+            endingLineNumber = "118"
             landmarkName = "createBid(bidAmt:rateType:timeEst:timeUnit:job:userID:chatID:completion:)"
             landmarkType = "7">
             <Locations>
@@ -794,11 +794,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "helpr/Controllers/Firebase Helpers/DatabaseHelper.swift"
-            timestampString = "575348173.639479"
+            timestampString = "575427746.690713"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "104"
-            endingLineNumber = "104"
+            startingLineNumber = "105"
+            endingLineNumber = "105"
             landmarkName = "createBid(bidAmt:rateType:timeEst:timeUnit:job:userID:chatID:completion:)"
             landmarkType = "7">
             <Locations>
@@ -842,7 +842,23 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "helpr/Controllers/Firebase Helpers/DatabaseHelper.swift"
-            timestampString = "575348173.639522"
+            timestampString = "575427746.691004"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "107"
+            endingLineNumber = "107"
+            landmarkName = "createBid(bidAmt:rateType:timeEst:timeUnit:job:userID:chatID:completion:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "helpr/Controllers/Firebase Helpers/DatabaseHelper.swift"
+            timestampString = "575427746.691282"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "106"
@@ -858,11 +874,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "helpr/Controllers/Firebase Helpers/DatabaseHelper.swift"
-            timestampString = "575348173.639563"
+            timestampString = "575427746.691499"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "105"
-            endingLineNumber = "105"
+            startingLineNumber = "109"
+            endingLineNumber = "109"
             landmarkName = "createBid(bidAmt:rateType:timeEst:timeUnit:job:userID:chatID:completion:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -874,11 +890,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "helpr/Controllers/Firebase Helpers/DatabaseHelper.swift"
-            timestampString = "575348173.639605"
+            timestampString = "575427746.691714"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "108"
-            endingLineNumber = "108"
+            startingLineNumber = "117"
+            endingLineNumber = "117"
             landmarkName = "createBid(bidAmt:rateType:timeEst:timeUnit:job:userID:chatID:completion:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -890,11 +906,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "helpr/Controllers/Firebase Helpers/DatabaseHelper.swift"
-            timestampString = "575348173.639647"
+            timestampString = "575427746.691996"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "116"
-            endingLineNumber = "116"
+            startingLineNumber = "140"
+            endingLineNumber = "140"
             landmarkName = "createBid(bidAmt:rateType:timeEst:timeUnit:job:userID:chatID:completion:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -906,7 +922,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "helpr/Controllers/Firebase Helpers/DatabaseHelper.swift"
-            timestampString = "575348173.6396869"
+            timestampString = "575427746.692292"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "139"
@@ -922,27 +938,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "helpr/Controllers/Firebase Helpers/DatabaseHelper.swift"
-            timestampString = "575348173.639728"
+            timestampString = "575427746.692524"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "138"
-            endingLineNumber = "138"
-            landmarkName = "createBid(bidAmt:rateType:timeEst:timeUnit:job:userID:chatID:completion:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "helpr/Controllers/Firebase Helpers/DatabaseHelper.swift"
-            timestampString = "575348173.639769"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "123"
-            endingLineNumber = "123"
+            startingLineNumber = "124"
+            endingLineNumber = "124"
             landmarkName = "createBid(bidAmt:rateType:timeEst:timeUnit:job:userID:chatID:completion:)"
             landmarkType = "7">
             <Locations>
@@ -986,11 +986,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "helpr/Controllers/Firebase Helpers/DatabaseHelper.swift"
-            timestampString = "575348173.639811"
+            timestampString = "575427746.6927609"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "122"
-            endingLineNumber = "122"
+            startingLineNumber = "123"
+            endingLineNumber = "123"
             landmarkName = "createBid(bidAmt:rateType:timeEst:timeUnit:job:userID:chatID:completion:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1002,7 +1002,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "helpr/Controllers/MessageTableViewController.swift"
-            timestampString = "575348173.6398571"
+            timestampString = "575427746.693007"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "48"
@@ -1050,7 +1050,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "helpr/Controllers/MessageTableViewController.swift"
-            timestampString = "575348173.639914"
+            timestampString = "575427746.693095"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "50"
@@ -1098,7 +1098,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "helpr/Controllers/MessageTableViewController.swift"
-            timestampString = "575348173.639967"
+            timestampString = "575427746.6931829"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "51"
@@ -1114,7 +1114,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "helpr/Controllers/MessageTableViewController.swift"
-            timestampString = "575348173.640021"
+            timestampString = "575427746.6932271"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "59"
@@ -1130,7 +1130,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "helpr/Controllers/MessageTableViewController.swift"
-            timestampString = "575348173.640074"
+            timestampString = "575427746.69327"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "54"
@@ -1146,7 +1146,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "helpr/Controllers/MessageTableViewController.swift"
-            timestampString = "575348173.640124"
+            timestampString = "575427746.693339"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "120"
@@ -1162,7 +1162,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "helpr/Controllers/MessageTableViewController.swift"
-            timestampString = "575348173.640174"
+            timestampString = "575427746.693411"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "115"
@@ -1178,7 +1178,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "helpr/Controllers/MessageTableViewController.swift"
-            timestampString = "575348173.6402251"
+            timestampString = "575427746.693453"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "116"
@@ -1370,7 +1370,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "helpr/Controllers/MessageTableViewController.swift"
-            timestampString = "575348173.64052"
+            timestampString = "575427746.693572"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "192"
