@@ -19,6 +19,8 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
     var partnerPicRef = ""
     var messages = [Message]()
     let cellId = "messageCell"
+    var smallTitleView = false
+    let customTitleView = UIView()
     
     lazy var inputTextField: UITextField = {
         let textField = UITextField()
@@ -67,8 +69,8 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
         
         observeMessages()
         
-        navigationController?.navigationBar.prefersLargeTitles = false
-        navigationController?.title = self.partnerName
+        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationItem.title = self.partnerName
         collectionView?.contentInset = UIEdgeInsets(top: 8, left: 0, bottom: 58, right: 0)
         collectionView?.scrollIndicatorInsets = UIEdgeInsets(top: 0, left: 0, bottom: 50, right: 0)
         collectionView?.alwaysBounceVertical = true
@@ -90,7 +92,19 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
-        navigationController?.navigationBar.prefersLargeTitles = true
+        //navigationController?.navigationBar.prefersLargeTitles = true
+    }
+    
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        guard let height = navigationController?.navigationBar.frame.height else { return }
+        if (height <= 64 && !smallTitleView) {
+            self.navigationItem.titleView?.isHidden = false
+            smallTitleView = true
+        }
+        else if (height > 64 && smallTitleView){
+            self.navigationItem.titleView?.isHidden = true
+            smallTitleView = false
+        }
     }
 
     override var canBecomeFirstResponder : Bool {
@@ -209,12 +223,11 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
     var containerViewBottomAnchor: NSLayoutConstraint?
     
     func setupNavBarWithUser() {
-        let titleView = UIView()
-        titleView.frame = CGRect(x: 0, y: 0, width: 100, height: 40)
+        customTitleView.frame = CGRect(x: 0, y: 0, width: 100, height: 40)
         
         let containerView = UIView()
         containerView.translatesAutoresizingMaskIntoConstraints = false
-        titleView.addSubview(containerView)
+        customTitleView.addSubview(containerView)
         
         let phImage = UIImage(named: "defaultPhoto.png")
         let ref = storageRef.child("profilePictures").child(self.partnerID).child(self.partnerPicRef)
@@ -246,10 +259,11 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
         nameLabel.rightAnchor.constraint(equalTo: containerView.rightAnchor).isActive = true
         nameLabel.heightAnchor.constraint(equalTo: profileImageView.heightAnchor).isActive = true
         
-        containerView.centerXAnchor.constraint(equalTo: titleView.centerXAnchor).isActive = true
-        containerView.centerYAnchor.constraint(equalTo: titleView.centerYAnchor).isActive = true
+        containerView.centerXAnchor.constraint(equalTo: customTitleView.centerXAnchor).isActive = true
+        containerView.centerYAnchor.constraint(equalTo: customTitleView.centerYAnchor).isActive = true
 
-        self.navigationItem.titleView = titleView
+        self.navigationItem.titleView = customTitleView
+        self.navigationItem.titleView?.isHidden = true
         
         //        titleView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(showChatController)))
     }
