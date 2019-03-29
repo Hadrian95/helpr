@@ -71,7 +71,7 @@ class DatabaseHelper {
         docRef.setData(["completed": false])
     }
     
-    func createBid(msgType: Int, bidAmt: Float, rateType: String, timeEst: Float, timeUnit: String, job: Job, userID: String, chatID: String, completion: @escaping (Error?) -> ()) {
+    func createBid(msgType: Int, bidAmt: Float, rateType: String, timeEst: Float, timeUnit: String, job: Job, partnerID: String, userID: String, chatID: String, completion: @escaping (Error?) -> ()) {
         
         let bidInfo = ["active" : true, "bidPostedTime": Date(), "bid" : ["amount" : bidAmt, "rateType": rateType], "timeEstimate" : ["amount" : timeEst, "unit" : timeUnit]] as [String : Any]
         
@@ -121,14 +121,27 @@ class DatabaseHelper {
         // add bidder to "bidders" collection for job being bid on
         let bidID = NSUUID().uuidString
         colRef = db.collection("jobs").document(job.information.firebaseID).collection("bidders")
-        docRef = colRef.document(userID).collection("bids").document(bidID)
-        docRef.setData(bidInfo) { (error) in
-            if error != nil {
-                print("Error adding data to jobs bidders collection")
-                completion(nil)
-            }else{
-                print("Data has been successfully added to jobs bidders collection!")
-                completion(error)
+        if (userID != job.information.email) {
+            docRef = colRef.document(userID).collection("bids").document(bidID)
+            docRef.setData(bidInfo) { (error) in
+                if error != nil {
+                    print("Error adding data to jobs bidders collection")
+                    completion(nil)
+                }else{
+                    print("Data has been successfully added to jobs bidders collection!")
+                    completion(error)
+                }
+            }
+        } else {
+            docRef = colRef.document(partnerID).collection("bids").document(bidID)
+            docRef.setData(bidInfo) { (error) in
+                if error != nil {
+                    print("Error adding data to jobs bidders collection")
+                    completion(nil)
+                }else{
+                    print("Data has been successfully added to jobs bidders collection!")
+                    completion(error)
+                }
             }
         }
         
@@ -408,6 +421,18 @@ class DatabaseHelper {
                 }
             }
         }
+    }
+    
+    func acceptedJob(jobID: String, chatID: String, helprID: String) {
+        // turn chat to accepted so users can commmunicate fully
+        db.collection("chats").document(chatID).setData(["accepted": true], merge: true)
+        
+        // add accepted helpr to job
+        db.collection("jobs").document(jobID).collection("helprs").document(helprID).setData(["acceptedOn": Date()])
+        
+        // add job to user's records
+        let docRef = db.collection("users").document(helprID).collection("acceptedJobs").document(jobID)
+        docRef.setData(["completed": false, "acceptedOn" : Date()])
     }
 
     func readJobs(completion: @escaping ([Job]) -> ()){

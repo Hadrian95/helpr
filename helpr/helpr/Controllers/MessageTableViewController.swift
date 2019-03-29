@@ -93,6 +93,25 @@ class MessageTableViewController: UITableViewController {
                             }
                         }
                         
+                        self.db.collection("chats").document(chatID).addSnapshotListener { (documentSnapshot, err) in
+                            guard let document = documentSnapshot else {
+                                print("Error fetching document: \(error!)")
+                                return
+                            }
+                            var accepted = document.data()!["accepted"] as! Bool
+                            
+                            let index = self.mPreviews.firstIndex(where: { (mPreview) -> Bool in
+                                mPreview.chatID == chatID
+                            })
+                            if (index != nil) {
+                                self.mPreviews[index!].accepted = accepted
+                                DispatchQueue.main.async(execute: {
+                                    print("we reloaded the table")
+                                    self.tableView.reloadData()
+                                })
+                            }
+                        }
+                        
                         // reload message preiew on new message exchanged in chat log
                         self.db.collection("chats").document(chatID).collection("messages").order(by: "created", descending: true).addSnapshotListener { querySnapshot, error in
                             guard let snapshot = querySnapshot else {
@@ -214,6 +233,7 @@ class MessageTableViewController: UITableViewController {
             bidViewController.job = mPreviews[indexPath.row].job
             bidViewController.bid = mPreviews[indexPath.row].bid
             bidViewController.chatID = mPreviews[indexPath.row].chatID
+            bidViewController.partnerID = mPreviews[indexPath.row].partnerID
             let navigationController = UINavigationController(rootViewController: bidViewController)
             navigationController.setNavBarAttributes()
             present(navigationController, animated: true)

@@ -13,7 +13,9 @@ class BidViewController: UIViewController {
     var job: Job?
     var bid: Bid?
     var chatID: String?
+    var partnerID: String?
     var db = Firestore.firestore()
+    var database = DatabaseHelper()
     
     @IBOutlet weak var tfBidAmt: UITextField!
     @IBOutlet weak var scRate: UISegmentedControl!
@@ -178,7 +180,15 @@ class BidViewController: UIViewController {
     }
     
     @objc func handleAccept() {
-        print("Accept")
+        // current user is the bidder
+        if (partnerID == job?.information.email) {
+            database.acceptedJob(jobID: (job?.information.firebaseID)!, chatID: chatID!, helprID: (Auth.auth().currentUser?.uid)!)
+        }
+        // current user is the job poster
+        else {
+            database.acceptedJob(jobID: (job?.information.firebaseID)!, chatID: chatID!, helprID: partnerID!)
+        }
+        self.dismiss(animated: true, completion: nil)
     }
     
     @objc func handleCounter() {
@@ -221,7 +231,7 @@ class BidViewController: UIViewController {
         }
         
         if (chatID != nil) {
-            database.createBid(msgType: 1, bidAmt: bidAmount!, rateType: rateType, timeEst: timeEstimate!, timeUnit: timeUnit, job: job!, userID: userID!, chatID: self.chatID!) { (err) in
+            database.createBid(msgType: 1, bidAmt: bidAmount!, rateType: rateType, timeEst: timeEstimate!, timeUnit: timeUnit, job: job!,partnerID: partnerID!, userID: userID!, chatID: self.chatID!) { (err) in
                 if err != nil {
                     print(err!._code)
                 } else {
@@ -239,7 +249,7 @@ class BidViewController: UIViewController {
                         self.chatID = document.data()["chatID"] as? String
                     }
                 }
-                database.createBid(msgType: 0, bidAmt: bidAmount!, rateType: rateType, timeEst: timeEstimate!, timeUnit: timeUnit, job: self.job!, userID: userID!, chatID: self.chatID!) { (err) in
+                database.createBid(msgType: 0, bidAmt: bidAmount!, rateType: rateType, timeEst: timeEstimate!, timeUnit: timeUnit, job: self.job!, partnerID: "", userID: userID!, chatID: self.chatID!) { (err) in
                     if err != nil {
                         print(err!._code)
                     } else {
