@@ -23,7 +23,7 @@
 		459F12A1219D037F0032CC5E /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459F12A0219D037F0032CC5E /* SettingsTableViewController.swift */; };
 		45AE32B7218A617B005F2A8B /* ImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45AE32B6218A617B005F2A8B /* ImageCollectionViewCell.swift */; };
 		4B04E0DE22319A4C00224EC3 /* SkillsListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B04E0DD22319A4C00224EC3 /* SkillsListTableViewController.swift */; };
-		4B2DB5B7222F5D830067EE01 /* BidTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2DB5B6222F5D830067EE01 /* BidTableViewController.swift */; };
+		4B2DB5B7222F5D830067EE01 /* BidViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2DB5B6222F5D830067EE01 /* BidViewController.swift */; };
 		4B9A3935224996B30066B7B1 /* CustomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B9A3934224996B30066B7B1 /* CustomViewController.swift */; };
 		4B9A393C224AC39F0066B7B1 /* EBRoundedTabBarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B9A393A224AC39E0066B7B1 /* EBRoundedTabBarItem.swift */; };
 		4B9A393D224AC39F0066B7B1 /* EBRoundedTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B9A393B224AC39F0066B7B1 /* EBRoundedTabBarController.swift */; };
@@ -34,6 +34,7 @@
 		559DA7D42238632100A9B77F /* NewExploreTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559DA7D32238632100A9B77F /* NewExploreTableViewController.swift */; };
 		559DA7D622386AB700A9B77F /* ExploreCategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559DA7D522386AB700A9B77F /* ExploreCategoryTableViewCell.swift */; };
 		559DA7E0223873F300A9B77F /* ExploreJobCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559DA7DF223873F300A9B77F /* ExploreJobCollectionViewCell.swift */; };
+		55A18A4F224D9A250048FF2E /* CustomNavController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A18A4E224D9A250048FF2E /* CustomNavController.swift */; };
 		55C56ABB220A2DD900B81E8C /* MessageTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C56ABA220A2DD900B81E8C /* MessageTableViewController.swift */; };
 		55C56ABD220A2E6B00B81E8C /* MessagePreviewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C56ABC220A2E6B00B81E8C /* MessagePreviewTableViewCell.swift */; };
 		55C56ABF220CDED100B81E8C /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C56ABE220CDED100B81E8C /* User.swift */; };
@@ -110,7 +111,7 @@
 		459F12A0219D037F0032CC5E /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		45AE32B6218A617B005F2A8B /* ImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		4B04E0DD22319A4C00224EC3 /* SkillsListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillsListTableViewController.swift; sourceTree = "<group>"; };
-		4B2DB5B6222F5D830067EE01 /* BidTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BidTableViewController.swift; sourceTree = "<group>"; };
+		4B2DB5B6222F5D830067EE01 /* BidViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BidViewController.swift; sourceTree = "<group>"; };
 		4B9A3934224996B30066B7B1 /* CustomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomViewController.swift; sourceTree = "<group>"; };
 		4B9A393A224AC39E0066B7B1 /* EBRoundedTabBarItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EBRoundedTabBarItem.swift; sourceTree = "<group>"; };
 		4B9A393B224AC39F0066B7B1 /* EBRoundedTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EBRoundedTabBarController.swift; sourceTree = "<group>"; };
@@ -121,6 +122,7 @@
 		559DA7D32238632100A9B77F /* NewExploreTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewExploreTableViewController.swift; sourceTree = "<group>"; };
 		559DA7D522386AB700A9B77F /* ExploreCategoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ExploreCategoryTableViewCell.swift; path = helpr/View/ExploreCategoryTableViewCell.swift; sourceTree = SOURCE_ROOT; };
 		559DA7DF223873F300A9B77F /* ExploreJobCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreJobCollectionViewCell.swift; sourceTree = "<group>"; };
+		55A18A4E224D9A250048FF2E /* CustomNavController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavController.swift; sourceTree = "<group>"; };
 		55C56ABA220A2DD900B81E8C /* MessageTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageTableViewController.swift; sourceTree = "<group>"; };
 		55C56ABC220A2E6B00B81E8C /* MessagePreviewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagePreviewTableViewCell.swift; sourceTree = "<group>"; };
 		55C56ABE220CDED100B81E8C /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -241,7 +243,7 @@
 			children = (
 				CA2F724821A3671100AAF19F /* AddPhoneViewController.swift */,
 				ACFD809921A7766B009D0182 /* Backend */,
-				4B2DB5B6222F5D830067EE01 /* BidTableViewController.swift */,
+				4B2DB5B6222F5D830067EE01 /* BidViewController.swift */,
 				4598BC9321A8B3640058096B /* CategoriesTableViewController.swift */,
 				CA2F724621A366C400AAF19F /* ChangeEmailViewController.swift */,
 				CA2F725421A368C900AAF19F /* ChangePasswordViewController.swift */,
@@ -302,6 +304,7 @@
 				CA12A380218935E50063ED97 /* Job.swift */,
 				ACB40CC621AF6BBA00477C1F /* JobInformation.swift */,
 				552E72F3224ACA180098006B /* Message.swift */,
+				55A18A4E224D9A250048FF2E /* CustomNavController.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -654,7 +657,7 @@
 				AC01C7F321ABC0D5000EEB37 /* DSCameraHandler.swift in Sources */,
 				552E72F6224AD48F0098006B /* ChatLogController.swift in Sources */,
 				4576E8B82188D84100471AB4 /* SignUpViewController.swift in Sources */,
-				4B2DB5B7222F5D830067EE01 /* BidTableViewController.swift in Sources */,
+				4B2DB5B7222F5D830067EE01 /* BidViewController.swift in Sources */,
 				4576E8C421890A7C00471AB4 /* Post.swift in Sources */,
 				CA2F725121A3678500AAF19F /* ReviewsTableViewController.swift in Sources */,
 				AC01C7F721ABD199000EEB37 /* FileHelpers.swift in Sources */,
@@ -696,6 +699,7 @@
 				ACF49B39218FB8A00021A63C /* JobsTableViewCell.swift in Sources */,
 				CA2F724921A3671100AAF19F /* AddPhoneViewController.swift in Sources */,
 				CA2F724321A3667100AAF19F /* UpdateNameViewController.swift in Sources */,
+				55A18A4F224D9A250048FF2E /* CustomNavController.swift in Sources */,
 				4B9A393D224AC39F0066B7B1 /* EBRoundedTabBarController.swift in Sources */,
 				4576E8C02188F22200471AB4 /* MyTabBarViewController.swift in Sources */,
 				4B9A393C224AC39F0066B7B1 /* EBRoundedTabBarItem.swift in Sources */,

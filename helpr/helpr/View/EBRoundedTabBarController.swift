@@ -76,11 +76,7 @@ class EBRoundedTabBarController: UITabBarController {
     @objc private func actionButtonTapped(sender: UIButton) {
         let customViewController = storyboard?.instantiateViewController(withIdentifier: "PostAdTableViewController") as! PostAdTableViewController
         let navigationController = UINavigationController(rootViewController: customViewController)
-        
-        navigationController.navigationBar.tintColor = UIColor(named: "RoyalPurple")
-        navigationController.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(named: "RoyalPurple")]
-        navigationController.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(named: "RoyalPurple")]
-        
+        navigationController.setNavBarAttributes()
         present(navigationController, animated: true) {
             self.actionButton.isHidden = true
         }
@@ -115,12 +111,7 @@ class EBRoundedTabBarController: UITabBarController {
         
         viewController.tabBarItem = customTabBarItem.tabBarItem
         let navigationController = UINavigationController(rootViewController: viewController)
-        navigationController.navigationBar.prefersLargeTitles = true
-        navigationController.navigationBar.tintColor = UIColor(named: "RoyalPurple")
-        navigationController.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(named: "RoyalPurple")]
-        
-        navigationController.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(named: "RoyalPurple")]
-        
+        navigationController.setNavBarAttributes()
         return navigationController
     }
 }

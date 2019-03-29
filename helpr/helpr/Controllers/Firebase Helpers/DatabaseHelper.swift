@@ -85,7 +85,7 @@ class DatabaseHelper {
             }
         }
         
-        // create the first message exchanged within newly created chat document
+        // create the message exchanged within newly created chat document
         let messageID = NSUUID().uuidString
         let bidMsg = "Hi! I can do your posted job (\"" + job.information.title + "\") for $" + String(bidAmt) + " " + rateType
         let content = bidMsg + " and it would take me about " + String(timeEst) + " " + timeUnit
@@ -122,10 +122,10 @@ class DatabaseHelper {
                 
                 // create conversation reference in bidder's conversations log
                 self.db.collection("users").document(userID).collection("conversations").whereField("chatID", isEqualTo: chatID).getDocuments() { (querySnapshot, error) in
-                    if let error = error {
-                        print("Error getting conversation doc: \(error)")
+                    if (querySnapshot?.isEmpty)! {
+                        print("Error getting bidder conversation doc")
                         let bidderDocRef = self.db.collection("users").document(userID).collection("conversations").document()
-                        bidderDocRef.setData(["active" : true, "chatID" : chatID, "chatPartnerName" : posterName.components(separatedBy: " ")[0], "chatPartnerID" : job.information.email, "chatPartnerPicRef" : posterPicRef, "jobID" : job.information.id]) { (error) in
+                        bidderDocRef.setData(["active" : true, "chatID" : chatID, "chatPartnerName" : posterName.components(separatedBy: " ")[0], "chatPartnerID" : job.information.email, "chatPartnerPicRef" : posterPicRef, "jobID" : job.information.id, "jobFirebaseID": job.information.firebaseID]) { (error) in
                             if error != nil {
                                 print("Error adding data to bidder's conversations collection")
                                 completion(nil)
@@ -143,11 +143,11 @@ class DatabaseHelper {
             }
         }
         
-        // create conversation reference in bidder's conversations log
+        // create conversation reference in poster's conversations log
         self.db.collection("users").document(job.information.email).collection("conversations").whereField("chatID", isEqualTo: chatID).getDocuments() { (querySnapshot, error) in
-            if let error = error {
+            if (querySnapshot?.isEmpty)! {
                 self.docRef = self.db.collection("users").document(job.information.email).collection("conversations").document()
-                self.docRef.setData(["active" : true, "chatID" : chatID, "chatPartnerName": UserProfile.name.components(separatedBy: " ")[0], "chatPartnerID" : userID, "chatPartnerPicRef" : UserProfile.profilePicRef, "jobID": job.information.id]) { (error) in
+                self.docRef.setData(["active" : true, "chatID" : chatID, "chatPartnerName": UserProfile.name.components(separatedBy: " ")[0], "chatPartnerID" : userID, "chatPartnerPicRef" : UserProfile.profilePicRef, "jobID": job.information.id, "jobFirebaseID": job.information.firebaseID]) { (error) in
                     if error != nil {
                         print("Error adding data to poster's conversations collection")
                         completion(nil)
@@ -157,20 +157,7 @@ class DatabaseHelper {
                     }
                 }
             } else {
-                // do nothing
-            }
-        }
-        
-        // create conversation reference in poster's conversations log
-        colRef = db.collection("users").document(job.information.email).collection("conversations")
-        docRef = colRef.document()
-        docRef.setData(["active" : true, "chatID" : chatID, "chatPartnerName": UserProfile.name.components(separatedBy: " ")[0], "chatPartnerID" : userID, "chatPartnerPicRef" : UserProfile.profilePicRef, "jobID": job.information.id]) { (error) in
-            if error != nil {
-                print("Error adding data to poster's conversations collection")
-                completion(nil)
-            }else{
-                print("Data has been successfully added to poster's conversations collection!")
-                completion(error)
+                // do nothning
             }
         }
     }

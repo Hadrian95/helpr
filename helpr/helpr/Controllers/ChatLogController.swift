@@ -81,7 +81,6 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
         let reportBarBtn = UIBarButtonItem(image: UIImage(named: "reportUser"), style: .plain, target: self, action: #selector(reportUser))
         reportBarBtn.tintColor = .red
         navigationItem.setRightBarButtonItems([reportBarBtn, UIBarButtonItem(image: UIImage(named: "calendar"), style: .plain, target: self, action: #selector(showAvailability))], animated: false)
-//        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "calendar"), style: .plain, target: self, action: #selector(showAvailability))
         
         let gesture = UITapGestureRecognizer(target: self, action:  #selector(self.showProfile))
         navigationController?.navigationBar.addGestureRecognizer(gesture)

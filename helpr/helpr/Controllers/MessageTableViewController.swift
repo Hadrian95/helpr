@@ -25,6 +25,7 @@ class MessageTableViewController: UITableViewController {
         // load in message previews based on active conversations user is a part of
         db.collection("users").document(userID!).collection("conversations").order(by: "jobID", descending: true)
             .addSnapshotListener { querySnapshot, error in
+            var job: Job?
             guard let snapshot = querySnapshot else {
                 print("Error fetching conversations snapshots: \(String(describing: error))")
                 return
@@ -32,28 +33,57 @@ class MessageTableViewController: UITableViewController {
             snapshot.documentChanges.forEach { diff in
                 if (diff.type == .added) {
                     let active = diff.document.data()["active"] as! Bool
+                    print("entered")
+                    
                     if (active) {
-                        var msgPreview = MessagePreview()
-                        
                         let chatID = diff.document.data()["chatID"] as! String
                         let partnerName = diff.document.data()["chatPartnerName"] as! String
                         let chatPartnerID = diff.document.data()["chatPartnerID"] as! String
                         let partnerPicRef = diff.document.data()["chatPartnerPicRef"] as! String
                         
-                        msgPreview?.partnerID = chatPartnerID
-                        msgPreview?.partnerPicRef = partnerPicRef
-                        msgPreview?.senderName = partnerName
-                        msgPreview?.chatID = chatID
+                        var msgPreview = MessagePreview()
+                        let jobFBID = diff.document.data()["jobFirebaseID"] as? String
+                        if (jobFBID != nil) {
+                            self.db.collection("jobs").document(jobFBID!).getDocument { (document, err) in
+                                if let document = document, document.exists {
+                                    job = Job (
+                                        title: document.data()?["title"]! as! String,
+                                        category: document.data()?["category"]! as! String,
+                                        description: document.data()?["description"]! as! String,
+                                        pictureURLs: document.data()?["pictureURLs"]! as! [String],
+                                        tags: ["#iPhone", "#Swift", "#Apple"],
+                                        address: document.data()?["address"]! as! [String : String],
+                                        location: document.data()?["location"]! as! GeoPoint,
+                                        anonLocation: document.data()?["anonLocation"]! as! GeoPoint,
+                                        distance: 0,
+                                        postalCode: "T3A 1B6",
+                                        postedTime: document.data()?["postedTime"]! as! Date,
+                                        email: document.data()?["posterID"]! as! String,
+                                        firebaseID: document.documentID,
+                                        id: document.data()?["id"]! as! Int)
+                                }
+                                
+                                msgPreview?.partnerID = chatPartnerID
+                                msgPreview?.partnerPicRef = partnerPicRef
+                                msgPreview?.senderName = partnerName
+                                msgPreview?.chatID = chatID
+                                msgPreview?.job = job
+                                
+                                self.mPreviews.append(msgPreview!)
+                            }
+                        }
                         
                         DispatchQueue.main.async {
                             self.database.getBidAmt(chatID: chatID, chatPartnerID: chatPartnerID) { (bid, accepted) in
-                                msgPreview?.bidAmt = bid
-                                msgPreview?.accepted = accepted
+                                let index = self.mPreviews.firstIndex(where: { (mPreview) -> Bool in
+                                    mPreview.chatID == chatID
+                                })
+                                
+                                self.mPreviews[index!].bidAmt = bid
+                                self.mPreviews[index!].accepted = accepted
                                 self.database.getMsgPreview(chatID: chatID) { (content, created, senderName) in
-                                    msgPreview?.mPreview = content
-                                    msgPreview?.mTime =  created.timeAgoSinceDate(currentDate: Date(), numericDates: true)
-                                    
-                                    self.mPreviews.append(msgPreview!)
+                                    self.mPreviews[index!].mPreview = content
+                                    self.mPreviews[index!].mTime =  created.timeAgoSinceDate(currentDate: Date(), numericDates: true)
                                     
                                     // only reload table view once, not for every new message preview it finds
                                     self.timer?.invalidate()
@@ -61,7 +91,6 @@ class MessageTableViewController: UITableViewController {
                                 }
                             }
                         }
-                        
                         
                         // reload message preiew on new message exchanged in chat log
                         self.db.collection("chats").document(chatID).collection("messages").order(by: "created", descending: true).addSnapshotListener { querySnapshot, error in
@@ -165,6 +194,28 @@ class MessageTableViewController: UITableViewController {
         return cell
     }
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if (mPreviews[indexPath.row].accepted) {
+            //performSegue(withIdentifier: "showChat", sender: tableView.cellForRow(at: indexPath))
+            let uID = mPreviews[indexPath.row].partnerID
+            
+            let chatLogController = storyboard!.instantiateViewController(withIdentifier: "ChatLogController") as! ChatLogController
+            chatLogController.chatID = mPreviews[indexPath.row].chatID
+            chatLogController.partnerID = uID
+            chatLogController.partnerName = mPreviews[indexPath.row].senderName
+            chatLogController.partnerPicRef = mPreviews[indexPath.row].partnerPicRef
+            let navigationController = UINavigationController(rootViewController: chatLogController)
+            self.navigationController?.pushViewController(chatLogController, animated: true)
+        }
+        else {
+            let bidViewController = storyboard?.instantiateViewController(withIdentifier: "BidViewController") as! BidViewController
+            bidViewController.job = mPreviews[indexPath.row].job
+            bidViewController.chatID = mPreviews[indexPath.row].chatID
+            let navigationController = UINavigationController(rootViewController: bidViewController)
+            navigationController.setNavBarAttributes()
+            present(navigationController, animated: true)
+        }
+    }
 
     /*
     // Override to support conditional editing of the table view.
@@ -200,56 +251,6 @@ class MessageTableViewController: UITableViewController {
         return true
     }
     */
-
     
     // MARK: - Navigation
-    
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        super.prepare(for: segue, sender: sender)
-        
-        switch (segue.identifier ?? "") {
-            
-        case "showChat":
-            guard let selectedPreviewCell = sender as? MessagePreviewTableViewCell else {
-                fatalError("Unexpected message sender: \(sender)")
-            }
-
-            guard let indexPath = tableView.indexPath(for: selectedPreviewCell) else {
-                fatalError("The selected message cell is not being displayed by the table")
-            }
-            let uID = mPreviews[indexPath.row].partnerID
-            
-            let viewController = segue.destination as? ChatLogController
-            viewController!.chatID = mPreviews[indexPath.row].chatID
-            viewController!.partnerID = uID
-            viewController!.partnerName = mPreviews[indexPath.row].senderName
-            viewController!.partnerPicRef = mPreviews[indexPath.row].partnerPicRef
-            print("Values: " + mPreviews[indexPath.row].chatID + " " + mPreviews[indexPath.row].senderName)
-
-        default:
-            //fatalError("Unexpected Segue Identifier; \(segue.identifier)")
-            let thisThing = 0
-        }
-    }
-    
-//    private func loadSampleMessagePreviews() {
-//        guard let m1 = MessagePreview(name: "Walter", preview: "Adrian makes a pretty good point, I would listen to him on this. You won't be disappointed.", pic: UIImage(named: "Walter")!, bid: "$35/hr", time: "5 mins") else {
-//            fatalError("Unable to instantiate message1")
-//        }
-//
-//        guard let m2 = MessagePreview(name: "Adrian", preview: "Wow, look at all this information you can see hardcoded into this view! Truly inspiring, deserves investment, much start-up", pic: UIImage(named: "Adrian")!, bid: "$25/hr", time: "9 mins") else {
-//            fatalError("Unable to instantiate message1")
-//        }
-//
-//        guard let m3 = MessagePreview(name: "Christian", preview: "I'm in the Netherlands right now, working hard in spirit, Adrian and Walter are by far my superiors.", pic: UIImage(named: "Christian")!, bid: "$5/hr", time: "23 mins") else {
-//            fatalError("Unable to instantiate message1")
-//        }
-//
-//        guard let m4 = MessagePreview(name: "Iker", preview: "Happy to be here, new kid on the block, I'm in business so automatically better than everyone.", pic: UIImage(named: "Iker")!, bid: "$50/hr", time: "45 mins") else {
-//            fatalError("Unable to instantiate message1")
-//        }
-//
-//        mPreviews += [m1, m2, m3, m4]
-//    }
 }

@@ -425,6 +425,96 @@
             </objects>
             <point key="canvasLocation" x="-948" y="1437.9310344827586"/>
         </scene>
+        <!--Bid on Job-->
+        <scene sceneID="MtF-gB-VfB">
+            <objects>
+                <viewController storyboardIdentifier="BidViewController" id="7cZ-aR-adm" customClass="BidViewController" customModule="helpr" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="r5d-UH-0ZN">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="729"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Nra-Ei-yqA">
+                                <rect key="frame" x="18.666666666666657" y="148" width="337.66666666666674" height="30"/>
+                                <subviews>
+                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Bid Amount" textAlignment="natural" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="cmD-mj-h1o">
+                                        <rect key="frame" x="0.0" y="0.0" width="165" height="30"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
+                                        <connections>
+                                            <action selector="bidAmtBegin:" destination="7cZ-aR-adm" eventType="editingDidBegin" id="flg-6W-jcy"/>
+                                            <action selector="bidAmtEnd:" destination="7cZ-aR-adm" eventType="editingDidEnd" id="ay4-sf-lHp"/>
+                                            <action selector="tfChanged:" destination="7cZ-aR-adm" eventType="editingChanged" id="DK4-lH-1SC"/>
+                                        </connections>
+                                    </textField>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="PNW-fi-TSK">
+                                        <rect key="frame" x="173" y="0.0" width="164.66666666666663" height="31"/>
+                                        <segments>
+                                            <segment title="Hourly"/>
+                                            <segment title="Flat Rate"/>
+                                        </segments>
+                                    </segmentedControl>
+                                </subviews>
+                            </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="NhN-ui-uhY">
+                                <rect key="frame" x="18.666666666666657" y="188" width="337.66666666666674" height="30"/>
+                                <subviews>
+                                    <textField opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="749" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Time to Complete" textAlignment="natural" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="Jk0-Ne-N7m">
+                                        <rect key="frame" x="0.0" y="0.0" width="165" height="30"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
+                                        <connections>
+                                            <action selector="tfChanged:" destination="7cZ-aR-adm" eventType="editingChanged" id="A6E-hn-XyE"/>
+                                        </connections>
+                                    </textField>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="1K5-KV-4x4">
+                                        <rect key="frame" x="173" y="0.0" width="164.66666666666663" height="31"/>
+                                        <segments>
+                                            <segment title="Minutes"/>
+                                            <segment title="Hours"/>
+                                            <segment title="Days"/>
+                                        </segments>
+                                    </segmentedControl>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="NhN-ui-uhY" firstAttribute="top" secondItem="Nra-Ei-yqA" secondAttribute="bottom" constant="10" id="DuB-Wa-s3s"/>
+                            <constraint firstItem="Nra-Ei-yqA" firstAttribute="top" secondItem="Ngt-J8-JV8" secondAttribute="top" constant="8" id="I0I-Yc-sNo"/>
+                            <constraint firstItem="NhN-ui-uhY" firstAttribute="width" secondItem="r5d-UH-0ZN" secondAttribute="width" multiplier="0.9" id="ivU-Zd-weK"/>
+                            <constraint firstItem="NhN-ui-uhY" firstAttribute="centerX" secondItem="Ngt-J8-JV8" secondAttribute="centerX" id="p4b-79-Fu6"/>
+                            <constraint firstItem="Nra-Ei-yqA" firstAttribute="centerX" secondItem="Ngt-J8-JV8" secondAttribute="centerX" id="tba-rl-xLy"/>
+                            <constraint firstItem="Nra-Ei-yqA" firstAttribute="width" secondItem="r5d-UH-0ZN" secondAttribute="width" multiplier="0.9" id="zCS-rM-yi8"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Ngt-J8-JV8"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Bid on Job" id="Sx3-Jo-smR">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="U8s-qZ-QHv">
+                            <connections>
+                                <action selector="btnCancel:" destination="7cZ-aR-adm" id="LED-b4-scs"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" enabled="NO" title="Place Bid" id="Ikd-2y-N7S">
+                            <connections>
+                                <action selector="btnPlaceBid:" destination="7cZ-aR-adm" id="yX3-6X-3KZ"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="btnCancel" destination="U8s-qZ-QHv" id="Fgw-7K-eq8"/>
+                        <outlet property="btnPlaceBid" destination="Ikd-2y-N7S" id="rAl-xl-elD"/>
+                        <outlet property="scRate" destination="PNW-fi-TSK" id="iOE-jd-IF9"/>
+                        <outlet property="scTimeUnit" destination="1K5-KV-4x4" id="kVG-fd-vc8"/>
+                        <outlet property="tfBidAmt" destination="cmD-mj-h1o" id="JDp-j7-a6g"/>
+                        <outlet property="tfCompTime" destination="Jk0-Ne-N7m" id="Gga-Mr-uPQ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="uAO-z1-TF7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-191" y="1438"/>
+        </scene>
         <!--Launch Screen View Controller-->
         <scene sceneID="EK6-Pe-2cO">
             <objects>
@@ -1434,7 +1524,7 @@
             <objects>
                 <collectionViewController storyboardIdentifier="ChatLogController" title="User Name" id="kt3-YM-GjB" customClass="ChatLogController" customModule="helpr" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="Kwp-SK-ySa">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="729"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="b5h-et-t4v">
@@ -1538,7 +1628,6 @@
                                     <outlet property="lblMsgPreview" destination="6ju-0u-bEg" id="HEJ-xh-sSO"/>
                                     <outlet property="lblMsgTime" destination="ebG-8G-OGx" id="VYL-0v-dRL"/>
                                     <outlet property="lblName" destination="pen-ad-ALi" id="egV-hq-ug3"/>
-                                    <segue destination="kt3-YM-GjB" kind="show" identifier="showChat" id="t8s-gL-mAg"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -1601,7 +1690,7 @@
                             <view alpha="0.92000000000000004" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="u6b-hX-PZ3" userLabel="ProfileInfoView">
                                 <rect key="frame" x="0.0" y="140.00000000000003" width="375" height="364.66666666666674"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="steve" translatesAutoresizingMaskIntoConstraints="NO" id="A3R-Eu-1fu">
+                                    <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="A3R-Eu-1fu">
                                         <rect key="frame" x="78" y="11" width="219" height="218.66666666666666"/>
                                         <gestureRecognizers/>
                                         <constraints>
@@ -2076,7 +2165,7 @@
                                         <rect key="frame" x="0.0" y="765" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="BBh-ro-0cR" id="gnG-fU-DSf">
-                                            <rect key="frame" x="0.0" y="0.0" width="349" height="43.666666666666664"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="341" height="43.666666666666664"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Choose/add saved locations" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6dQ-UG-csd">
@@ -2275,156 +2364,12 @@
                         </textAttributes>
                     </navigationBar>
                     <connections>
-                        <segue destination="MtA-Jt-paV" kind="relationship" relationship="rootViewController" id="tGY-mw-8r1"/>
+                        <segue destination="7cZ-aR-adm" kind="relationship" relationship="rootViewController" id="n6l-zF-BMf"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fdp-0k-WAo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-937" y="2184"/>
-        </scene>
-        <!--Bid Controller-->
-        <scene sceneID="wWO-VT-Hhj">
-            <objects>
-                <tableViewController id="MtA-Jt-paV" userLabel="Bid Controller" customClass="BidTableViewController" customModule="helpr" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="TM1-di-Yl3">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="729"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <sections>
-                            <tableViewSection headerTitle="" id="OCo-Qi-QNv">
-                                <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="eFo-2i-Hzq">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="eFo-2i-Hzq" id="fe1-O5-grG">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.666666666666664"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <stackView opaque="NO" contentMode="scaleToFill" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="hhE-zR-kB1">
-                                                    <rect key="frame" x="16" y="8" width="343" height="28"/>
-                                                    <subviews>
-                                                        <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Bid Amount" textAlignment="natural" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="BdW-PF-ezt">
-                                                            <rect key="frame" x="0.0" y="0.0" width="198" height="28"/>
-                                                            <nil key="textColor"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                                            <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
-                                                            <connections>
-                                                                <action selector="bidAmtBegin:" destination="MtA-Jt-paV" eventType="editingDidBegin" id="VvR-7q-qKO"/>
-                                                                <action selector="bidAmtEnd:" destination="MtA-Jt-paV" eventType="editingDidEnd" id="fLV-2h-DnH"/>
-                                                                <action selector="tfChanged:" destination="MtA-Jt-paV" eventType="editingChanged" id="ydK-B8-fV3"/>
-                                                            </connections>
-                                                        </textField>
-                                                        <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="RYJ-Hd-Fz4">
-                                                            <rect key="frame" x="206" y="0.0" width="137" height="29"/>
-                                                            <segments>
-                                                                <segment title="Hourly"/>
-                                                                <segment title="Flat Rate"/>
-                                                            </segments>
-                                                        </segmentedControl>
-                                                    </subviews>
-                                                </stackView>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="hhE-zR-kB1" firstAttribute="leading" secondItem="fe1-O5-grG" secondAttribute="leading" constant="16" id="Elo-TI-aTd"/>
-                                                <constraint firstAttribute="trailing" secondItem="hhE-zR-kB1" secondAttribute="trailing" constant="16" id="La8-R0-Bmk"/>
-                                                <constraint firstItem="hhE-zR-kB1" firstAttribute="centerY" secondItem="fe1-O5-grG" secondAttribute="centerY" id="NUT-7B-Pux"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="gsT-zi-qT9">
-                                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="gsT-zi-qT9" id="WIu-Rc-ETm">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.666666666666664"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <stackView opaque="NO" contentMode="scaleToFill" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="PmQ-dp-4Qk">
-                                                    <rect key="frame" x="16" y="8" width="343" height="28"/>
-                                                    <subviews>
-                                                        <textField opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="749" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Time to Complete" textAlignment="natural" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="Y4o-Sf-fre">
-                                                            <rect key="frame" x="0.0" y="0.0" width="144" height="28"/>
-                                                            <nil key="textColor"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                                            <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
-                                                            <connections>
-                                                                <action selector="tfChanged:" destination="MtA-Jt-paV" eventType="editingChanged" id="dl6-dg-rtf"/>
-                                                            </connections>
-                                                        </textField>
-                                                        <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="Awf-zE-lzH">
-                                                            <rect key="frame" x="152" y="0.0" width="191" height="29"/>
-                                                            <segments>
-                                                                <segment title="Minutes"/>
-                                                                <segment title="Hours"/>
-                                                                <segment title="Days"/>
-                                                            </segments>
-                                                        </segmentedControl>
-                                                    </subviews>
-                                                </stackView>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="PmQ-dp-4Qk" firstAttribute="centerY" secondItem="WIu-Rc-ETm" secondAttribute="centerY" id="8jG-8z-T0b"/>
-                                                <constraint firstAttribute="trailing" secondItem="PmQ-dp-4Qk" secondAttribute="trailing" constant="16" id="hSs-nf-WIl"/>
-                                                <constraint firstItem="PmQ-dp-4Qk" firstAttribute="leading" secondItem="WIu-Rc-ETm" secondAttribute="leading" constant="16" id="kcJ-kh-BFt"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </cells>
-                            </tableViewSection>
-                            <tableViewSection headerTitle="Select Dates:" id="Hw3-aA-1Te">
-                                <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="gWH-V1-nPG">
-                                        <rect key="frame" x="0.0" y="116" width="375" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="gWH-V1-nPG" id="dvj-mx-Q4t">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.666666666666664"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Calendar to go in this space" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TCi-M2-mU2">
-                                                    <rect key="frame" x="20" y="11.333333333333336" width="213" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="TCi-M2-mU2" firstAttribute="leading" secondItem="dvj-mx-Q4t" secondAttribute="leading" constant="20" symbolic="YES" id="rgb-oz-fo9"/>
-                                                <constraint firstItem="TCi-M2-mU2" firstAttribute="centerY" secondItem="dvj-mx-Q4t" secondAttribute="centerY" id="t5p-Qi-VtR"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </cells>
-                            </tableViewSection>
-                        </sections>
-                        <connections>
-                            <outlet property="dataSource" destination="MtA-Jt-paV" id="jXK-tm-Qkz"/>
-                            <outlet property="delegate" destination="MtA-Jt-paV" id="aCz-Dk-LDU"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" title="Bid On Job" id="vaO-Nd-mbf">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="pG7-Mu-6Nw">
-                            <connections>
-                                <action selector="btnCancel:" destination="MtA-Jt-paV" id="ZEu-Gb-IBo"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" enabled="NO" title="Place Bid" id="TB8-ED-nFq">
-                            <connections>
-                                <action selector="btnPlaceBid:" destination="MtA-Jt-paV" id="KEz-37-an5"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
-                    <connections>
-                        <outlet property="bidTable" destination="TM1-di-Yl3" id="I8c-6x-Tn4"/>
-                        <outlet property="btnCancel" destination="pG7-Mu-6Nw" id="SST-iU-wbB"/>
-                        <outlet property="btnPlaceBid" destination="TB8-ED-nFq" id="Y0g-mz-ygd"/>
-                        <outlet property="scRate" destination="RYJ-Hd-Fz4" id="byZ-0E-Jzd"/>
-                        <outlet property="scTimeUnit" destination="Awf-zE-lzH" id="2Ja-cQ-RE6"/>
-                        <outlet property="tfBidAmt" destination="BdW-PF-ezt" id="OTP-2A-WjK"/>
-                        <outlet property="tfCompTime" destination="Y4o-Sf-fre" id="37Y-Zc-ZOJ"/>
-                    </connections>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="5Qx-e0-PL6" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-191" y="2180"/>
         </scene>
         <!--Settings-->
         <scene sceneID="5HF-kZ-6zK">
@@ -12419,7 +12364,7 @@ AAAABAEAAAAAAAAAWQAAAAAAAAAAAAAAAAAIBZk
         </namedColor>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="FXk-Rx-GQP"/>
+        <segue reference="KC7-7Q-nIK"/>
         <segue reference="edr-cc-jQm"/>
         <segue reference="WXI-hz-ulL"/>
     </inferredMetricsTieBreakers>

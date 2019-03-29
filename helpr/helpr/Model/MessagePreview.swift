@@ -21,6 +21,7 @@ class MessagePreview {
     var partnerPicRef = ""
     var chatID = ""
     var accepted = false
+    var job: Job?
     
     init?(name: String, preview: String, pic: UIImage, bid: String, time: String, chatID: String) {
         senderName = name
