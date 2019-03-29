@@ -59,7 +59,7 @@ class BidViewController: UIViewController {
     lazy var rejectButton: UIButton = {
         let button = UIButton(type: .system)
         let myString = "Reject"
-        var myAttribute = [ NSAttributedString.Key.foregroundColor: UIColor.red, NSAttributedString.Key.font: UIFont.systemFont(ofSize: 24.0) ]
+        var myAttribute = [ NSAttributedString.Key.foregroundColor: UIColor.red, NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 24.0) ]
         var myAttrString = NSAttributedString(string: myString, attributes: myAttribute)
         button.setAttributedTitle(myAttrString, for: .normal)
         
