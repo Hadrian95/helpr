@@ -29,11 +29,14 @@ class BidViewController: UIViewController {
     lazy var acceptButton: UIButton = {
         let button = UIButton(type: .system)
         let myString = "Accept"
-        let myAttribute = [ NSAttributedString.Key.foregroundColor: UIColor.black, NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 19.0) ]
-        let myAttrString = NSAttributedString(string: myString, attributes: myAttribute)
+        var myAttribute = [ NSAttributedString.Key.foregroundColor: UIColor.green, NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 24.0) ]
+        var myAttrString = NSAttributedString(string: myString, attributes: myAttribute)
+        button.setAttributedTitle(myAttrString, for: .normal)
         
-        button.setAttributedTitle(myAttrString, for: UIControl.State())
-        button.backgroundColor = UIColor.green
+        myAttribute = [ NSAttributedString.Key.foregroundColor: UIColor.gray, NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 24.0) ]
+        myAttrString = NSAttributedString(string: myString, attributes: myAttribute)
+        button.setAttributedTitle(myAttrString, for: .disabled)
+        
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -41,11 +44,14 @@ class BidViewController: UIViewController {
     lazy var counterButton: UIButton = {
         let button = UIButton(type: .system)
         let myString = "Counter"
-        let myAttribute = [ NSAttributedString.Key.foregroundColor: UIColor.black, NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 19.0) ]
-        let myAttrString = NSAttributedString(string: myString, attributes: myAttribute)
+        var myAttribute = [ NSAttributedString.Key.foregroundColor: UIColor.orange, NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 24.0) ]
+        var myAttrString = NSAttributedString(string: myString, attributes: myAttribute)
+        button.setAttributedTitle(myAttrString, for: .normal)
         
-        button.setAttributedTitle(myAttrString, for: UIControl.State())
-        button.backgroundColor = UIColor.yellow
+        myAttribute = [ NSAttributedString.Key.foregroundColor: UIColor.gray, NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 24.0) ]
+        myAttrString = NSAttributedString(string: myString, attributes: myAttribute)
+        button.setAttributedTitle(myAttrString, for: .disabled)
+        
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -53,11 +59,14 @@ class BidViewController: UIViewController {
     lazy var rejectButton: UIButton = {
         let button = UIButton(type: .system)
         let myString = "Reject"
-        let myAttribute = [ NSAttributedString.Key.foregroundColor: UIColor.black, NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 19.0) ]
-        let myAttrString = NSAttributedString(string: myString, attributes: myAttribute)
+        var myAttribute = [ NSAttributedString.Key.foregroundColor: UIColor.red, NSAttributedString.Key.font: UIFont.systemFont(ofSize: 24.0) ]
+        var myAttrString = NSAttributedString(string: myString, attributes: myAttribute)
+        button.setAttributedTitle(myAttrString, for: .normal)
         
-        button.setAttributedTitle(myAttrString, for: UIControl.State())
-        button.backgroundColor = UIColor.red
+        myAttribute = [ NSAttributedString.Key.foregroundColor: UIColor.gray, NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 24.0) ]
+        myAttrString = NSAttributedString(string: myString, attributes: myAttribute)
+        button.setAttributedTitle(myAttrString, for: .disabled)
+
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -107,7 +116,7 @@ class BidViewController: UIViewController {
     
     func addBidActionsSubview() {
         let customActionBar = UIView()
-        customActionBar.backgroundColor = UIColor.clear
+        //customActionBar.backgroundColor = UIColor(red: 230/255, green: 230/255, blue: 230/255, alpha: 1)
         customActionBar.translatesAutoresizingMaskIntoConstraints = false
         
         view.addSubview(customActionBar)
@@ -116,31 +125,54 @@ class BidViewController: UIViewController {
         //ios9 constraint anchors
         //x,y,w,h
         customActionBar.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-        customActionBar.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+        customActionBar.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10).isActive = true
         customActionBar.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
         customActionBar.heightAnchor.constraint(equalToConstant: 50).isActive = true
         
         customActionBar.addSubview(acceptButton)
         
-        acceptButton.leftAnchor.constraint(equalTo: customActionBar.leftAnchor).isActive = true
+        acceptButton.leftAnchor.constraint(equalTo: customActionBar.leftAnchor, constant: 5).isActive = true
         acceptButton.centerYAnchor.constraint(equalTo: customActionBar.centerYAnchor).isActive = true
-        acceptButton.widthAnchor.constraint(equalToConstant: thirdOfScreen).isActive = true
+        acceptButton.widthAnchor.constraint(equalToConstant: thirdOfScreen - 10).isActive = true
         acceptButton.heightAnchor.constraint(equalTo: customActionBar.heightAnchor).isActive = true
         acceptButton.addTarget(self, action: #selector(handleAccept), for: .touchUpInside)
         
+        let separatorLineView = UIView()
+        
+        separatorLineView.backgroundColor = UIColor(red: 220/225, green: 220/255, blue: 220/255, alpha: 1)
+        separatorLineView.translatesAutoresizingMaskIntoConstraints = false
+        customActionBar.addSubview(separatorLineView)
+        
+        separatorLineView.leftAnchor.constraint(equalTo: acceptButton.rightAnchor, constant: 5).isActive = true
+        separatorLineView.centerYAnchor.constraint(equalTo: customActionBar.centerYAnchor).isActive = true
+        separatorLineView.widthAnchor.constraint(equalToConstant: 1).isActive = true
+        separatorLineView.heightAnchor.constraint(equalTo: customActionBar.heightAnchor).isActive = true
+        
         customActionBar.addSubview(counterButton)
         
-        counterButton.leftAnchor.constraint(equalTo: acceptButton.rightAnchor).isActive = true
+        counterButton.leftAnchor.constraint(equalTo: acceptButton.rightAnchor, constant: 10).isActive = true
         counterButton.centerYAnchor.constraint(equalTo: customActionBar.centerYAnchor).isActive = true
-        counterButton.widthAnchor.constraint(equalToConstant: thirdOfScreen).isActive = true
+        counterButton.widthAnchor.constraint(equalToConstant: thirdOfScreen - 10).isActive = true
         counterButton.heightAnchor.constraint(equalTo: customActionBar.heightAnchor).isActive = true
         counterButton.addTarget(self, action: #selector(handleCounter), for: .touchUpInside)
         
+        let separatorLineView2 = UIView()
+        
+        separatorLineView2.backgroundColor = UIColor(red: 220/225, green: 220/255, blue: 220/255, alpha: 1)
+        separatorLineView2.translatesAutoresizingMaskIntoConstraints = false
+        customActionBar.addSubview(separatorLineView2)
+        
+        separatorLineView2.leftAnchor.constraint(equalTo: counterButton.rightAnchor, constant: 5).isActive = true
+        separatorLineView2.centerYAnchor.constraint(equalTo: customActionBar.centerYAnchor).isActive = true
+        separatorLineView2.widthAnchor.constraint(equalToConstant: 1).isActive = true
+        separatorLineView2.heightAnchor.constraint(equalTo: customActionBar.heightAnchor).isActive = true
+        
+        
         customActionBar.addSubview(rejectButton)
         
-        rejectButton.rightAnchor.constraint(equalTo: customActionBar.rightAnchor).isActive = true
+        rejectButton.rightAnchor.constraint(equalTo: customActionBar.rightAnchor, constant: -5).isActive = true
         rejectButton.centerYAnchor.constraint(equalTo: customActionBar.centerYAnchor).isActive = true
-        rejectButton.widthAnchor.constraint(equalToConstant: thirdOfScreen).isActive = true
+        rejectButton.widthAnchor.constraint(equalToConstant: thirdOfScreen - 10).isActive = true
         rejectButton.heightAnchor.constraint(equalTo: customActionBar.heightAnchor).isActive = true
         rejectButton.addTarget(self, action: #selector(handleReject), for: .touchUpInside)
     }
@@ -217,6 +249,11 @@ class BidViewController: UIViewController {
             }
         }
         self.dismiss(animated: true, completion: nil)
+    }
+    
+    @IBAction func didTapView(_ sender: UITapGestureRecognizer) {
+        print("Gesture recognized")
+        self.view.endEditing(true)
     }
     
     //User begins editing Bid Amount text field (prepends string with $)

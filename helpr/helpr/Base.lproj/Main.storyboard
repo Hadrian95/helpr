@@ -480,6 +480,7 @@
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="NhN-ui-uhY" firstAttribute="top" secondItem="Nra-Ei-yqA" secondAttribute="bottom" constant="10" id="DuB-Wa-s3s"/>
                             <constraint firstItem="Nra-Ei-yqA" firstAttribute="top" secondItem="Ngt-J8-JV8" secondAttribute="top" constant="8" id="I0I-Yc-sNo"/>
@@ -489,6 +490,9 @@
                             <constraint firstItem="Nra-Ei-yqA" firstAttribute="width" secondItem="r5d-UH-0ZN" secondAttribute="width" multiplier="0.9" id="zCS-rM-yi8"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Ngt-J8-JV8"/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="J9h-Un-EcQ" appends="YES" id="jv3-37-U7g"/>
+                        </connections>
                     </view>
                     <navigationItem key="navigationItem" title="Bid on Job" id="Sx3-Jo-smR">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="U8s-qZ-QHv">
@@ -512,6 +516,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uAO-z1-TF7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="J9h-Un-EcQ" userLabel="tgrBidView">
+                    <connections>
+                        <action selector="didTapView:" destination="7cZ-aR-adm" id="AhW-p1-dh3"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="-191" y="1438"/>
         </scene>
@@ -2165,7 +2174,7 @@
                                         <rect key="frame" x="0.0" y="765" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="BBh-ro-0cR" id="gnG-fU-DSf">
-                                            <rect key="frame" x="0.0" y="0.0" width="341" height="43.666666666666664"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="349" height="43.666666666666664"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Choose/add saved locations" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6dQ-UG-csd">
@@ -12353,9 +12362,6 @@ AAAABAEAAAAAAAAAWQAAAAAAAAAAAAAAAAAIBZk
         <image name="settings" width="32" height="32"/>
         <image name="steve" width="400" height="266"/>
         <image name="unlock" width="50" height="50"/>
-        <namedColor name="RoyalPurple">
-            <color red="0.69019607843137254" green="0.41176470588235292" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
         <namedColor name="RoyalPurple">
             <color red="0.69019607843137254" green="0.41176470588235292" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
