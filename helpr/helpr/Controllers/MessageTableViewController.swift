@@ -74,12 +74,13 @@ class MessageTableViewController: UITableViewController {
                         }
                         
                         DispatchQueue.main.async {
-                            self.database.getBidAmt(chatID: chatID, chatPartnerID: chatPartnerID) { (bid, accepted) in
+                            self.database.getBidAmt(chatID: chatID, chatPartnerID: chatPartnerID) { (bid, accepted, bidObj) in
                                 let index = self.mPreviews.firstIndex(where: { (mPreview) -> Bool in
                                     mPreview.chatID == chatID
                                 })
                                 
                                 self.mPreviews[index!].bidAmt = bid
+                                self.mPreviews[index!].bid = bidObj
                                 self.mPreviews[index!].accepted = accepted
                                 self.database.getMsgPreview(chatID: chatID) { (content, created, senderName) in
                                     self.mPreviews[index!].mPreview = content
@@ -108,8 +109,9 @@ class MessageTableViewController: UITableViewController {
                                 snapshot.documentChanges.forEach { diff in
                                     if (diff.type == .added) {
                                         DispatchQueue.main.async {
-                                            self.database.getBidAmt(chatID: chatID, chatPartnerID: chatPartnerID) { (bid, accepted) in
+                                            self.database.getBidAmt(chatID: chatID, chatPartnerID: chatPartnerID) { (bid, accepted, bidObj) in
                                                 self.mPreviews[index!].bidAmt = bid
+                                                self.mPreviews[index!].bid = bidObj
                                                 self.mPreviews[index!].accepted = accepted
                                                 self.mPreviews[index!].mPreview = diff.document.data()["content"] as! String
                                                 let created = diff.document.data()["created"] as! Date
@@ -210,6 +212,7 @@ class MessageTableViewController: UITableViewController {
         else {
             let bidViewController = storyboard?.instantiateViewController(withIdentifier: "BidViewController") as! BidViewController
             bidViewController.job = mPreviews[indexPath.row].job
+            bidViewController.bid = mPreviews[indexPath.row].bid
             bidViewController.chatID = mPreviews[indexPath.row].chatID
             let navigationController = UINavigationController(rootViewController: bidViewController)
             navigationController.setNavBarAttributes()

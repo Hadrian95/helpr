@@ -35,6 +35,7 @@
 		559DA7D622386AB700A9B77F /* ExploreCategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559DA7D522386AB700A9B77F /* ExploreCategoryTableViewCell.swift */; };
 		559DA7E0223873F300A9B77F /* ExploreJobCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559DA7DF223873F300A9B77F /* ExploreJobCollectionViewCell.swift */; };
 		55A18A4F224D9A250048FF2E /* CustomNavController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A18A4E224D9A250048FF2E /* CustomNavController.swift */; };
+		55A18A51224DC8260048FF2E /* Bid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A18A50224DC8260048FF2E /* Bid.swift */; };
 		55C56ABB220A2DD900B81E8C /* MessageTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C56ABA220A2DD900B81E8C /* MessageTableViewController.swift */; };
 		55C56ABD220A2E6B00B81E8C /* MessagePreviewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C56ABC220A2E6B00B81E8C /* MessagePreviewTableViewCell.swift */; };
 		55C56ABF220CDED100B81E8C /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C56ABE220CDED100B81E8C /* User.swift */; };
@@ -123,6 +124,7 @@
 		559DA7D522386AB700A9B77F /* ExploreCategoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ExploreCategoryTableViewCell.swift; path = helpr/View/ExploreCategoryTableViewCell.swift; sourceTree = SOURCE_ROOT; };
 		559DA7DF223873F300A9B77F /* ExploreJobCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreJobCollectionViewCell.swift; sourceTree = "<group>"; };
 		55A18A4E224D9A250048FF2E /* CustomNavController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavController.swift; sourceTree = "<group>"; };
+		55A18A50224DC8260048FF2E /* Bid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bid.swift; sourceTree = "<group>"; };
 		55C56ABA220A2DD900B81E8C /* MessageTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageTableViewController.swift; sourceTree = "<group>"; };
 		55C56ABC220A2E6B00B81E8C /* MessagePreviewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagePreviewTableViewCell.swift; sourceTree = "<group>"; };
 		55C56ABE220CDED100B81E8C /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -297,6 +299,7 @@
 		AC9682AE21A6000400A161D6 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				55A18A50224DC8260048FF2E /* Bid.swift */,
 				55850C19222DB04700BDC61D /* MessagePreview.swift */,
 				55C56ABE220CDED100B81E8C /* User.swift */,
 				4576E8C321890A7C00471AB4 /* Post.swift */,
@@ -659,6 +662,7 @@
 				4576E8B82188D84100471AB4 /* SignUpViewController.swift in Sources */,
 				4B2DB5B7222F5D830067EE01 /* BidViewController.swift in Sources */,
 				4576E8C421890A7C00471AB4 /* Post.swift in Sources */,
+				55A18A51224DC8260048FF2E /* Bid.swift in Sources */,
 				CA2F725121A3678500AAF19F /* ReviewsTableViewController.swift in Sources */,
 				AC01C7F721ABD199000EEB37 /* FileHelpers.swift in Sources */,
 				CA2F723F21A35E4A00AAF19F /* UserProfile.swift in Sources */,

@@ -71,7 +71,7 @@ class DatabaseHelper {
         docRef.setData(["completed": false])
     }
     
-    func createBid(bidAmt: Float, rateType: String, timeEst: Float, timeUnit: String, job: Job, userID: String, chatID: String, completion: @escaping (Error?) -> ()) {
+    func createBid(msgType: Int, bidAmt: Float, rateType: String, timeEst: Float, timeUnit: String, job: Job, userID: String, chatID: String, completion: @escaping (Error?) -> ()) {
         
         let bidInfo = ["active" : true, "bidPostedTime": Date(), "bid" : ["amount" : bidAmt, "rateType": rateType], "timeEstimate" : ["amount" : timeEst, "unit" : timeUnit]] as [String : Any]
         
@@ -87,8 +87,28 @@ class DatabaseHelper {
         
         // create the message exchanged within newly created chat document
         let messageID = NSUUID().uuidString
-        let bidMsg = "Hi! I can do your posted job (\"" + job.information.title + "\") for $" + String(bidAmt) + " " + rateType
-        let content = bidMsg + " and it would take me about " + String(timeEst) + " " + timeUnit
+        
+        var bidMsg = ""
+        var content = ""
+        
+        switch msgType {
+        case 0: // placing a bid
+            bidMsg = "Hi! I can do your posted job (\"" + job.information.title + "\") for $" + String(bidAmt) + " " + rateType
+            content = bidMsg + " and it would take me about " + String(timeEst) + " " + timeUnit
+        case 1: // countering a bid
+            if (userID == job.information.email) {
+                bidMsg = "Can you do it for $" + String(bidAmt) + " " + rateType
+                content = bidMsg + " in " + String(timeEst) + " " + timeUnit
+            } else {
+                bidMsg = "I will do it for $" + String(bidAmt) + " " + rateType
+                content = bidMsg + " and it would take me about " + String(timeEst) + " " + timeUnit
+            }
+        default: // accepted a bid?
+            bidMsg = "suck it Helm"
+            content = bidMsg + "!"
+        }
+        
+        
         docRef = db.collection("chats").document(chatID).collection("messages").document(messageID)
         docRef.setData(["content" : content, "created" : Date(), "senderID" : userID, "senderName" : UserProfile.name.components(separatedBy: " ")[0]]) { (error) in
             if error != nil {
@@ -277,12 +297,13 @@ class DatabaseHelper {
         }
     }
     
-    func getBidAmt(chatID: String, chatPartnerID: String, completion: @escaping (String, Bool) -> ()) {
+    func getBidAmt(chatID: String, chatPartnerID: String, completion: @escaping (String, Bool, Bid) -> ()) {
         
         //used for converting float to monetary value, formatted and in current locale currency
         let formatter = NumberFormatter()
         formatter.numberStyle = .currency
         var accepted = false
+        var bidObj: Bid?
         
         db.collection("chats").document(chatID).getDocument() { (document, error) in
             if let document = document, document.exists {
@@ -302,8 +323,13 @@ class DatabaseHelper {
                                     } else {
                                         for document in querySnapshot!.documents {
                                             let bid = document.data()["bid"] as! [String: Any]
+                                            let timeEstimate = document.data()["timeEstimate"] as! [String: Any]
                                             let amt = bid["amount"] as! Float
                                             let rate = bid["rateType"] as! String
+                                            let time = timeEstimate["amount"] as! Float
+                                            let timeRate = timeEstimate["unit"] as! String
+                                            
+                                            bidObj = Bid(amount: amt, rateType: rate, timeEst: time, units: timeRate)
                                             
                                             switch (rate) {
                                             case "hourly":
@@ -318,7 +344,7 @@ class DatabaseHelper {
                                                 bidStr = formatter.string(from: amt as NSNumber) ?? "undefined"
                                             }
                                         }
-                                        completion(bidStr, accepted)
+                                        completion(bidStr, accepted, bidObj!)
                                     }
                                 }
                             }
@@ -330,8 +356,13 @@ class DatabaseHelper {
                                 } else {
                                     for document in querySnapshot!.documents {
                                         let bid = document.data()["bid"] as! [String: Any]
+                                        let timeEstimate = document.data()["timeEstimate"] as! [String: Any]
                                         let amt = bid["amount"] as! Float
                                         let rate = bid["rateType"] as! String
+                                        let time = timeEstimate["amount"] as! Float
+                                        let timeRate = timeEstimate["unit"] as! String
+                                        
+                                        bidObj = Bid(amount: amt, rateType: rate, timeEst: time, units: timeRate)
                                         
                                         switch (rate) {
                                         case "hourly":
@@ -346,7 +377,7 @@ class DatabaseHelper {
                                             bidStr = formatter.string(from: amt as NSNumber) ?? "undefined"
                                         }
                                     }
-                                completion(bidStr, accepted)
+                                completion(bidStr, accepted, bidObj!)
                                 }
                             }
                         }

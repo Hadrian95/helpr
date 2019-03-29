@@ -11,6 +11,7 @@ import Firebase
 
 class BidViewController: UIViewController {
     var job: Job?
+    var bid: Bid?
     var chatID: String?
     var db = Firestore.firestore()
     
@@ -81,6 +82,25 @@ class BidViewController: UIViewController {
         currencySymbol = locale.currencySymbol!
         if (chatID != nil) {
             self.navigationItem.rightBarButtonItem = nil
+            tfBidAmt.text = "$" + (bid?.amt?.description)!
+            switch (bid?.rate) {
+            case "hourly":
+                scRate.selectedSegmentIndex = 0
+                break
+            default:
+                scRate.selectedSegmentIndex = 1
+            }
+            tfCompTime.text = bid?.time?.description
+            switch (bid?.timeUnits) {
+            case "minutes":
+                scTimeUnit.selectedSegmentIndex = 0
+                break
+            case "hours":
+                scTimeUnit.selectedSegmentIndex = 1
+                break
+            default:
+                scRate.selectedSegmentIndex = 2
+            }
             addBidActionsSubview()
         }
     }
@@ -130,7 +150,7 @@ class BidViewController: UIViewController {
     }
     
     @objc func handleCounter() {
-        print("Counter")
+        btnPlaceBid(counterButton)
     }
     
     @objc func handleReject() {
@@ -169,7 +189,7 @@ class BidViewController: UIViewController {
         }
         
         if (chatID != nil) {
-            database.createBid(bidAmt: bidAmount!, rateType: rateType, timeEst: timeEstimate!, timeUnit: timeUnit, job: job!, userID: userID!, chatID: self.chatID!) { (err) in
+            database.createBid(msgType: 1, bidAmt: bidAmount!, rateType: rateType, timeEst: timeEstimate!, timeUnit: timeUnit, job: job!, userID: userID!, chatID: self.chatID!) { (err) in
                 if err != nil {
                     print(err!._code)
                 } else {
@@ -187,7 +207,7 @@ class BidViewController: UIViewController {
                         self.chatID = document.data()["chatID"] as? String
                     }
                 }
-                database.createBid(bidAmt: bidAmount!, rateType: rateType, timeEst: timeEstimate!, timeUnit: timeUnit, job: self.job!, userID: userID!, chatID: self.chatID!) { (err) in
+                database.createBid(msgType: 0, bidAmt: bidAmount!, rateType: rateType, timeEst: timeEstimate!, timeUnit: timeUnit, job: self.job!, userID: userID!, chatID: self.chatID!) { (err) in
                     if err != nil {
                         print(err!._code)
                     } else {
