@@ -58,6 +58,24 @@ class JobsTableViewController: UITableViewController, UISearchResultsUpdating {
                         }
                     }
             }
+            db.collection("users").document(userID!).collection("acceptedJobs")
+                .addSnapshotListener { querySnapshot, error in
+                    guard let snapshot = querySnapshot else {
+                        print("Error fetching user posts snapshots: \(String(describing: error))")
+                        return
+                    }
+                    snapshot.documentChanges.forEach { diff in
+                        if (diff.type == .added) {
+                            let postID = diff.document.documentID
+                            DispatchQueue.main.async {
+                                self.database.getJob(jobID: postID) { (post) in
+                                    self.acceptedJobs.append(post)
+                                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadMyJobs"), object: nil)
+                                }
+                            }
+                        }
+                    }
+            }
         }
         
         isPurple = false
@@ -98,7 +116,7 @@ class JobsTableViewController: UITableViewController, UISearchResultsUpdating {
             return filteredJobs.count
         }
         else if (jobsSegment.selectedSegmentIndex == 0) {
-            return ExploreTableViewController.jobs.count
+            return acceptedJobs.count
         }
         else {
             return postedJobs.count
@@ -118,7 +136,7 @@ class JobsTableViewController: UITableViewController, UISearchResultsUpdating {
             if isFiltering() {
                 job = filteredJobs[indexPath.row]
             } else {
-                job = ExploreTableViewController.jobs[indexPath.row]
+                job = acceptedJobs[indexPath.row]
             }
         }
         else {
@@ -211,7 +229,7 @@ class JobsTableViewController: UITableViewController, UISearchResultsUpdating {
                 if isFiltering() {
                     selectedJob = filteredJobs[indexPath.row]
                 } else {
-                    selectedJob = ExploreTableViewController.jobs[indexPath.row]
+                    selectedJob = acceptedJobs[indexPath.row]
                 }
             }
             else {
