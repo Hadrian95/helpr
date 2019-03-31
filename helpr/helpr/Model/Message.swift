@@ -14,12 +14,12 @@ class Message: NSObject {
     var senderId: String?
     var senderName: String?
     var text: String?
-    var timestamp: NSNumber?
+    var timestamp: Date?
     
     init(dictionary: [String: Any]) {
         self.senderId = dictionary["senderID"] as? String
         self.senderName = dictionary["senderName"] as? String
         self.text = dictionary["content"] as? String
-        self.timestamp = dictionary["created"] as? NSNumber
+        self.timestamp = dictionary["created"] as? Date
     }
 }

@@ -21,6 +21,7 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
     let cellId = "messageCell"
     var smallTitleView = false
     let customTitleView = UIView()
+    var gesture = UITapGestureRecognizer()
     
     lazy var inputTextField: UITextField = {
         let textField = UITextField()
@@ -81,17 +82,19 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
         let reportBarBtn = UIBarButtonItem(image: UIImage(named: "reportUser"), style: .plain, target: self, action: #selector(reportUser))
         reportBarBtn.tintColor = .red
         navigationItem.setRightBarButtonItems([reportBarBtn, UIBarButtonItem(image: UIImage(named: "calendar"), style: .plain, target: self, action: #selector(showAvailability))], animated: false)
-        
-        let gesture = UITapGestureRecognizer(target: self, action:  #selector(self.showProfile))
-        navigationController?.navigationBar.addGestureRecognizer(gesture)
         setupInputComponents()
         setupKeyboardObservers()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(false)
-        
-        //navigationController?.navigationBar.prefersLargeTitles = true
+        navigationController?.navigationBar.removeGestureRecognizer(gesture)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        gesture = UITapGestureRecognizer(target: self, action:  #selector(showProfile))
+        navigationController?.navigationBar.addGestureRecognizer(gesture)
     }
     
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -163,6 +166,19 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
         cell.textView.text = message.text
         
         setupCell(cell, message: message)
+        
+        //code in progressfor hiding chat partner's pic when messages sent within 3 minutes. Works for past messages, untested for live messages
+//        if (indexPath.item + 1 < messages.count) {
+//
+//            if (message.senderId != Auth.auth().currentUser?.uid && messages[indexPath.item + 1].senderId == message.senderId) {
+//                let nextTimestamp = messages[indexPath.item + 1].timestamp
+//                let currTimestamp = message.timestamp
+//                var timeDiff = nextTimestamp?.timeIntervalSince(currTimestamp!)
+//                if (timeDiff! < 180.0) {
+//                    cell.profileImageView.isHidden = true
+//                }
+//            }
+//        }
         
         cell.bubbleWidthAnchor?.constant = estimateFrameForText(message.text!).width + 32
         

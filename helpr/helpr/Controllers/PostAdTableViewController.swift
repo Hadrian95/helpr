@@ -40,6 +40,7 @@ class PostAdTableViewController: UITableViewController, UITextViewDelegate, UICo
     var addPhotoExists = true;
     var regionLat : CLLocationDegrees = 0.0
     var regionLong : CLLocationDegrees = 0.0
+    let geoCoder = CLGeocoder()
     let locationManager = CLLocationManager()
     var searchCompleter = MKLocalSearchCompleter()
     var searchResults = [MKLocalSearchCompletion]()
@@ -64,7 +65,7 @@ class PostAdTableViewController: UITableViewController, UITextViewDelegate, UICo
         if let coor = mapView.userLocation.location?.coordinate{
             mapView.setCenter(coor, animated: true)
         }
-        
+        print(address)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -404,6 +405,8 @@ class PostAdTableViewController: UITableViewController, UITextViewDelegate, UICo
     //prevent mapScrolling
     @IBAction func lockLocation(_ sender: UIButton) {
         mapView.isScrollEnabled = !mapView.isScrollEnabled
+        mapView.isZoomEnabled = !mapView.isZoomEnabled
+
         btnCenterLoc.isEnabled = !btnCenterLoc.isEnabled
         if (btnlockLoc.currentImage == UIImage.init(named: "lock")) {
             btnlockLoc.setImage(UIImage.init(named: "unlock"), for: .normal)
@@ -465,6 +468,9 @@ class PostAdTableViewController: UITableViewController, UITextViewDelegate, UICo
         print("Center location tapped")
         let region = MKCoordinateRegion(center: mapView.userLocation.coordinate, span: mapView.region.span)
         mapView.setRegion(region, animated: true)
+        
+         //updateAddress reverse geocodes mapview center to written address and updates 'address' object
+        updateAddress(mapLocation: mapView?.userLocation.location ?? CLLocation(latitude: mapView.centerCoordinate.latitude, longitude: mapView.centerCoordinate.longitude))
     }
     
     //Shows mapPin image once the mapView is scrolled
@@ -474,20 +480,45 @@ class PostAdTableViewController: UITableViewController, UITextViewDelegate, UICo
         //update mapView center
         mapView.region.center = mapView.centerCoordinate
         
-        //round lat and long to 14 digits
+        //round region lat and long to same sig digs to standard values
         regionLat = Double(mapView.region.center.latitude * 100000000000000).rounded() / 100000000000000
         regionLong = Double(mapView.region.center.longitude * 100000000000000).rounded() / 100000000000000
         let userLat = mapView.userLocation.coordinate.latitude
         let userLong = mapView.userLocation.coordinate.longitude
         
-        print("regionLat:   \(regionLat)  regionLong:   \(regionLong)")
-        print("userLat:     \(userLat)    userLong:   \(userLong)")
-
         // reverseGeocodeLocation converts 'center' into user-friendly place name
         let center = CLLocation(latitude: regionLat, longitude: regionLong)
         
-        let geoCoder = CLGeocoder()
-        geoCoder.reverseGeocodeLocation(center) { [weak self] (placemarks, error) in
+         //updateAddress reverse geocodes mapview center to written address and updates 'address' object
+        updateAddress(mapLocation: center)
+        print(address)
+        
+        //compare region and user location to determine whether to show map pin
+        if (abs(userLat - regionLat) < 0.0001) && (abs(userLong - regionLong) < 0.00001) {
+            mapPin.isHidden = true
+        }
+        else {
+            mapPin.isHidden = false
+        }
+    }
+    
+    func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
+        if (mapView.centerCoordinate.latitude != userLocation.coordinate.latitude) || (mapView.centerCoordinate.longitude != userLocation.coordinate.longitude) {
+            return
+        }
+        else {
+            let userLat = mapView.userLocation.coordinate.latitude
+            let userLong = mapView.userLocation.coordinate.longitude
+            
+            //updateAddress reverse geocodes mapview center to written address and updates 'address' object
+            let center = CLLocation(latitude: userLat, longitude: userLong)
+            updateAddress(mapLocation: center)
+            print(address)
+        }
+    }
+    
+    func updateAddress(mapLocation: CLLocation) {
+        geoCoder.reverseGeocodeLocation(mapLocation) { [weak self] (placemarks, error) in
             guard let self = self else { return }
             
             if let _ = error {
@@ -510,15 +541,6 @@ class PostAdTableViewController: UITableViewController, UITextViewDelegate, UICo
                 self.tfLocation.text = "\(self.address["name"] ?? "") \(self.address["postalCode"] ?? "") \(self.address["city"] ?? ""), \(self.address["stateProv"] ?? "")"
             }
         }
-        
-        //compare region and user location to determine whether to show map pin
-        if (abs(userLat - regionLat) < 0.0001) && (abs(userLong - regionLong) < 0.00001) {
-            mapPin.isHidden = true
-        }
-        else {
-            mapPin.isHidden = false
-        }
-        
     }
     
     //Adds a pin at the user's current location, can be deleted since mapView shows User Location
