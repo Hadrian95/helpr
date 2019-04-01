@@ -168,7 +168,10 @@ class DatabaseHelper {
                             }
                         }
                     } else {
-                        // do nothing
+                        for document in (querySnapshot?.documents)! {
+                            let bidderDocRef = self.db.collection("users").document(userID).collection("conversations").document(document.documentID)
+                            bidderDocRef.setData(["active" : true], merge: true)
+                        }
                     }
                 }
             } else {
@@ -190,7 +193,10 @@ class DatabaseHelper {
                     }
                 }
             } else {
-                // do nothning
+                for document in (querySnapshot?.documents)! {
+                    let docRef = self.db.collection("users").document(job.information.email).collection("conversations").document(document.documentID)
+                    docRef.setData(["active" : true], merge: true)
+                }
             }
         }
     }

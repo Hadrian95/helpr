@@ -248,7 +248,7 @@ class BidViewController: UIViewController {
                 else {
                     for document in (querySnapshot?.documents)! {
                         self.chatID = document.data()["chatID"] as? String
-                        self.db.collection("users").document(userID!).collection("conversations").document(document.documentID).setData(["active": true], merge: true)
+//                        self.db.collection("users").document(userID!).collection("conversations").document(document.documentID).setData(["active": true], merge: true)
                     }
                 }
                 database.createBid(msgType: 0, bidAmt: bidAmount!, rateType: rateType, timeEst: timeEstimate!, timeUnit: timeUnit, job: self.job!, partnerID: "", userID: userID!, chatID: self.chatID!) { (err) in
