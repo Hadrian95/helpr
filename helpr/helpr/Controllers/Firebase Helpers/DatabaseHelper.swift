@@ -434,6 +434,27 @@ class DatabaseHelper {
         let docRef = db.collection("users").document(helprID).collection("acceptedJobs").document(jobID)
         docRef.setData(["completed": false, "acceptedOn" : Date()])
     }
+    
+    func rejectBid(userID: String, partnerID: String, chatID: String, jobID: String) {
+        db.collection("users").document(userID).collection("conversations").whereField("chatID", isEqualTo: chatID).getDocuments() { (querySnapshot, error) in
+            if ((querySnapshot?.isEmpty)!) {
+                // do nothing
+            } else {
+                for document in querySnapshot!.documents {
+                    self.db.collection("users").document(userID).collection("conversations").document(document.documentID).setData(["active": false], merge: true)
+                }
+            }
+        }
+        db.collection("users").document(partnerID).collection("conversations").whereField("chatID", isEqualTo: chatID).getDocuments() { (querySnapshot, error) in
+            if ((querySnapshot?.isEmpty)!) {
+                // do nothing
+            } else {
+                for document in querySnapshot!.documents {
+                    self.db.collection("users").document(partnerID).collection("conversations").document(document.documentID).setData(["active": false], merge: true)
+                }
+            }
+        }
+    }
 
     func readJobs(completion: @escaping ([Job]) -> ()){
         var jobs = [Job]()

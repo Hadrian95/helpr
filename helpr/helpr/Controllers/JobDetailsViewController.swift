@@ -76,6 +76,7 @@ class JobDetailsViewController: UIViewController, UICollectionViewDataSource, UI
         if (Auth.auth().currentUser?.uid != nil) {
             let navController = storyBoard.instantiateViewController(withIdentifier: "BidNavController") as! UINavigationController
             let bidViewController = navController.viewControllers.first as! BidViewController
+            bidViewController.chatID = nil
             bidViewController.job = job!
             self.present(navController, animated:true, completion:nil)
 

@@ -37,62 +37,9 @@ class MessageTableViewController: UITableViewController {
                     
                     if (active) {
                         let chatID = diff.document.data()["chatID"] as! String
-                        let partnerName = diff.document.data()["chatPartnerName"] as! String
-                        let chatPartnerID = diff.document.data()["chatPartnerID"] as! String
-                        let partnerPicRef = diff.document.data()["chatPartnerPicRef"] as! String
+                        let chatPartnerID = self.loopThroughConvos(diff: diff, chatID: chatID)
                         
-                        var msgPreview = MessagePreview()
-                        let jobFBID = diff.document.data()["jobFirebaseID"] as? String
-                        if (jobFBID != nil) {
-                            self.db.collection("jobs").document(jobFBID!).getDocument { (document, err) in
-                                if let document = document, document.exists {
-                                    job = Job (
-                                        title: document.data()?["title"]! as! String,
-                                        category: document.data()?["category"]! as! String,
-                                        description: document.data()?["description"]! as! String,
-                                        pictureURLs: document.data()?["pictureURLs"]! as! [String],
-                                        tags: ["#iPhone", "#Swift", "#Apple"],
-                                        address: document.data()?["address"]! as! [String : String],
-                                        location: document.data()?["location"]! as! GeoPoint,
-                                        anonLocation: document.data()?["anonLocation"]! as! GeoPoint,
-                                        distance: 0,
-                                        postalCode: "T3A 1B6",
-                                        postedTime: document.data()?["postedTime"]! as! Date,
-                                        email: document.data()?["posterID"]! as! String,
-                                        firebaseID: document.documentID,
-                                        id: document.data()?["id"]! as! Int)
-                                }
-                                
-                                msgPreview?.partnerID = chatPartnerID
-                                msgPreview?.partnerPicRef = partnerPicRef
-                                msgPreview?.senderName = partnerName
-                                msgPreview?.chatID = chatID
-                                msgPreview?.job = job
-                                
-                                self.mPreviews.append(msgPreview!)
-                            }
-                        }
-                        
-                        DispatchQueue.main.async {
-                            self.database.getBidAmt(chatID: chatID, chatPartnerID: chatPartnerID) { (bid, accepted, bidObj) in
-                                let index = self.mPreviews.firstIndex(where: { (mPreview) -> Bool in
-                                    mPreview.chatID == chatID
-                                })
-                                
-                                self.mPreviews[index!].bidAmt = bid
-                                self.mPreviews[index!].bid = bidObj
-                                self.mPreviews[index!].accepted = accepted
-                                self.database.getMsgPreview(chatID: chatID) { (content, created, senderName) in
-                                    self.mPreviews[index!].mPreview = content
-                                    self.mPreviews[index!].mTime =  created.timeAgoSinceDate(currentDate: Date(), numericDates: true)
-                                    
-                                    // only reload table view once, not for every new message preview it finds
-                                    self.timer?.invalidate()
-                                    self.timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(self.handleReloadTable), userInfo: nil, repeats: false)
-                                }
-                            }
-                        }
-                        
+                        // listen on chat changes to see if a bid was accepted
                         self.db.collection("chats").document(chatID).addSnapshotListener { (documentSnapshot, err) in
                             guard let document = documentSnapshot else {
                                 print("Error fetching document: \(error!)")
@@ -146,6 +93,24 @@ class MessageTableViewController: UITableViewController {
                             }
                         }
                     }
+                } else if (diff.type == .modified) {
+                    let active = diff.document.data()["active"] as! Bool
+                    let chatID = diff.document.data()["chatID"] as! String
+                    
+                    if (!active) {
+                        let index = self.mPreviews.firstIndex(where: { (mPreview) -> Bool in
+                            mPreview.chatID == chatID
+                        })
+                        
+                        self.mPreviews.remove(at: index!)
+                        DispatchQueue.main.async(execute: {
+                            print("we reloaded the table")
+                            self.tableView.reloadData()
+                        })
+                    }
+                    else {
+                        let whocares = self.loopThroughConvos(diff: diff, chatID: chatID)
+                    }
                 }
             }
         }
@@ -169,6 +134,67 @@ class MessageTableViewController: UITableViewController {
     // reload on new message preview added
     @objc func reloadPreviews(notification: NSNotification){
         self.tableView.reloadData()
+    }
+    
+    func loopThroughConvos(diff: DocumentChange, chatID: String) -> String {
+        var job: Job?
+        let partnerName = diff.document.data()["chatPartnerName"] as! String
+        let chatPartnerID = diff.document.data()["chatPartnerID"] as! String
+        let partnerPicRef = diff.document.data()["chatPartnerPicRef"] as! String
+        
+        var msgPreview = MessagePreview()
+        let jobFBID = diff.document.data()["jobFirebaseID"] as? String
+        if (jobFBID != nil) {
+            self.db.collection("jobs").document(jobFBID!).getDocument { (document, err) in
+                if let document = document, document.exists {
+                    job = Job (
+                        title: document.data()?["title"]! as! String,
+                        category: document.data()?["category"]! as! String,
+                        description: document.data()?["description"]! as! String,
+                        pictureURLs: document.data()?["pictureURLs"]! as! [String],
+                        tags: ["#iPhone", "#Swift", "#Apple"],
+                        address: document.data()?["address"]! as! [String : String],
+                        location: document.data()?["location"]! as! GeoPoint,
+                        anonLocation: document.data()?["anonLocation"]! as! GeoPoint,
+                        distance: 0,
+                        postalCode: "T3A 1B6",
+                        postedTime: document.data()?["postedTime"]! as! Date,
+                        email: document.data()?["posterID"]! as! String,
+                        firebaseID: document.documentID,
+                        id: document.data()?["id"]! as! Int)
+                }
+                
+                msgPreview?.partnerID = chatPartnerID
+                msgPreview?.partnerPicRef = partnerPicRef
+                msgPreview?.senderName = partnerName
+                msgPreview?.chatID = chatID
+                msgPreview?.job = job
+                
+                self.mPreviews.append(msgPreview!)
+            }
+        }
+        
+        DispatchQueue.main.async {
+            self.database.getBidAmt(chatID: chatID, chatPartnerID: chatPartnerID) { (bid, accepted, bidObj) in
+                let index = self.mPreviews.firstIndex(where: { (mPreview) -> Bool in
+                    mPreview.chatID == chatID
+                })
+                
+                self.mPreviews[index!].bidAmt = bid
+                self.mPreviews[index!].bid = bidObj
+                self.mPreviews[index!].accepted = accepted
+                self.database.getMsgPreview(chatID: chatID) { (content, created, senderName) in
+                    self.mPreviews[index!].mPreview = content
+                    self.mPreviews[index!].mTime =  created.timeAgoSinceDate(currentDate: Date(), numericDates: true)
+                    
+                    // only reload table view once, not for every new message preview it finds
+                    self.timer?.invalidate()
+                    self.timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(self.handleReloadTable), userInfo: nil, repeats: false)
+                }
+            }
+        }
+        
+        return chatPartnerID
     }
 
     // MARK: - Table view data source
