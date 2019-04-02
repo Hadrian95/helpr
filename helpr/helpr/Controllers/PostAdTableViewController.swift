@@ -65,7 +65,7 @@ class PostAdTableViewController: UITableViewController, UITextViewDelegate, UICo
         if let coor = mapView.userLocation.location?.coordinate{
             mapView.setCenter(coor, animated: true)
         }
-        print(address)
+        print(self.address)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -181,6 +181,7 @@ class PostAdTableViewController: UITableViewController, UITextViewDelegate, UICo
         let description = tvDescription.text ?? "No description provided"
         // let tags = tfTags.text ?? ""
         let tags = ["iOS", "Yeet", "YOLO", "Y DID I SIGN UP FOR DIS"]
+        let address = self.address
         let location = GeoPoint(latitude: regionLat, longitude: regionLong)
         
         var random = Double.random(in: -0.004 ... 0.004)
@@ -209,7 +210,7 @@ class PostAdTableViewController: UITableViewController, UITextViewDelegate, UICo
                 for document in querySnapshot!.documents {
                     id = (document.data()["id"]! as! Int) + 1
                 }
-                self.job = Job(title: title, category: category!, description: description, pictureURLs: [], tags: tags, address: self.address, location: location, anonLocation: anonLocation, distance: 10, postalCode: "WH0CR5", postedTime: Date(), email: (UserProfile.email), firebaseID: jobID, id: id)
+                self.job = Job(title: title, category: category!, description: description, pictureURLs: [], tags: tags, address: address, location: location, anonLocation: anonLocation, distance: 10, postalCode: "WH0CR5", postedTime: Date(), email: (UserProfile.email), firebaseID: jobID, id: id)
                 //HomeTableViewController.jobs.append(job!)
                 
                 storage.saveImages(job: self.job!, imagesArray: pictures, createJob: true, jobID: jobID)
@@ -491,7 +492,7 @@ class PostAdTableViewController: UITableViewController, UITextViewDelegate, UICo
         
          //updateAddress reverse geocodes mapview center to written address and updates 'address' object
         updateAddress(mapLocation: center)
-        print(address)
+        print(self.address)
         
         //compare region and user location to determine whether to show map pin
         if (abs(userLat - regionLat) < 0.0001) && (abs(userLong - regionLong) < 0.00001) {

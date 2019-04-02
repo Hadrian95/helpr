@@ -32,7 +32,7 @@ class StorageHelper{
             
             let database = DatabaseHelper()
             let userID = Auth.auth().currentUser?.uid
-            let dataToSave = ["id": job.information.id, "category": job.information.category, "description": job.information.postDescription, "location": "200–298 Ellis St 94102 San Francisco, CA", "postedTime": Date(), "posterID": userID, "title": job.information.title, "pictureURLs": job.information.pictures] as [String : Any]
+            let dataToSave = ["id": job.information.id, "category": job.information.category, "description": job.information.postDescription, "address": job.information.address, "anonLocation": GeoPoint(latitude: job.information.anonLocation.latitude, longitude: job.information.anonLocation.longitude), "location": GeoPoint(latitude: job.information.location.latitude, longitude: job.information.location.longitude), "postedTime": Date(), "posterID": userID!, "title": job.information.title, "pictureURLs": job.information.pictures] as [String : Any]
             
             database.addJobInformation(dataToSave: dataToSave, tags: job.information.tags as! [String], jobID: jobID) {
                 (error) in
