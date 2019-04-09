@@ -118,7 +118,6 @@ class BidViewController: UIViewController {
     
     func addBidActionsSubview() {
         let customActionBar = UIView()
-        //customActionBar.backgroundColor = UIColor(red: 230/255, green: 230/255, blue: 230/255, alpha: 1)
         customActionBar.translatesAutoresizingMaskIntoConstraints = false
         
         view.addSubview(customActionBar)
@@ -206,7 +205,6 @@ class BidViewController: UIViewController {
     }
     
     //Place bid button in nav bar selected
-    //to do: create bid
     @IBAction func btnPlaceBid(_ sender: Any) {
         let userID = Auth.auth().currentUser?.uid
         let database = DatabaseHelper()
@@ -248,7 +246,6 @@ class BidViewController: UIViewController {
                 else {
                     for document in (querySnapshot?.documents)! {
                         self.chatID = document.data()["chatID"] as? String
-//                        self.db.collection("users").document(userID!).collection("conversations").document(document.documentID).setData(["active": true], merge: true)
                     }
                 }
                 database.createBid(msgType: 0, bidAmt: bidAmount!, rateType: rateType, timeEst: timeEstimate!, timeUnit: timeUnit, job: self.job!, partnerID: "", userID: userID!, chatID: self.chatID!) { (err) in

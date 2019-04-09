@@ -21,7 +21,7 @@ class SignUpViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+
         let width   = self.view.frame.width
         let height  = self.view.frame.height
         scrollView.contentSize = CGSize(width: width, height: height)
@@ -116,25 +116,7 @@ class AddSkillsViewController: UIViewController, UITableViewDelegate, UITableVie
         
         tblSkillsMaster.tableFooterView = UIView()
     }
-/*
-    @IBAction func btnContinue(_ sender: UIButton) {
-        if skillstoAdd.count > 0 {
-            let nextViewController = AddPhotoViewController()
-            nextViewController.signUpParent = signUpParent
-            present(nextViewController, animated: true, completion: nil)
-        } else {
-            let alert = UIAlertController(title: "No Skills Added", message: "If you proceed without adding any skills, you may not be considered as a potential Helpr for jobs posted by users. Are you sure you want to continue?", preferredStyle: .alert)
-            let okAction = UIAlertAction(title: "OK", style: UIAlertAction.Style.default) { (UIAlertAction) in
-                let nextViewController = AddPhotoViewController()
-                nextViewController.signUpParent = self.signUpParent!
-                self.present(nextViewController, animated: true, completion: nil)
-            }
-            alert.addAction(okAction)
-            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-            self.present(alert, animated: true, completion: nil)
-        }
-    }
-*/
+    
     func searchBarIsEmpty() -> Bool {
         return searchBar.text?.isEmpty ?? true
     }
@@ -178,7 +160,6 @@ class AddSkillsViewController: UIViewController, UITableViewDelegate, UITableVie
     //change UITableView section header text color to RoyalPurple
      func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         if let headerView = view as? UITableViewHeaderFooterView {
-            //headerView.contentView.backgroundColor = .white
             headerView.textLabel?.textColor = UIColor.init(named: "RoyalPurple")
             
         }
@@ -206,6 +187,7 @@ class AddSkillsViewController: UIViewController, UITableViewDelegate, UITableVie
                     cell.accessoryType = .checkmark
                 }
             }
+        
         return cell
     }
     

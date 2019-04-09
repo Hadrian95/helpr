@@ -1,31 +1,31 @@
 //
-//  HomeTableViewController.swift
+//  NewExploreTableViewController.swift
 //  helpr
 //
-//  Created by Adrian.Parcioaga on 2018-10-30.
-//  Copyright © 2018 ryan.konynenbelt. All rights reserved.
+//  Created by Critical on 2019-03-12.
+//  Copyright © 2019 ryan.konynenbelt. All rights reserved.
 //
 
 import UIKit
-import os.log
 import Firebase
 import CodableFirebase
 import FirebaseUI
-class ExploreTableViewController: UITableViewController, UISearchBarDelegate {
+
+class ExploreTableViewController: UITableViewController {
     
     //MARK: Properties
     var database = DatabaseHelper()
     var db = Firestore.firestore()
     var docRef : DocumentReference!
-    static var jobs = [Job]()
-    var filteredJobs = [Job]()
-    var isPurple = Bool()
-    let cellSpacingHeight: CGFloat = 5
+    var jobs = [Job]()
+    var categories : [[String : Bool]] = [["Featured" : true], ["Recommended For You" : true], ["Nearest To You" : true], ["Automotive" : true], ["Cleaning" : true], ["Design" : true], ["Development" : true], ["Furniture Assembly" : true], ["Minor Repair" : true], ["Technology" : true], ["Tech Repair" : true], ["Tutoring" : true], ["Web Design" : true]]
+    var catKeys = ["Featured", "Recommended For You", "Nearest To You", "Automotive", "Cleaning", "Design", "Development", "Furniture Assembly", "Minor Repair", "Technology", "Tech Repair", "Tutoring", "Web Design"]
+    var storedOffsets = [IndexPath : CGFloat]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        NotificationCenter.default.addObserver(self, selector: #selector(loadList(notification:)), name: NSNotification.Name(rawValue: "reloadExplore"), object: nil)
-        
+        NotificationCenter.default.addObserver(self, selector: #selector(loadList(notification:)), name: NSNotification.Name(rawValue: "reloadNewExplore"), object: nil)
+
         db.collection("jobs").order(by: "postedTime", descending: true)
             .addSnapshotListener { querySnapshot, error in
                 guard let snapshot = querySnapshot else {
@@ -37,8 +37,8 @@ class ExploreTableViewController: UITableViewController, UISearchBarDelegate {
                         let jobID = diff.document.documentID
                         DispatchQueue.main.async {
                             self.database.getJob(jobID: jobID) { job in
-                                ExploreTableViewController.jobs.append(job)
-                                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadExplore"), object: nil)
+                                self.jobs.append(job)
+                                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadNewExplore"), object: nil)
                                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadMyJobs"), object: nil)
                             }
                         }
@@ -46,70 +46,94 @@ class ExploreTableViewController: UITableViewController, UISearchBarDelegate {
                 }
         }
         
-        //loadSampleJobs()
-        //loadJobs()
-//        filteredJobs = ExploreTableViewController.jobs
-        isPurple = false
-        self.tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
-//        searchBar.delegate = self
-        
-        definesPresentationContext = true
+        // Uncomment the following line to preserve selection between presentations
+        // self.clearsSelectionOnViewWillAppear = false
+
+        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+        // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
     
     // reload on new post added
     @objc func loadList(notification: NSNotification){
         self.tableView.reloadData()
     }
-    
-    // MARK: - UISearchResultsUpdating Delegate
-    func updateSearchResults(for searchBar: UISearchBar) {
-        if let searchText = searchBar.text, !searchText.isEmpty {
-            filteredJobs = ExploreTableViewController.jobs.filter { job in
-                return job.information.category.lowercased().contains(searchText.lowercased())
-            }
-        } else {
-            filteredJobs = ExploreTableViewController.jobs
-        }
-        tableView.reloadData()
-    }
 
-
-    // MARK: - Table view data source
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 1
+        return categories.count
+    }
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return catKeys[section]
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        if isFiltering() {
-//            return filteredJobs.count
-//        }
-        return ExploreTableViewController.jobs.count
+        return 1
     }
-
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        // table view cells are reused and should be dequeued using a cell identifier.
-        let cellIdentifier = "HomeTableViewCell"
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? HomeTableViewCell else {
-            fatalError("The dequeued cell is not an instance of HomeTableVieCell")
-            }
-
-        // fetches the appropriate job for the data source layout
-        let job : Job
-//        if isFiltering() {
-//            job = filteredJobs[indexPath.row]
-//        } else {
-            job = ExploreTableViewController.jobs[indexPath.row]
-//        }
+        let cell = tableView.dequeueReusableCell(withIdentifier: "exploreTableCell") as! ExploreCategoryTableViewCell
+        cell.setScrollPosition(x: storedOffsets[indexPath] ?? 0)
+        return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         
-        cell.layer.cornerRadius = 10.0
+        guard let tableViewCell = cell as? ExploreCategoryTableViewCell else { return }
+        
+        tableViewCell.setCollectionViewDataSourceDelegate(dataSourceDelegate: self, forRow: indexPath.row)
+    }
+    
+    override func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        
+        guard let tableViewCell = cell as? ExploreCategoryTableViewCell else { return }
+        
+        storedOffsets[indexPath] = tableViewCell.getScrollPosition()
+    }
+    
+    override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        if let headerView = view as? UITableViewHeaderFooterView {
+            headerView.contentView.backgroundColor = .white
+            if (section == 0) {
+                headerView.textLabel?.font = UIFont.systemFont(ofSize: 30, weight: UIFont.Weight.regular)
+            } else if (section < 3) {
+                headerView.textLabel?.font = UIFont.systemFont(ofSize: 25, weight: UIFont.Weight.regular)
+            } else  {
+                headerView.textLabel?.font = UIFont.systemFont(ofSize: 18, weight: UIFont.Weight.semibold)
+            }
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if (section == 0) {
+            return 50.0
+        } else {
+            return 35.0
+        }
+    }
+}
+
+extension ExploreTableViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return jobs.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView,
+                                cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cellIdentifier = "exploreJobCell"
+        
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as? ExploreJobCollectionViewCell else {
+            fatalError("The dequeued cell is not an instance of exploreJobCell")
+        }
+
+        let job : Job
+        job = self.jobs[indexPath.row]
+        
+        cell.layer.cornerRadius = 5.0
         cell.layer.masksToBounds = true
-        cell.layer.borderWidth = 3.0
-        cell.layer.borderColor = tableView.backgroundColor?.cgColor
-        cell.jobCategory.text = job.information.category
+        cell.layer.borderWidth = 1.0
+        cell.layer.borderColor = collectionView.backgroundColor?.cgColor
         cell.jobTitle.text = job.information.title
-        //cell.jobPic.image = job.pictureData[0]
+        cell.jobCategory.text = job.information.category
         
         // get job image from database, use default picture if an error occurs
         let storageRef = Storage.storage().reference()
@@ -119,107 +143,39 @@ class ExploreTableViewController: UITableViewController, UISearchBarDelegate {
         
         cell.jobDistance.text = String(job.information.distance) + " km"
         cell.jobPostedTime.text = job.information.postedTime.timeAgoSinceDate(currentDate: Date(), numericDates: true)
-
+        
+        cell.job = job
+        
+        cell.jobCategory.isHidden = true
         return cell
     }
     
-
-    // Set the spacing between sections
-    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return cellSpacingHeight
-    }
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-    
-    //MARK: Private Methods
-    
-//    private func loadSampleJobs() {
-//        guard let job1 = Job(title: "Internet Help", category: "Technology", description: "New Post", pictureURLs: [], tags: [], distance: 5, postalCode: "T2Y 4K7", postedTime: Date(), email: "hilmi@madebyhilmi.com") else {
-//                fatalError("Unable to instantiate job1")
-//        }
-//        guard let job2 = Job(title: "Desperate Cleaning", category: "Cleaning", description: "Trashed place needs super cleaning! Will pay well", pictureURLs: [], tags: [], distance: 7, postalCode: "2Y 4K7", postedTime: Date(), email: "hilmi@madebyhilmi.com") else {
-//            fatalError("Unable to instantiate job2")
-//        }
-//        guard let job3 = Job(title: "Long Story Short Internet Need Help", category: "Technology", description: "My router and modem need a new mesh network for the big data protocol that Google installed in my house last week. I need help.", pictureURLs: [], tags: [], distance: 3, postalCode: "T2Y 4K7", postedTime: Date(), email: "hilmi@madebyhilmi.com") else {
-//            fatalError("Unable to instantiate job3")
-//        }
-//        
-//        HomeTableViewController.jobs += [job1,job2,job3,job1,job2,job3,job1]
-//        
-//        let storage = StorageHelper()
-//        storage.saveImages(job: job1, imagesArray: [UIImage(named: "comphelp")!], createJob: true)
-//        storage.saveImages(job: job2, imagesArray: [UIImage(named: "cleaning")!], createJob: true)
-//        storage.saveImages(job: job3, imagesArray: [UIImage(named: "comphelp")!], createJob: true)
-//        
-//    }
-
-    
     // MARK: - Navigation
-
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
         
         switch (segue.identifier ?? "") {
             
-        case "ShowJobDetails":
+        case "showJobDetails":
             guard let jobViewController = segue.destination as? JobDetailsViewController else {
                 fatalError("Unexpected destination: \(segue.destination)")
             }
-            
-            guard let selectedHomeCell = sender as? HomeTableViewCell else {
+
+            guard let selectedJobCell = sender as? ExploreJobCollectionViewCell else {
                 fatalError("Unexpected job sender: \(sender)")
             }
+
+            jobViewController.job = selectedJobCell.job
             
-            guard let indexPath = tableView.indexPath(for: selectedHomeCell) else {
-                fatalError("The selected job cell is not being displayed by the table")
+        case "createPost":
+            guard let createPostViewController = segue.destination as? UINavigationController else {
+                fatalError("Unexpected destination: \(segue.destination)")
             }
             
-            let selectedJob: Job
-            // fetches the appropriate job
-//            if isFiltering() {
-//                selectedJob = filteredJobs[indexPath.row]
-//            } else {
-                selectedJob = ExploreTableViewController.jobs[indexPath.row]
-//            }
-          
-            jobViewController.job = selectedJob
-            
-        case "CreatePost":
-            guard let createPostViewController = segue.destination as? UINavigationController else {
+        case "showSearchJobs":
+            guard let searchViewController = segue.destination as? SearchTableViewController else {
                 fatalError("Unexpected destination: \(segue.destination)")
             }
             
@@ -227,15 +183,4 @@ class ExploreTableViewController: UITableViewController, UISearchBarDelegate {
             fatalError("Unexpected Segue Identifier; \(segue.identifier)")
         }
     }
-    
-    //MARK: Search-related methods
-
-//    private func searchBarIsEmpty() -> Bool {
-//        // Returns true if the text is empty or nil
-//        return searchBar.text?.isEmpty ?? true
-//    }
-//
-//    private func isFiltering() -> Bool {
-//        return !searchBarIsEmpty()
-//    }
 }

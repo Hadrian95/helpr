@@ -18,7 +18,6 @@ class JobsTableViewController: UITableViewController, UISearchResultsUpdating {
     @IBOutlet weak var jobsSegment: UISegmentedControl!
     @IBOutlet weak var JobsTableView: UITableView!
     
-    //var jobs = HomeTableViewController.jobs
     var db = Firestore.firestore()
     var filteredJobs = [Job]()
     var isPurple = Bool()
@@ -38,7 +37,7 @@ class JobsTableViewController: UITableViewController, UISearchResultsUpdating {
         NotificationCenter.default.addObserver(self, selector: #selector(reloadView(notification:)), name: NSNotification.Name(rawValue: "reloadMyJobs"), object: nil)
         
         setNeedsStatusBarAppearanceUpdate()
-        filteredJobs = ExploreTableViewController.jobs
+        filteredJobs = SearchTableViewController.jobs
         if (userID != nil) {
             db.collection("users").document(userID!).collection("posts")
                 .addSnapshotListener { querySnapshot, error in
@@ -166,42 +165,6 @@ class JobsTableViewController: UITableViewController, UISearchResultsUpdating {
         return cell
     }
     
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -251,15 +214,16 @@ class JobsTableViewController: UITableViewController, UISearchResultsUpdating {
             fatalError("Unexpected Segue Identifier; \(segue.identifier)")
         }
     }
+    
     // MARK: - UISearchResultsUpdating Delegate
     func updateSearchResults(for searchController: UISearchController) {
         if let searchText = searchController.searchBar.text, !searchText.isEmpty {
-            filteredJobs = ExploreTableViewController.jobs.filter { job in
+            filteredJobs = SearchTableViewController.jobs.filter { job in
                 return job.information.category.lowercased().contains(searchText.lowercased())
             }
             
         } else {
-            filteredJobs = ExploreTableViewController.jobs
+            filteredJobs = SearchTableViewController.jobs
         }
         tableView.reloadData()
     }

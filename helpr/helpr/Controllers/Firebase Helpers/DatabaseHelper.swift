@@ -104,7 +104,7 @@ class DatabaseHelper {
                 content = bidMsg + " and it would take me about " + String(timeEst) + " " + timeUnit
             }
         default: // accepted a bid?
-            bidMsg = "suck it Helm"
+            bidMsg = "accepted a bid"
             content = bidMsg + "!"
         }
         

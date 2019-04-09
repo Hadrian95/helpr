@@ -20,7 +20,7 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+
         let width   = self.view.frame.width
         let height  = self.view.frame.height
         scrollView.contentSize = CGSize(width: width, height: height - 40)
@@ -32,7 +32,6 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
         
         emailField.setBottomBorder()
         passwordField.setBottomBorder()
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {

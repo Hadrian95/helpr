@@ -59,7 +59,6 @@ class ProfileViewController: UIViewController {
         }else{
             if (userID == "") {
                 lblName.text = UserProfile.name
-                //lblSkillCount.text = String(UserProfile.skills.count)
                 btnSkills.setTitle(String(UserProfile.skills.count) + " Skills", for: .normal)
 
                 // get profile pic from database, use default picture if an error occurs
@@ -74,7 +73,6 @@ class ProfileViewController: UIViewController {
                 ivProfilePic.isUserInteractionEnabled = false // cannot change picture when viewing other user's profile
 
                 lblName.text = UserProfile.name
-                //lblSkillCount.text = String(UserProfile.skills.count)
                 btnSkills.setTitle(String(UserProfile.skills.count) + " Skills", for: .normal)
 
                 // get profile pic from database, use default picture if an error occurs
@@ -129,15 +127,4 @@ class ProfileViewController: UIViewController {
             self.ivProfilePic.image = image
         }
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

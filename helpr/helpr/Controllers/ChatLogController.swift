@@ -168,17 +168,17 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
         setupCell(cell, message: message)
         
         //code in progressfor hiding chat partner's pic when messages sent within 3 minutes. Works for past messages, untested for live messages
-//        if (indexPath.item + 1 < messages.count) {
-//
-//            if (message.senderId != Auth.auth().currentUser?.uid && messages[indexPath.item + 1].senderId == message.senderId) {
-//                let nextTimestamp = messages[indexPath.item + 1].timestamp
-//                let currTimestamp = message.timestamp
-//                var timeDiff = nextTimestamp?.timeIntervalSince(currTimestamp!)
-//                if (timeDiff! < 180.0) {
-//                    cell.profileImageView.isHidden = true
-//                }
-//            }
-//        }
+        if (indexPath.item + 1 < messages.count) {
+
+            if (message.senderId != Auth.auth().currentUser?.uid && messages[indexPath.item + 1].senderId == message.senderId) {
+                let nextTimestamp = messages[indexPath.item + 1].timestamp
+                let currTimestamp = message.timestamp
+                var timeDiff = nextTimestamp?.timeIntervalSince(currTimestamp!)
+                if (timeDiff! < 180.0) {
+                    cell.profileImageView.isHidden = true
+                }
+            }
+        }
         
         cell.bubbleWidthAnchor?.constant = estimateFrameForText(message.text!).width + 32
         
@@ -375,8 +375,6 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
         super.prepare(for: segue, sender: sender)
         
         switch (segue.identifier ?? "") {

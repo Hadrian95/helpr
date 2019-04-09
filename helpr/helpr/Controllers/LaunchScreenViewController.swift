@@ -20,17 +20,6 @@ class LaunchScreenViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
     private func loadJobs(){
         let database = DatabaseHelper()
         
@@ -39,16 +28,6 @@ class LaunchScreenViewController: UIViewController {
             let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
             
             if (Auth.auth().currentUser?.uid != nil) {
-                _ = Auth.auth().addStateDidChangeListener { (auth,user) in
-                    if (user != nil) {
-                        database.getUser() { (user) -> () in
-                            UserProfile.name = user!.name
-                            UserProfile.email = user!.email
-                            UserProfile.skills = user!.skills
-                            UserProfile.profilePicRef = user!.picRef
-                        }
-                    }
-                }
                 let nextViewController = storyBoard.instantiateViewController(withIdentifier: "TabBarViewController") as! EBRoundedTabBarController
                 self.present(nextViewController, animated:true, completion:nil)
             }

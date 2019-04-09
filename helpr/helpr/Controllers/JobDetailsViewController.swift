@@ -92,20 +92,6 @@ class JobDetailsViewController: UIViewController, UICollectionViewDataSource, UI
             alertView.showWarning("Warning", subTitle: "In order to place a bid on a job you must be logged into the application.")
         }
     }
-    /*
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if (Auth.auth().currentUser?.uid != nil) {
-            let navController = segue.destination as? UINavigationController
-            let bidViewController = navController!.viewControllers.first as! BidTableViewController
-            bidViewController.job = job!
-        }
-        else {
-            _ = SCLAlertView().showWarning("Warning", subTitle: "In order to bid on a job you must be logged into the application.")
-            var alert = SCLAlertView(appearance: )
-        }
-    }
- */
- 
     
     //MARK: - CollectionView methods
     
@@ -163,16 +149,4 @@ class JobDetailsViewController: UIViewController, UICollectionViewDataSource, UI
             return MKOverlayRenderer(overlay: overlay)
         }
     }
-
-    /*
-    // MARK: - Navigation
-
-     
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

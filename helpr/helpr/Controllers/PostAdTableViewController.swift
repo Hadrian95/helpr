@@ -195,8 +195,6 @@ class PostAdTableViewController: UITableViewController, UITextViewDelegate, UICo
         // Set the job to be passed to HomeTableViewController after the unwind segue.
         let jobID = NSUUID().uuidString // generate job id for db
         let storage = StorageHelper()
-        //let database = DatabaseHelper()
-        //let userID = Auth.auth().currentUser?.uid
         var id = 0
         
         // get highest job id within database and add 1 for new job id
@@ -210,7 +208,6 @@ class PostAdTableViewController: UITableViewController, UITextViewDelegate, UICo
                     id = (document.data()["id"]! as! Int) + 1
                 }
                 self.job = Job(title: title, category: category!, description: description, pictureURLs: [], tags: tags, address: self.address, location: location, anonLocation: anonLocation, distance: 10, postalCode: "WH0CR5", postedTime: Date(), email: (UserProfile.email), firebaseID: jobID, id: id)
-                //HomeTableViewController.jobs.append(job!)
                 
                 storage.saveImages(job: self.job!, imagesArray: pictures, createJob: true, jobID: jobID)
             }

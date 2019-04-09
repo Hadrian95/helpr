@@ -12,5 +12,4 @@ class ImageCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var postImg: UIImageView!
     @IBOutlet weak var jobPhoto: UIImageView!
-    
 }

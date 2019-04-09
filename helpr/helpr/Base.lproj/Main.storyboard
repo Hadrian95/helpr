@@ -209,7 +209,7 @@
         <!--Explore-->
         <scene sceneID="pJ0-4u-ZV2">
             <objects>
-                <tableViewController title="Home" id="CRG-QK-wGU" userLabel="Explore" customClass="ExploreTableViewController" customModule="helpr" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="Home" id="CRG-QK-wGU" userLabel="Explore" customClass="SearchTableViewController" customModule="helpr" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="280" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="20" id="c5m-k4-TeE">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="729"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1188,7 +1188,7 @@
         <!--Explore-->
         <scene sceneID="f1l-Yu-Otz">
             <objects>
-                <tableViewController storyboardIdentifier="NewExploreTableViewController" id="huC-75-dWT" customClass="NewExploreTableViewController" customModule="helpr" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="NewExploreTableViewController" id="huC-75-dWT" customClass="ExploreTableViewController" customModule="helpr" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="250" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="oJo-r1-ZTJ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="729"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

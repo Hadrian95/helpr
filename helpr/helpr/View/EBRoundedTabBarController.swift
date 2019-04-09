@@ -7,9 +7,10 @@
 //
 
 import UIKit
+import Firebase
 
 class EBRoundedTabBarController: UITabBarController {
-    
+    let database = DatabaseHelper()
     
     // MARK: - Inner Types
     
@@ -43,6 +44,19 @@ class EBRoundedTabBarController: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if (Auth.auth().currentUser?.uid != nil) {
+            _ = Auth.auth().addStateDidChangeListener { (auth,user) in
+                if (user != nil) {
+                    self.database.getUser() { (user) -> () in
+                        UserProfile.name = user!.name
+                        UserProfile.email = user!.email
+                        UserProfile.skills = user!.skills
+                        UserProfile.profilePicRef = user!.picRef
+                    }
+                }
+            }
+        }
         
         setupSubviews()
         setupConstraints()
@@ -94,7 +108,7 @@ class EBRoundedTabBarController: UITabBarController {
     private func createController(for customTabBarItem: EBRoundedTabBarItem, with tag: Int) -> UINavigationController? {
         var viewController = UIViewController()
         if (tag == 1) {
-            viewController = storyboard?.instantiateViewController(withIdentifier: "NewExploreTableViewController") as! NewExploreTableViewController
+            viewController = storyboard?.instantiateViewController(withIdentifier: "NewExploreTableViewController") as! ExploreTableViewController
         }
         
         else if (tag == 2) {
