@@ -1234,7 +1234,7 @@
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="rkj-en-xwt">
-                                                                        <rect key="frame" x="0.0" y="34" width="235.33333333333334" height="19.333333333333329"/>
+                                                                        <rect key="frame" x="0.0" y="34" width="255.33333333333334" height="19.333333333333329"/>
                                                                         <subviews>
                                                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="OLE-lO-7vK">
                                                                                 <rect key="frame" x="0.0" y="0.0" width="138.66666666666666" height="19.333333333333332"/>
@@ -1254,7 +1254,7 @@
                                                                                 </subviews>
                                                                             </stackView>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Posted" textAlignment="right" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" minimumFontSize="14" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VvE-kQ-SI0">
-                                                                                <rect key="frame" x="143.66666666666666" y="0.0" width="91.666666666666657" height="19.333333333333332"/>
+                                                                                <rect key="frame" x="143.66666666666666" y="0.0" width="111.66666666666666" height="19.333333333333332"/>
                                                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                 <nil key="highlightedColor"/>
@@ -1263,7 +1263,7 @@
                                                                     </stackView>
                                                                 </subviews>
                                                                 <constraints>
-                                                                    <constraint firstAttribute="trailing" secondItem="rkj-en-xwt" secondAttribute="trailing" constant="20" symbolic="YES" id="dUS-im-qRv"/>
+                                                                    <constraint firstAttribute="trailing" secondItem="VvE-kQ-SI0" secondAttribute="trailing" id="8Mp-Ni-WHE"/>
                                                                 </constraints>
                                                             </stackView>
                                                         </subviews>
@@ -12372,7 +12372,7 @@ AAAABAEAAAAAAAAAWQAAAAAAAAAAAAAAAAAIBZk
     <inferredMetricsTieBreakers>
         <segue reference="KC7-7Q-nIK"/>
         <segue reference="edr-cc-jQm"/>
-        <segue reference="WXI-hz-ulL"/>
+        <segue reference="FCs-0e-GXX"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" name="RoyalPurple"/>
 </document>
