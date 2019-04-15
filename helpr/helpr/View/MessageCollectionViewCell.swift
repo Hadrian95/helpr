@@ -2,8 +2,8 @@
 //  MessageCollectionViewCell.swift
 //  helpr
 //
-//  Created by Critical on 2019-03-26.
-//  Copyright © 2019 ryan.konynenbelt. All rights reserved.
+//  Created by walter.alvarez on 2019-03-26.
+//  Copyright © 2019 helpr. All rights reserved.
 //
 
 import UIKit

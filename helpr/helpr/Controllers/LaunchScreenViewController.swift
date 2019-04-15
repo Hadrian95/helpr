@@ -2,8 +2,8 @@
 //  LaunchScreenViewController.swift
 //  helpr
 //
-//  Created by Hilmi Abou-Saleh on 2018-12-04.
-//  Copyright © 2018 ryan.konynenbelt. All rights reserved.
+//  Created by walter alvarez and adrian parcioaga on 2018-12-04.
+//  Copyright © 2018 helpr. All rights reserved.
 //
 
 import UIKit
@@ -31,6 +31,7 @@ class LaunchScreenViewController: UIViewController {
     }
     */
 
+    //query DB for list of jobs and store locally some of user's info for reuse
     private func loadJobs(){
         let database = DatabaseHelper()
         
@@ -49,9 +50,11 @@ class LaunchScreenViewController: UIViewController {
                         }
                     }
                 }
+                //if user logged in, proceed to explore page
                 let nextViewController = storyBoard.instantiateViewController(withIdentifier: "TabBarViewController") as! EBRoundedTabBarController
                 self.present(nextViewController, animated:true, completion:nil)
             }
+            //if no user logged in, redirect to title screen
             else {
                 let nextViewController = storyBoard.instantiateViewController(withIdentifier: "StartScreen") as! WelcomeViewController
                 self.present(nextViewController, animated:true, completion:nil)

@@ -2,8 +2,8 @@
 //  Bid.swift
 //  helpr
 //
-//  Created by Critical on 2019-03-28.
-//  Copyright © 2019 ryan.konynenbelt. All rights reserved.
+//  Created by adrian.parcioaga on 2019-03-28.
+//  Copyright © 2019 helpr. All rights reserved.
 //
 
 import Foundation

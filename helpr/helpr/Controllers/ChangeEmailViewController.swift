@@ -3,8 +3,9 @@
 //  helpr
 //
 //  Created by adrian.parcioaga and walter.alvarez on 2018-11-19.
-//  Copyright © 2018 ryan.konynenbelt. All rights reserved.
+//  Copyright © 2018 helpr. All rights reserved.
 //
+//  Incomplete: need to load user's actual info and implement styling/ finish form data
 
 import UIKit
 
