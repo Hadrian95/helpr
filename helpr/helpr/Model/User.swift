@@ -2,9 +2,10 @@
 //  User.swift
 //  helpr
 //
-//  Created by Critical on 2019-02-07.
-//  Copyright © 2019 ryan.konynenbelt. All rights reserved.
+//  Created by adrian.parcioaga on 2019-02-07.
+//  Copyright © 2019 helpr. All rights reserved.
 //
+// locally stored user's info
 
 import UIKit
 import Foundation

@@ -2,8 +2,8 @@
 //  MessageTableViewController.swift
 //  helpr
 //
-//  Created by Critical on 2019-02-05.
-//  Copyright © 2019 ryan.konynenbelt. All rights reserved.
+//  Created by walter.alvarez on 2019-02-05.
+//  Copyright © 2019 helpr. All rights reserved.
 //
 
 import UIKit
@@ -31,6 +31,7 @@ class MessageTableViewController: UITableViewController {
             snapshot.documentChanges.forEach { diff in
                 if (diff.type == .added) {
                     let active = diff.document.data()["active"] as! Bool
+                    print(diff.document.data())
                     print("entered")
                     
                     if (active) {

@@ -3,8 +3,9 @@
 //  helpr
 //
 //  Created by walter.alvarez on 2018-11-23.
-//  Copyright © 2018 ryan.konynenbelt. All rights reserved.
+//  Copyright © 2018 helpr. All rights reserved.
 //
+//  cell for category items used in create post and filtering
 
 import UIKit
 

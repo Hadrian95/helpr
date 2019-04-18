@@ -2,8 +2,8 @@
 //  JobsTableViewCell.swift
 //  helpr
 //
-//  Created by Hilmi Abou-Saleh on 2018-11-04.
-//  Copyright © 2018 ryan.konynenbelt. All rights reserved.
+//  Created by walter alvarez and adrian parcioaga on 2018-11-04.
+//  Copyright © 2018 helpr. All rights reserved.
 //
 
 import UIKit

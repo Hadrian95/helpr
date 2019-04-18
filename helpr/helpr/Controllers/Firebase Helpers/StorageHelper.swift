@@ -2,8 +2,8 @@
 //  StorageHelper.swift
 //  helpr
 //
-//  Created by Hilmi Abou-Saleh on 2018-11-25.
-//  Copyright © 2018 ryan.konynenbelt. All rights reserved.
+//  Created by walter alvarez and adrian parcioaga on 2018-11-25.
+//  Copyright © 2018 helpr. All rights reserved.
 //
 
 import Firebase
@@ -32,7 +32,7 @@ class StorageHelper{
             
             let database = DatabaseHelper()
             let userID = Auth.auth().currentUser?.uid
-            let dataToSave = ["id": job.information.id, "category": job.information.category, "description": job.information.postDescription, "location": "200–298 Ellis St 94102 San Francisco, CA", "postedTime": Date(), "posterID": userID, "title": job.information.title, "pictureURLs": job.information.pictures] as [String : Any]
+            let dataToSave = ["id": job.information.id, "category": job.information.category, "description": job.information.postDescription, "address": job.information.address, "anonLocation": GeoPoint(latitude: job.information.anonLocation.latitude, longitude: job.information.anonLocation.longitude), "location": GeoPoint(latitude: job.information.location.latitude, longitude: job.information.location.longitude), "postedTime": Date(), "posterID": userID!, "title": job.information.title, "pictureURLs": job.information.pictures] as [String : Any]
             
             database.addJobInformation(dataToSave: dataToSave, tags: job.information.tags as! [String], jobID: jobID) {
                 (error) in

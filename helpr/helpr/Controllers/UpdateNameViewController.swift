@@ -3,7 +3,7 @@
 //  helpr
 //
 //  Created by adrian.parcioaga and walter.alvarez on 2018-11-19.
-//  Copyright © 2018 ryan.konynenbelt. All rights reserved.
+//  Copyright © 2018 helpr. All rights reserved.
 //
 
 import UIKit

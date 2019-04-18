@@ -3,8 +3,10 @@
 //  helpr
 //
 //  Created by walter.alvarez on 2018-11-23.
-//  Copyright © 2018 ryan.konynenbelt. All rights reserved.
+//  Copyright © 2018 helpr. All rights reserved.
 //
+// list of categories offered by helpr
+// TODO: pull categories list from DB master
 
 import UIKit
 
@@ -16,12 +18,9 @@ class CategoriesTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        //sortedCategories can be removed once category list is obtained from DB
         sortedCategories = categories.sorted()
-        // Uncomment the following line to preserve selection between presentations
         self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
 
     // MARK: - Table view data source

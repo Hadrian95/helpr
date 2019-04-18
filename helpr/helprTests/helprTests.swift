@@ -2,8 +2,8 @@
 //  helprTests.swift
 //  helprTests
 //
-//  Created by ryan.konynenbelt on 2018-10-18.
-//  Copyright © 2018 ryan.konynenbelt. All rights reserved.
+//  Created by helpr on 2018-10-18.
+//  Copyright © 2018 helpr. All rights reserved.
 //
 
 import XCTest

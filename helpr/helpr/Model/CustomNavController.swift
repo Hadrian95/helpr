@@ -2,9 +2,10 @@
 //  CustomNavController.swift
 //  helpr
 //
-//  Created by Critical on 2019-03-28.
-//  Copyright © 2019 ryan.konynenbelt. All rights reserved.
+//  Created by walter.alvarez on 2019-03-28.
+//  Copyright © 2019 helpr. All rights reserved.
 //
+// nav bar extension to set app-wide attributes
 
 import UIKit
 

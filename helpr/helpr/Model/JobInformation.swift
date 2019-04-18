@@ -2,8 +2,8 @@
 //  JobInformation.swift
 //  helpr
 //
-//  Created by Hilmi Abou-Saleh on 2018-11-28.
-//  Copyright © 2018 ryan.konynenbelt. All rights reserved.
+//  Created by adrian.parcioaga on 2018-11-28.
+//  Copyright © 2018 helpr. All rights reserved.
 //
 
 import UIKit

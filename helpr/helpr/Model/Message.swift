@@ -2,9 +2,10 @@
 //  Message.swift
 //  helpr
 //
-//  Created by Critical on 2019-03-26.
-//  Copyright © 2019 ryan.konynenbelt. All rights reserved.
+//  Created by walter.alvarez on 2019-03-26.
+//  Copyright © 2019 helpr. All rights reserved.
 //
+// message object that dequeues Firestore messages into renderable chat bubbles
 
 import Foundation
 import UIKit

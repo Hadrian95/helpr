@@ -2,8 +2,8 @@
 //  Utilities.swift
 //  helpr
 //
-//  Created by Hilmi Abou-Saleh on 2018-11-13.
-//  Copyright © 2018 ryan.konynenbelt. All rights reserved.
+//  Created by walter alvarez and adrian parcioaga on 2018-11-13.
+//  Copyright © 2018 helpr. All rights reserved.
 //
 import Foundation
 extension Date {

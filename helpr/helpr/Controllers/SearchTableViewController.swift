@@ -3,7 +3,7 @@
 //  helpr
 //
 //  Created by Adrian.Parcioaga on 2018-10-30.
-//  Copyright © 2018 ryan.konynenbelt. All rights reserved.
+//  Copyright © 2018 helpr. All rights reserved.
 //
 
 import UIKit
@@ -12,7 +12,7 @@ import Firebase
 import CodableFirebase
 import FirebaseUI
 class SearchTableViewController: UITableViewController, UISearchBarDelegate {
-    
+
     //MARK: Properties
     var database = DatabaseHelper()
     var db = Firestore.firestore()
@@ -21,11 +21,11 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate {
     var filteredJobs = [Job]()
     var isPurple = Bool()
     let cellSpacingHeight: CGFloat = 5
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(loadList(notification:)), name: NSNotification.Name(rawValue: "reloadExplore"), object: nil)
-        
+
         db.collection("jobs").order(by: "postedTime", descending: true)
             .addSnapshotListener { querySnapshot, error in
                 guard let snapshot = querySnapshot else {
@@ -45,20 +45,20 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate {
                     }
                 }
         }
-        
+
 //        filteredJobs = ExploreTableViewController.jobs
         isPurple = false
         self.tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
 //        searchBar.delegate = self
-        
+
         definesPresentationContext = true
     }
-    
+
     // reload on new post added
     @objc func loadList(notification: NSNotification){
         self.tableView.reloadData()
     }
-    
+
     // MARK: - UISearchResultsUpdating Delegate
     func updateSearchResults(for searchBar: UISearchBar) {
         if let searchText = searchBar.text, !searchText.isEmpty {
@@ -85,7 +85,7 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate {
         return SearchTableViewController.jobs.count
     }
 
-    
+
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // table view cells are reused and should be dequeued using a cell identifier.
         let cellIdentifier = "HomeTableViewCell"
@@ -100,53 +100,53 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate {
 //        } else {
             job = SearchTableViewController.jobs[indexPath.row]
 //        }
-        
+
         cell.layer.cornerRadius = 10.0
         cell.layer.masksToBounds = true
         cell.layer.borderWidth = 3.0
         cell.layer.borderColor = tableView.backgroundColor?.cgColor
         cell.jobCategory.text = job.information.category
         cell.jobTitle.text = job.information.title
-        
+
         // get job image from database, use default picture if an error occurs
         let storageRef = Storage.storage().reference()
         let ref = storageRef.child((job.information.pictures[0])!)
         let phImage = UIImage(named: "jobDefault.png")
         cell.jobPic.sd_setImage(with: ref, placeholderImage: phImage)
-        
+
         cell.jobDistance.text = String(job.information.distance) + " km"
         cell.jobPostedTime.text = job.information.postedTime.timeAgoSinceDate(currentDate: Date(), numericDates: true)
 
         return cell
     }
-    
+
 
     // Set the spacing between sections
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return cellSpacingHeight
     }
-    
+
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
-        
+
         switch (segue.identifier ?? "") {
-            
+
         case "ShowJobDetails":
             guard let jobViewController = segue.destination as? JobDetailsViewController else {
                 fatalError("Unexpected destination: \(segue.destination)")
             }
-            
+
             guard let selectedHomeCell = sender as? HomeTableViewCell else {
                 fatalError("Unexpected job sender: \(sender)")
             }
-            
+
             guard let indexPath = tableView.indexPath(for: selectedHomeCell) else {
                 fatalError("The selected job cell is not being displayed by the table")
             }
-            
+
             let selectedJob: Job
             // fetches the appropriate job
 //            if isFiltering() {
@@ -154,19 +154,19 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate {
 //            } else {
                 selectedJob = SearchTableViewController.jobs[indexPath.row]
 //            }
-          
+
             jobViewController.job = selectedJob
-            
+
         case "CreatePost":
             guard let createPostViewController = segue.destination as? UINavigationController else {
                 fatalError("Unexpected destination: \(segue.destination)")
             }
-            
+
         default:
             fatalError("Unexpected Segue Identifier; \(segue.identifier)")
         }
     }
-    
+
     //MARK: Search-related methods
 
 //    private func searchBarIsEmpty() -> Bool {

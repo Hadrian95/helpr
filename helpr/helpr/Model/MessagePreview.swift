@@ -2,9 +2,10 @@
 //  MessagePreview.swift
 //  helpr
 //
-//  Created by Critical on 2019-03-04.
-//  Copyright © 2019 ryan.konynenbelt. All rights reserved.
+//  Created by adrian.parcioaga on 2019-03-04.
+//  Copyright © 2019 helpr. All rights reserved.
 //
+// renders the chat row in the MessagesTableViewController
 
 import Foundation
 import UIKit
