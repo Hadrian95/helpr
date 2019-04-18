@@ -94,7 +94,7 @@ class EBRoundedTabBarController: UITabBarController {
     private func createController(for customTabBarItem: EBRoundedTabBarItem, with tag: Int) -> UINavigationController? {
         var viewController = UIViewController()
         if (tag == 1) {
-            viewController = storyboard?.instantiateViewController(withIdentifier: "NewExploreTableViewController") as! NewExploreTableViewController
+            viewController = storyboard?.instantiateViewController(withIdentifier: "NewExploreTableViewController") as! ExploreTableViewController
         }
         
         else if (tag == 2) {

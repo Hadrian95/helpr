@@ -11,10 +11,9 @@
 		4576E8B42188CA0000471AB4 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4576E8B32188CA0000471AB4 /* SignInViewController.swift */; };
 		4576E8B62188D57F00471AB4 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4576E8B52188D57F00471AB4 /* WelcomeViewController.swift */; };
 		4576E8B82188D84100471AB4 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4576E8B72188D84100471AB4 /* SignUpViewController.swift */; };
-		4576E8BA2188EE6500471AB4 /* ExploreTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4576E8B92188EE6500471AB4 /* ExploreTableViewController.swift */; };
+		4576E8BA2188EE6500471AB4 /* SearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4576E8B92188EE6500471AB4 /* SearchTableViewController.swift */; };
 		4576E8BC2188EEAB00471AB4 /* JobsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4576E8BB2188EEAB00471AB4 /* JobsTableViewController.swift */; };
 		4576E8BE2188EEBD00471AB4 /* MessagesTableViewControllerOld.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4576E8BD2188EEBD00471AB4 /* MessagesTableViewControllerOld.swift */; };
-		4576E8C02188F22200471AB4 /* MyTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4576E8BF2188F22200471AB4 /* MyTabBarViewController.swift */; };
 		4576E8C22189003700471AB4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4576E8C12189003600471AB4 /* Assets.xcassets */; };
 		4576E8C421890A7C00471AB4 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4576E8C321890A7C00471AB4 /* Post.swift */; };
 		4598BC9421A8B3640058096B /* CategoriesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4598BC9321A8B3640058096B /* CategoriesTableViewController.swift */; };
@@ -30,7 +29,7 @@
 		552E72F6224AD48F0098006B /* ChatLogController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552E72F5224AD48F0098006B /* ChatLogController.swift */; };
 		552E72FA224AEF860098006B /* MessageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552E72F9224AEF860098006B /* MessageCollectionViewCell.swift */; };
 		55850C1A222DB04700BDC61D /* MessagePreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55850C19222DB04700BDC61D /* MessagePreview.swift */; };
-		559DA7D42238632100A9B77F /* NewExploreTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559DA7D32238632100A9B77F /* NewExploreTableViewController.swift */; };
+		559DA7D42238632100A9B77F /* ExploreTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559DA7D32238632100A9B77F /* ExploreTableViewController.swift */; };
 		559DA7D622386AB700A9B77F /* ExploreCategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559DA7D522386AB700A9B77F /* ExploreCategoryTableViewCell.swift */; };
 		559DA7E0223873F300A9B77F /* ExploreJobCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559DA7DF223873F300A9B77F /* ExploreJobCollectionViewCell.swift */; };
 		55A18A4F224D9A250048FF2E /* CustomNavController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A18A4E224D9A250048FF2E /* CustomNavController.swift */; };
@@ -99,10 +98,9 @@
 		4576E8B32188CA0000471AB4 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		4576E8B52188D57F00471AB4 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		4576E8B72188D84100471AB4 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
-		4576E8B92188EE6500471AB4 /* ExploreTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreTableViewController.swift; sourceTree = "<group>"; };
+		4576E8B92188EE6500471AB4 /* SearchTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableViewController.swift; sourceTree = "<group>"; };
 		4576E8BB2188EEAB00471AB4 /* JobsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobsTableViewController.swift; sourceTree = "<group>"; };
 		4576E8BD2188EEBD00471AB4 /* MessagesTableViewControllerOld.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesTableViewControllerOld.swift; sourceTree = "<group>"; };
-		4576E8BF2188F22200471AB4 /* MyTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTabBarViewController.swift; sourceTree = "<group>"; };
 		4576E8C12189003600471AB4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4576E8C321890A7C00471AB4 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		4598BC9321A8B3640058096B /* CategoriesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesTableViewController.swift; sourceTree = "<group>"; };
@@ -118,7 +116,7 @@
 		552E72F5224AD48F0098006B /* ChatLogController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatLogController.swift; sourceTree = "<group>"; };
 		552E72F9224AEF860098006B /* MessageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCollectionViewCell.swift; sourceTree = "<group>"; };
 		55850C19222DB04700BDC61D /* MessagePreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagePreview.swift; sourceTree = "<group>"; };
-		559DA7D32238632100A9B77F /* NewExploreTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewExploreTableViewController.swift; sourceTree = "<group>"; };
+		559DA7D32238632100A9B77F /* ExploreTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreTableViewController.swift; sourceTree = "<group>"; };
 		559DA7D522386AB700A9B77F /* ExploreCategoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ExploreCategoryTableViewCell.swift; path = helpr/View/ExploreCategoryTableViewCell.swift; sourceTree = SOURCE_ROOT; };
 		559DA7DF223873F300A9B77F /* ExploreJobCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreJobCollectionViewCell.swift; sourceTree = "<group>"; };
 		55A18A4E224D9A250048FF2E /* CustomNavController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavController.swift; sourceTree = "<group>"; };
@@ -248,7 +246,7 @@
 				CA2F724621A366C400AAF19F /* ChangeEmailViewController.swift */,
 				CA2F725421A368C900AAF19F /* ChangePasswordViewController.swift */,
 				552E72F5224AD48F0098006B /* ChatLogController.swift */,
-				4576E8B92188EE6500471AB4 /* ExploreTableViewController.swift */,
+				4576E8B92188EE6500471AB4 /* SearchTableViewController.swift */,
 				AC01C7F021ABB93A000EEB37 /* Extensions */,
 				CA2F724C21A3676000AAF19F /* FavoriteLocationsViewController.swift */,
 				AC01C7F121ABB950000EEB37 /* Firebase Helpers */,
@@ -257,8 +255,7 @@
 				AC3E4FD721B74066009AA6FD /* LaunchScreenViewController.swift */,
 				4576E8BD2188EEBD00471AB4 /* MessagesTableViewControllerOld.swift */,
 				55C56ABA220A2DD900B81E8C /* MessageTableViewController.swift */,
-				4576E8BF2188F22200471AB4 /* MyTabBarViewController.swift */,
-				559DA7D32238632100A9B77F /* NewExploreTableViewController.swift */,
+				559DA7D32238632100A9B77F /* ExploreTableViewController.swift */,
 				CA2F724E21A3676F00AAF19F /* PaymentInfoViewController.swift */,
 				F783AB0321791E5B0010F034 /* PostAdTableViewController.swift */,
 				CA2F725221A3679E00AAF19F /* PrivacyTableViewController.swift */,
@@ -679,12 +676,12 @@
 				F783AB0221791E5B0010F034 /* AppDelegate.swift in Sources */,
 				CA2F724D21A3676000AAF19F /* FavoriteLocationsViewController.swift in Sources */,
 				CA12A381218935E50063ED97 /* Job.swift in Sources */,
-				4576E8BA2188EE6500471AB4 /* ExploreTableViewController.swift in Sources */,
+				4576E8BA2188EE6500471AB4 /* SearchTableViewController.swift in Sources */,
 				CA2F724F21A3676F00AAF19F /* PaymentInfoViewController.swift in Sources */,
 				ACFD809B21A77694009D0182 /* DatabaseHelper.swift in Sources */,
 				CA2F724B21A3673B00AAF19F /* SkillsTableViewController.swift in Sources */,
 				AC3E4FD821B74066009AA6FD /* LaunchScreenViewController.swift in Sources */,
-				559DA7D42238632100A9B77F /* NewExploreTableViewController.swift in Sources */,
+				559DA7D42238632100A9B77F /* ExploreTableViewController.swift in Sources */,
 				ACB40CC721AF6BBA00477C1F /* JobInformation.swift in Sources */,
 				559DA7E0223873F300A9B77F /* ExploreJobCollectionViewCell.swift in Sources */,
 				AC23225C219BD61F003EFB62 /* Date+timeAgoSinceDate.swift in Sources */,
@@ -701,7 +698,6 @@
 				CA2F724321A3667100AAF19F /* UpdateNameViewController.swift in Sources */,
 				55A18A4F224D9A250048FF2E /* CustomNavController.swift in Sources */,
 				4B9A393D224AC39F0066B7B1 /* EBRoundedTabBarController.swift in Sources */,
-				4576E8C02188F22200471AB4 /* MyTabBarViewController.swift in Sources */,
 				4B9A393C224AC39F0066B7B1 /* EBRoundedTabBarItem.swift in Sources */,
 				CA2F724721A366C400AAF19F /* ChangeEmailViewController.swift in Sources */,
 				559DA7D622386AB700A9B77F /* ExploreCategoryTableViewCell.swift in Sources */,

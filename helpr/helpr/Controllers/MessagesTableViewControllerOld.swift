@@ -179,7 +179,7 @@ class MessagesTableViewControllerOld: UITableViewController, UISearchResultsUpda
     }
     
     private func loadMyPosts() -> [Job]{
-        var jobs = ExploreTableViewController.jobs
+        var jobs = SearchTableViewController.jobs
         let user = UserProfile.loadProfile()
         for (index, job) in jobs.enumerated() {
             

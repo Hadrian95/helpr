@@ -38,7 +38,7 @@ class JobsTableViewController: UITableViewController, UISearchResultsUpdating {
         NotificationCenter.default.addObserver(self, selector: #selector(reloadView(notification:)), name: NSNotification.Name(rawValue: "reloadMyJobs"), object: nil)
         
         setNeedsStatusBarAppearanceUpdate()
-        filteredJobs = ExploreTableViewController.jobs
+        filteredJobs = SearchTableViewController.jobs
         if (userID != nil) {
             db.collection("users").document(userID!).collection("posts")
                 .addSnapshotListener { querySnapshot, error in
@@ -254,12 +254,12 @@ class JobsTableViewController: UITableViewController, UISearchResultsUpdating {
     // MARK: - UISearchResultsUpdating Delegate
     func updateSearchResults(for searchController: UISearchController) {
         if let searchText = searchController.searchBar.text, !searchText.isEmpty {
-            filteredJobs = ExploreTableViewController.jobs.filter { job in
+            filteredJobs = SearchTableViewController.jobs.filter { job in
                 return job.information.category.lowercased().contains(searchText.lowercased())
             }
             
         } else {
-            filteredJobs = ExploreTableViewController.jobs
+            filteredJobs = SearchTableViewController.jobs
         }
         tableView.reloadData()
     }
