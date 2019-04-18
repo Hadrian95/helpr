@@ -13,7 +13,6 @@
 		4576E8B82188D84100471AB4 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4576E8B72188D84100471AB4 /* SignUpViewController.swift */; };
 		4576E8BA2188EE6500471AB4 /* SearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4576E8B92188EE6500471AB4 /* SearchTableViewController.swift */; };
 		4576E8BC2188EEAB00471AB4 /* JobsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4576E8BB2188EEAB00471AB4 /* JobsTableViewController.swift */; };
-		4576E8BE2188EEBD00471AB4 /* MessagesTableViewControllerOld.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4576E8BD2188EEBD00471AB4 /* MessagesTableViewControllerOld.swift */; };
 		4576E8C22189003700471AB4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4576E8C12189003600471AB4 /* Assets.xcassets */; };
 		4576E8C421890A7C00471AB4 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4576E8C321890A7C00471AB4 /* Post.swift */; };
 		4598BC9421A8B3640058096B /* CategoriesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4598BC9321A8B3640058096B /* CategoriesTableViewController.swift */; };
@@ -100,7 +99,6 @@
 		4576E8B72188D84100471AB4 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		4576E8B92188EE6500471AB4 /* SearchTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableViewController.swift; sourceTree = "<group>"; };
 		4576E8BB2188EEAB00471AB4 /* JobsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobsTableViewController.swift; sourceTree = "<group>"; };
-		4576E8BD2188EEBD00471AB4 /* MessagesTableViewControllerOld.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesTableViewControllerOld.swift; sourceTree = "<group>"; };
 		4576E8C12189003600471AB4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4576E8C321890A7C00471AB4 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		4598BC9321A8B3640058096B /* CategoriesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesTableViewController.swift; sourceTree = "<group>"; };
@@ -253,7 +251,6 @@
 				CA12A384218962C50063ED97 /* JobDetailsViewController.swift */,
 				4576E8BB2188EEAB00471AB4 /* JobsTableViewController.swift */,
 				AC3E4FD721B74066009AA6FD /* LaunchScreenViewController.swift */,
-				4576E8BD2188EEBD00471AB4 /* MessagesTableViewControllerOld.swift */,
 				55C56ABA220A2DD900B81E8C /* MessageTableViewController.swift */,
 				559DA7D32238632100A9B77F /* ExploreTableViewController.swift */,
 				CA2F724E21A3676F00AAF19F /* PaymentInfoViewController.swift */,
@@ -666,7 +663,6 @@
 				CA12A38321893AFB0063ED97 /* HomeTableViewCell.swift in Sources */,
 				CA12A385218962C50063ED97 /* JobDetailsViewController.swift in Sources */,
 				4576E8BC2188EEAB00471AB4 /* JobsTableViewController.swift in Sources */,
-				4576E8BE2188EEBD00471AB4 /* MessagesTableViewControllerOld.swift in Sources */,
 				55C56ABD220A2E6B00B81E8C /* MessagePreviewTableViewCell.swift in Sources */,
 				AC3604CD21AB46FB0004B219 /* UIViewController+AuthError.swift in Sources */,
 				4576E8B62188D57F00471AB4 /* WelcomeViewController.swift in Sources */,
