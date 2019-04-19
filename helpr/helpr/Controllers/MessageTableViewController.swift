@@ -20,7 +20,7 @@ class MessageTableViewController: UITableViewController {
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(reloadPreviews(notification:)), name: NSNotification.Name(rawValue: "reloadMessagePreviews"), object: nil)
         
-        // load in message previews based on active conversations user is a part of
+        // load in message previews based on active conversations user is a part of, group by job
         db.collection("users").document(userID!).collection("conversations").order(by: "jobID", descending: true)
             .addSnapshotListener { querySnapshot, error in
             var job: Job?
@@ -29,6 +29,7 @@ class MessageTableViewController: UITableViewController {
                 return
             }
             snapshot.documentChanges.forEach { diff in
+                //if new conversation, add it to messages view
                 if (diff.type == .added) {
                     let active = diff.document.data()["active"] as! Bool
                     print(diff.document.data())
@@ -58,7 +59,7 @@ class MessageTableViewController: UITableViewController {
                             }
                         }
                         
-                        // reload message preiew on new message exchanged in chat log
+                        // reload message preview on new message exchanged in chat log
                         self.db.collection("chats").document(chatID).collection("messages").order(by: "created", descending: true).addSnapshotListener { querySnapshot, error in
                             guard let snapshot = querySnapshot else {
                                 print("Error fetching latest preview snapshots: \(String(describing: error))")
@@ -66,7 +67,6 @@ class MessageTableViewController: UITableViewController {
                             }
                             var accepted = false
                             
-                            //let mPreview = self.mPreviews.filter{$0.chatID == chatID}.first
                             let index = self.mPreviews.firstIndex(where: { (mPreview) -> Bool in
                                 mPreview.chatID == chatID
                             })
@@ -92,7 +92,9 @@ class MessageTableViewController: UITableViewController {
                             }
                         }
                     }
-                } else if (diff.type == .modified) {
+                }
+                //if conversation was modified, check if it needs to be removed if bid was rejected
+                else if (diff.type == .modified) {
                     let active = diff.document.data()["active"] as! Bool
                     let chatID = diff.document.data()["chatID"] as! String
                     
@@ -135,6 +137,7 @@ class MessageTableViewController: UITableViewController {
         self.tableView.reloadData()
     }
     
+    //loop through conversations and create message preview cells for appropriate document from firestore
     func loopThroughConvos(diff: DocumentChange, chatID: String) -> String {
         var job: Job?
         let partnerName = diff.document.data()["chatPartnerName"] as! String
@@ -174,6 +177,7 @@ class MessageTableViewController: UITableViewController {
         }
         
         DispatchQueue.main.async {
+            // get bid information for new conversations
             self.database.getBidAmt(chatID: chatID, chatPartnerID: chatPartnerID) { (bid, accepted, bidObj) in
                 let index = self.mPreviews.firstIndex(where: { (mPreview) -> Bool in
                     mPreview.chatID == chatID
@@ -237,6 +241,7 @@ class MessageTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        //if bid has been accepted, users are free to chat
         if (mPreviews[indexPath.row].accepted) {
             let uID = mPreviews[indexPath.row].partnerID
             
@@ -248,6 +253,7 @@ class MessageTableViewController: UITableViewController {
             let navigationController = UINavigationController(rootViewController: chatLogController)
             self.navigationController?.pushViewController(chatLogController, animated: true)
         }
+        //else bid view controller shows allowing users to accept, countre, or reject a bid before conversing
         else {
             let bidViewController = storyboard?.instantiateViewController(withIdentifier: "BidViewController") as! BidViewController
             bidViewController.job = mPreviews[indexPath.row].job

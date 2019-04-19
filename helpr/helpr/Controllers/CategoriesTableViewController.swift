@@ -12,6 +12,7 @@ import UIKit
 
 class CategoriesTableViewController: UITableViewController {
 
+    // stock categories hardcoded atm, will need to populate from database later
     var categories = ["Automotive", "Cleaning", "Design", "Development", "Furniture Assembly", "Minor Repair", "Technology", "Tech Repair", "Tutoring", "Web Design"]
     var sortedCategories = [""]
     static var selectedCellText = ""

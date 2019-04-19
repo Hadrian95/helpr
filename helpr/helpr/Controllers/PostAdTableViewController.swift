@@ -193,7 +193,6 @@ class PostAdTableViewController: UITableViewController, UITextViewDelegate, UICo
         let lastGoodPic = postPhotos.count - 2
         let pictures = Array(postPhotos[0...lastGoodPic])
 
-        // Set the job to be passed to HomeTableViewController after the unwind segue.
         let jobID = NSUUID().uuidString // generate job id for db
         let storage = StorageHelper()
         var id = 0

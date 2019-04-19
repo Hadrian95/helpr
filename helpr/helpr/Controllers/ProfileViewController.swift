@@ -35,8 +35,8 @@ class ProfileViewController: UIViewController {
         super.viewWillAppear(animated)
 
         let userRef = Auth.auth().currentUser?.uid
+        // User is not signed in.
         if Auth.auth().currentUser == nil {
-            // User is not signed in.
             signUp.backgroundColor = UIColor(named: "RoyalPurple")
             signUp.layer.borderWidth = 2
             signUp.layer.cornerRadius = 5
@@ -48,15 +48,9 @@ class ProfileViewController: UIViewController {
 
             //show sign in option
             profilelessContentView.isHidden = false
-
-            /*
-            if let storyboard = self.storyboard {
-                let vc = storyboard.instantiateViewController(withIdentifier: "StartScreen") as! WelcomeViewController
-                self.present(vc, animated: true, completion: nil)
-            }
-             */
-
-        }else{
+        }
+        // User is logged in
+        else{
             if (userID == "") {
                 lblName.text = UserProfile.name
                 btnSkills.setTitle(String(UserProfile.skills.count) + " Skills", for: .normal)

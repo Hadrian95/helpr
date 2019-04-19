@@ -91,6 +91,8 @@ class BidViewController: UIViewController {
         guard let jobNumber = job?.information.id else {return}
         navigationItem.title = "Bid on Job # \(jobNumber)"
         currencySymbol = locale.currencySymbol!
+        
+        //check if existing chatID, means the user came here from messaging tab, grab previous bid information and display accept, counter, reject buttons
         if (chatID != nil) {
             self.navigationItem.rightBarButtonItem = nil
             tfBidAmt.text = "$" + (bid?.amt?.description)!
@@ -114,8 +116,10 @@ class BidViewController: UIViewController {
             }
             addBidActionsSubview()
         }
+        //otherwise show regular view as seen in storyboard
     }
     
+    //create the action buttons to allow accepting, countering, and rejecting bids and add them to the view
     func addBidActionsSubview() {
         let customActionBar = UIView()
         customActionBar.translatesAutoresizingMaskIntoConstraints = false
@@ -178,6 +182,7 @@ class BidViewController: UIViewController {
         rejectButton.addTarget(self, action: #selector(handleReject), for: .touchUpInside)
     }
     
+    //handle user clicking accept bid
     @objc func handleAccept() {
         // current user is the bidder
         if (partnerID == job?.information.email) {
@@ -190,16 +195,18 @@ class BidViewController: UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
     
+    //handle user clicking counter bid, create a new bid with the counter offer
     @objc func handleCounter() {
         btnPlaceBid(counterButton)
     }
     
+    //handle user clicking reject bid
     @objc func handleReject() {
         database.rejectBid(userID: (Auth.auth().currentUser?.uid)!, partnerID: partnerID!, chatID: chatID!, jobID: (job?.information.firebaseID)!)
         self.dismiss(animated: true, completion: nil)
     }
 
-    //Cancel button in nav bar selected
+    //Cancel button in nav bar selected, dismiss view
     @IBAction func btnCancel(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
@@ -229,6 +236,7 @@ class BidViewController: UIViewController {
             timeUnit = "days"
         }
         
+        //if chatID exists, this is a counter since someone had to place the first bid in order for the users to interact and message
         if (chatID != nil) {
             database.createBid(msgType: 1, bidAmt: bidAmount!, rateType: rateType, timeEst: timeEstimate!, timeUnit: timeUnit, job: job!,partnerID: partnerID!, userID: userID!, chatID: self.chatID!) { (err) in
                 if err != nil {
@@ -237,7 +245,9 @@ class BidViewController: UIViewController {
                     print("counter/bid succesfully added")
                 }
             }
-        } else {
+        }
+        //otherwise, this is a new bid on a job
+        else {
             db.collection("users").document(userID!).collection("conversations").whereField("jobID", isEqualTo: job?.information.id).getDocuments() { (querySnapshot, error) in
                 if ((querySnapshot?.isEmpty)!) {
                     print("conversation does not exist already")

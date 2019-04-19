@@ -19,6 +19,7 @@ class MessagePreviewTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
 
+        //try to round profile pic into circle, literally doesn't work, sick
         ivProfilePic.layer.cornerRadius = ivProfilePic.bounds.height / 2
     }
 

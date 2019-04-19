@@ -49,8 +49,6 @@ class JobDetailsViewController: UIViewController, UICollectionViewDataSource, UI
             navigationItem.title = "Job #" + String(job.information.id)
             jobTitle.text = job.information.title
             jobDescription.text = job.information.postDescription
-            //jobPic.image = job.pictureData[0]
-            //arrJobPhotos = job.pictureData
             arrJobPhotos = job.information.pictures as! [String]
             jobCategory.text = job.information.category
             jobPostedTime.text = job.information.postedTime.timeAgoSinceDate(currentDate: Date(), numericDates: true)
@@ -70,9 +68,11 @@ class JobDetailsViewController: UIViewController, UICollectionViewDataSource, UI
         
     }
 
+    //show bid view controller on "bid" button click
     @IBAction func bidBtnAction(_ sender: UIButton) {
         let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
         
+        //user has an account and can bid on job
         if (Auth.auth().currentUser?.uid != nil) {
             let navController = storyBoard.instantiateViewController(withIdentifier: "BidNavController") as! UINavigationController
             let bidViewController = navController.viewControllers.first as! BidViewController
@@ -81,6 +81,7 @@ class JobDetailsViewController: UIViewController, UICollectionViewDataSource, UI
             self.present(navController, animated:true, completion:nil)
 
         }
+        //user does not have account, must create one to bid
         else {
             let alertView = SCLAlertView()
             alertView.addButton("Sign Up") {

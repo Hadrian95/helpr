@@ -39,6 +39,7 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
         return button
     }()
     
+    //add listener to db for new messages exchanged between the two users
     func observeMessages() {
         db.collection("chats").document(chatID).collection("messages").order(by: "created", descending: false)
             .addSnapshotListener { querySnapshot, error in
@@ -46,7 +47,7 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
                     print("Error fetching snapshots: \(String(describing: error))")
                     return
                 }
-                
+                // new message sent/received
                 snapshot.documentChanges.forEach { diff in
                     if (diff.type == .added) {
                         DispatchQueue.main.async {
@@ -54,10 +55,10 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
                             
                             let message = Message(dictionary: dictionary)
                             
-                            self.messages.append(message)
+                            self.messages.append(message) // add new message to bottom of page
                             DispatchQueue.main.async(execute: {
                                 self.collectionView?.reloadData()
-                                self.scrollToBottom()
+                                self.scrollToBottom() // scroll down to latest message
                             })
                         }
                     }
@@ -68,7 +69,7 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        observeMessages()
+        observeMessages() // add messages listener
         
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.title = self.partnerName
@@ -97,6 +98,7 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
         navigationController?.navigationBar.addGestureRecognizer(gesture)
     }
     
+    //handle screen scrolling and large titles switching to small titles in navbar
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         guard let height = navigationController?.navigationBar.frame.height else { return }
         if (height <= 64 && !smallTitleView) {
@@ -113,6 +115,7 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
         return true
     }
     
+    //logic for handling keyboard and how it affects the chat view
     func setupKeyboardObservers() {
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         
@@ -167,7 +170,7 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
         
         setupCell(cell, message: message)
         
-        //code in progressfor hiding chat partner's pic when messages sent within 3 minutes. Works for past messages, untested for live messages
+        //code in progress for hiding chat partner's pic when messages sent within 3 minutes
         if (indexPath.item + 1 < messages.count) {
 
             if (message.senderId != Auth.auth().currentUser?.uid && messages[indexPath.item + 1].senderId == message.senderId) {
@@ -220,7 +223,6 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
         
         var height: CGFloat = 80
         
-        //get estimated height somehow????
         if let text = messages[indexPath.item].text {
             height = estimateFrameForText(text).height + 20
         }
@@ -237,6 +239,7 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
     
     var containerViewBottomAnchor: NSLayoutConstraint?
     
+    //create custom navbar with user name, profile picture, calendar icon, and report user icon
     func setupNavBarWithUser() {
         customTitleView.frame = CGRect(x: 0, y: 0, width: 100, height: 40)
         
@@ -283,6 +286,7 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
         //        titleView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(showChatController)))
     }
     
+    //create input text field for keyboard and send button to send messages at bottom of chat
     func setupInputComponents() {
         let containerView = UIView()
         containerView.backgroundColor = UIColor.white
@@ -326,6 +330,7 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
         separatorLineView.heightAnchor.constraint(equalToConstant: 1).isActive = true
     }
     
+    //show chat partner's user profile to vet potential helpr/helpee
     @objc func showProfile() {
         self.performSegue(withIdentifier: "showUserProfile", sender: self)
         print("Gesture Tap Recognized")
@@ -339,6 +344,7 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
         collectionView!.scrollToItem(at: indexPath as IndexPath, at: UICollectionView.ScrollPosition.bottom, animated: false)
     }
     
+    //handle sending a new message
     @objc func handleSend() {
         let chatID = self.chatID
         let senderID = Auth.auth().currentUser?.uid

@@ -39,6 +39,7 @@ class JobsTableViewController: UITableViewController, UISearchResultsUpdating {
         setNeedsStatusBarAppearanceUpdate()
         filteredJobs = SearchTableViewController.jobs
         if (userID != nil) {
+            //listen in on new posts by user, add new ones to view
             db.collection("users").document(userID!).collection("posts")
                 .addSnapshotListener { querySnapshot, error in
                     guard let snapshot = querySnapshot else {
@@ -57,6 +58,7 @@ class JobsTableViewController: UITableViewController, UISearchResultsUpdating {
                         }
                     }
             }
+            //listen in on new jobs the user has been accepted for, add them to view
             db.collection("users").document(userID!).collection("acceptedJobs")
                 .addSnapshotListener { querySnapshot, error in
                     guard let snapshot = querySnapshot else {

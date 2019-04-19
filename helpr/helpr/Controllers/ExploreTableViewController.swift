@@ -26,6 +26,7 @@ class ExploreTableViewController: UITableViewController {
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(loadList(notification:)), name: NSNotification.Name(rawValue: "reloadNewExplore"), object: nil)
 
+        //listen for new jobs being added to database, add to explore view for everyone
         db.collection("jobs").order(by: "postedTime", descending: true)
             .addSnapshotListener { querySnapshot, error in
                 guard let snapshot = querySnapshot else {
@@ -112,6 +113,7 @@ class ExploreTableViewController: UITableViewController {
     }
 }
 
+// collection view extension for horizontal scrolling tiles within vertical scrolling view
 extension ExploreTableViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return jobs.count
@@ -169,6 +171,7 @@ extension ExploreTableViewController: UICollectionViewDelegate, UICollectionView
 
             jobViewController.job = selectedJobCell.job
 
+        // create post does not exist anymore, I think
         case "createPost":
             guard let createPostViewController = segue.destination as? UINavigationController else {
                 fatalError("Unexpected destination: \(segue.destination)")

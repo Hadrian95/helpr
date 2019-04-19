@@ -6,6 +6,8 @@
 //  Copyright © 2018 helpr. All rights reserved.
 //
 
+//this page will largely need rowroking to be useful, can ignore most of what it does for now
+
 import UIKit
 import os.log
 import Firebase
