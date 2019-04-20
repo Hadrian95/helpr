@@ -54,6 +54,7 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
         dismiss(animated: true, completion: nil)
     }
     
+    //action button hit on keyboard, either assign next text field first responder or dimiss keyboard
     @IBAction func doneEditing(_ sender: UITextField) {
        if sender.accessibilityIdentifier == "emailField" {
             passwordField.becomeFirstResponder()
@@ -63,6 +64,7 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
+    //attempt to authenticate user or inform them login has failed and display reasoning
     @IBAction func signInDidPress(_ sender: Any) {
         let email = emailField.text!
         let password = passwordField.text!
@@ -98,6 +100,8 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
+    //I think a former group member made this and I'm not sure what this does or if we even use it
+    //TODO: find out if necessary, otherwise delete
     private func saveUser(){
         let user:User = Auth.auth().currentUser!
         let userProfile = UserProfile(name: user.displayName ?? "invalid display name" , email: user.email ?? "invalid email address")

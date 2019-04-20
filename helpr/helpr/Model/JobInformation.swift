@@ -10,6 +10,7 @@ import UIKit
 import Firebase
 import CodableFirebase
 
+//codable geopoint object to allow JobInformation to conform to codable object and store info on Firestore
 struct CustomGeoPoint : Codable {
     var latitude: Double
     var longitude: Double

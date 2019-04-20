@@ -60,6 +60,7 @@ class SignUpViewController: UIViewController {
         }
     }
     
+    //redirect user to sign in
     @IBAction func goToSignIn(_ sender: Any) {
         if let storyboard = self.storyboard {
             let vc = storyboard.instantiateViewController(withIdentifier: "SignInViewController") as! SignInViewController
@@ -116,15 +117,17 @@ class AddSkillsViewController: UIViewController, UITableViewDelegate, UITableVie
         
         tblSkillsMaster.tableFooterView = UIView()
     }
-    
+    //accessory function to help determine if search should actually search or ignore action button
     func searchBarIsEmpty() -> Bool {
         return searchBar.text?.isEmpty ?? true
     }
     
+    //dismiss keyboard when search action tapped
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
     }
     
+    //if search refines results, show the filtered list in lieu of master list
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchBarIsEmpty() {
             isSearching = false
@@ -165,6 +168,8 @@ class AddSkillsViewController: UIViewController, UITableViewDelegate, UITableVie
         }
     }
     
+    //if searching, and cell has already been selected, display checkmark to indicate it will be added
+    // otherwise show master list
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell : UITableViewCell
         cell = tableView.dequeueReusableCell(withIdentifier: "skillMasterCell", for: indexPath)
@@ -191,6 +196,7 @@ class AddSkillsViewController: UIViewController, UITableViewDelegate, UITableVie
         return cell
     }
     
+    //add or remove skill from list of skills the user deems themselves qualified for
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         if let cell = tableView.cellForRow(at: indexPath) {
@@ -224,6 +230,7 @@ class AddSkillsViewController: UIViewController, UITableViewDelegate, UITableVie
     }
 }
 
+//give the user a profile pic in this view
 class AddPhotoViewController: UIViewController {
     var signUpParent: SignUpViewController?
     @IBOutlet weak var userProfilePic: UIImageView!

@@ -24,7 +24,7 @@ class BidViewController: UIViewController {
     @IBOutlet weak var btnCancel: UIBarButtonItem!
     @IBOutlet weak var btnPlaceBid: UIBarButtonItem!
     
-    
+    //change currency to region default
     let locale = Locale.current
     var currencySymbol = ""
     
@@ -126,7 +126,7 @@ class BidViewController: UIViewController {
         
         view.addSubview(customActionBar)
         
-        var thirdOfScreen = view.frame.width / 3
+        let thirdOfScreen = view.frame.width / 3
         //ios9 constraint anchors
         //x,y,w,h
         customActionBar.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true

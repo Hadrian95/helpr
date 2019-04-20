@@ -5,6 +5,7 @@
 //  Created by Erid Bardhaj on 10/28/18.
 //  Copyright © 2018 Erid Bardhaj. All rights reserved.
 //
+// custom controller that allows action button in center
 
 import UIKit
 import Firebase
@@ -25,7 +26,7 @@ class EBRoundedTabBarController: UITabBarController {
     }
     
     // MARK: Immutable
-    
+
     private let actionButton: UIButton = {
         let button = UIButton(type: .custom)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -98,6 +99,7 @@ class EBRoundedTabBarController: UITabBarController {
     
     
     // MARK: - Helpers
+    //map tab bar item destinations
     private func createTabbarControllers() {
         let systemTags = [EBRoundedTabBarItem.explorePage, .jobsPage, .createPost, .messagesPage, .profilePage]
         let viewControllers = systemTags.compactMap { self.createController(for: $0, with: $0.tag) }

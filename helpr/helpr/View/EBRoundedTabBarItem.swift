@@ -5,6 +5,7 @@
 //  Created by Erid Bardhaj on 10/28/18.
 //  Copyright © 2018 Erid Bardhaj. All rights reserved.
 //
+// assign each tab bar item's values for custom tab bar
 
 import UIKit
 
@@ -21,7 +22,7 @@ enum EBRoundedTabBarItem {
 }
 
 extension EBRoundedTabBarItem {
-    
+    //tab bar item page titles
     var title: String {
         switch self {
         case .explorePage:
@@ -39,7 +40,7 @@ extension EBRoundedTabBarItem {
     var isEnabled: Bool {
         return !isRoundedItem
     }
-    
+    //tab bar item index values
     var tag: Int {
         switch self {
         case .explorePage:
@@ -54,7 +55,7 @@ extension EBRoundedTabBarItem {
             return 5
         }
     }
-    
+    //tab bar item icons
     var image: UIImage? {
         switch self {
         case .explorePage:

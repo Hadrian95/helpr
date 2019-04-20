@@ -17,7 +17,8 @@ class FavoriteLocationsViewController: UIViewController, CLLocationManagerDelega
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        //prompt user for location permissions and focus map
         if (CLLocationManager.locationServicesEnabled())
         {
             locationManager = CLLocationManager()

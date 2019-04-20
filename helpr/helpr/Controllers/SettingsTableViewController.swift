@@ -5,6 +5,7 @@
 //  Created by walter.alvarez on 2018-11-14.
 //  Copyright © 2018 helpr. All rights reserved.
 //
+// TODO: map these to actualy values on Firestore and update notifications and such accordingly
 
 import UIKit
 import Firebase

@@ -5,6 +5,7 @@
 //  Created by adrian.parcioaga and walter.alvarez on 2018-11-19.
 //  Copyright © 2018 helpr. All rights reserved.
 //
+// unimplemented in current version of app
 
 import UIKit
 

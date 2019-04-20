@@ -51,23 +51,26 @@ class PostAdTableViewController: UITableViewController, UITextViewDelegate, UICo
         super.viewDidLoad()
 
         tvDescription.delegate = self
+        //insert default add image photo
         postPhotos.insert(UIImage(named: "plusPurple")!, at: 0)
         addDoneButton()
         self.locationManager.requestAlwaysAuthorization()
         //self.locationManager.requestWhenInUseAuthorization()
 
+        //prompt user for location permission then update map location
         if CLLocationManager.locationServicesEnabled() {
             locationManager.delegate = self
             locationManager.desiredAccuracy = kCLLocationAccuracyBest
             locationManager.startUpdatingLocation()
         }
-
+        
         if let coor = mapView.userLocation.location?.coordinate{
             mapView.setCenter(coor, animated: true)
         }
-        print(self.address)
+
     }
 
+    //check if returning from category selection view and update cell value otherwise reset to default
     override func viewDidAppear(_ animated: Bool) {
         if CategoriesTableViewController.selectedCellText != "" {
             lCategory.textColor = UIColor.black
@@ -411,6 +414,8 @@ class PostAdTableViewController: UITableViewController, UITextViewDelegate, UICo
         else { btnlockLoc.setImage(UIImage.init(named: "lock"), for: .normal) }
     }
 
+    //if user has typed location into textfield, make a search request and try to determine a
+    //location to center map onto
     @IBAction func autocompleteLocation(_ sender: UITextField) {
 
         if tfLocation.text != "" {
@@ -499,6 +504,7 @@ class PostAdTableViewController: UITableViewController, UITextViewDelegate, UICo
         }
     }
 
+    //as user location gets more accurate, update map to reflect
     func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
         if (mapView.centerCoordinate.latitude != userLocation.coordinate.latitude) || (mapView.centerCoordinate.longitude != userLocation.coordinate.longitude) {
             return
@@ -514,6 +520,7 @@ class PostAdTableViewController: UITableViewController, UITextViewDelegate, UICo
         }
     }
 
+    //update global address var that is used to push location to DB by reverse geocoding a CLLocation
     func updateAddress(mapLocation: CLLocation) {
         geoCoder.reverseGeocodeLocation(mapLocation) { [weak self] (placemarks, error) in
             guard let self = self else { return }

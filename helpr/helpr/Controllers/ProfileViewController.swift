@@ -35,7 +35,7 @@ class ProfileViewController: UIViewController {
         super.viewWillAppear(animated)
 
         let userRef = Auth.auth().currentUser?.uid
-        // User is not signed in.
+        // User is not signed in so load simplified view that has no profile info
         if Auth.auth().currentUser == nil {
             signUp.backgroundColor = UIColor(named: "RoyalPurple")
             signUp.layer.borderWidth = 2
@@ -49,7 +49,7 @@ class ProfileViewController: UIViewController {
             //show sign in option
             profilelessContentView.isHidden = false
         }
-        // User is logged in
+        // User is logged in, load their user info and picture
         else{
             if (userID == "") {
                 lblName.text = UserProfile.name
@@ -80,12 +80,13 @@ class ProfileViewController: UIViewController {
                     self.ivProfilePic.sd_setImage(with: ref, placeholderImage: phImage)
                 }
             }
-
+            //TODO: fix the damn square border radius that loads in the first time you nav to this page
             ivProfilePic.layer.cornerRadius = ivProfilePic.frame.width / 2
             ivProfilePic.layer.borderWidth = 3
             ivProfilePic.layer.borderColor = UIColor.init(named: "RoyalPurple")?.cgColor
         }
     }
+    //redirect user to sign up screen
     @IBAction func signInAction(_ sender: UIButton) {
         let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
         let signUpNavController = storyBoard.instantiateViewController(withIdentifier: "SignUpNavController") as! UINavigationController
@@ -98,7 +99,7 @@ class ProfileViewController: UIViewController {
         presentPictureOptions()
     }
 
-    //This is magic. Where does this get called?
+    //TODO: update the user's profile pic on Firebase
     func imagePickerController(_ picker: UIImagePickerController,
                                didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
 
