@@ -1,6 +1,6 @@
 # helpr
 
-CPSC 599.82 Term Project
+# CPSC 599.82 Term Project
 An iOS app to link skilled individuals with people who require their help.
 Final Project Creators: Walter Alvarez, Adrian Parcioaga
 
